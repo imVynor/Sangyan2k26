@@ -1,0 +1,19 @@
+{
+  "name": "sungyan-mern-starter",
+  "version": "1.0.0",
+  "description": "Production-ready MERN stack template with mock connection fallback",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"yellow,cyan\" \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm run dev --prefix backend",
+    "dev:client": "npm run dev --prefix frontend",
+    "start:server": "npm start --prefix backend",
+    "build:client": "npm run build --prefix frontend",
+    "install:backend": "npm install --prefix backend",
+    "install:frontend": "npm install --prefix frontend",
+    "install:all": "npm install && npm run install:backend && npm run install:frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
