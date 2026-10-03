@@ -1,0 +1,38 @@
+Metadata-Version: 2.4
+Name: fastapi-boilerplate
+Version: 0.19.0
+Summary: Modular FastAPI starter — vertical slices, swappable infrastructure, plugin-ready.
+Author-email: Benav Labs <contact@benav.io>
+License: MIT
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: aiomcache>=0.8.2
+Requires-Dist: aiosqlite>=0.21.0
+Requires-Dist: alembic>=1.16.4
+Requires-Dist: asyncpg>=0.30.0
+Requires-Dist: crudauth[all]<0.8.0,>=0.7.1
+Requires-Dist: faker>=37.1.0
+Requires-Dist: fastapi[standard]>=0.115.8
+Requires-Dist: fastcrud>=0.21.0
+Requires-Dist: greenlet>=3.1.1
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: itsdangerous>=2.2.0
+Requires-Dist: jinja2>=3.1.6
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: pydantic-settings>=2.7.1
+Requires-Dist: redis>=6.1.0
+Requires-Dist: sqladmin>=0.22.0
+Requires-Dist: sqlalchemy>=2.0.37
+Requires-Dist: taskiq>=0.11.20
+Requires-Dist: taskiq-redis>=1.1.2
+Requires-Dist: taskiq-aio-pika>=0.4.3
+Requires-Dist: user-agents>=2.2.0
+Provides-Extra: dev
+Requires-Dist: mypy>=1.14.1; extra == "dev"
+Requires-Dist: ruff>=0.9.4; extra == "dev"
+Requires-Dist: pytest>=8.3.5; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.25.3; extra == "dev"
+Requires-Dist: pytest-mock>=3.14.0; extra == "dev"
+Requires-Dist: testcontainers[postgres]>=4.10.0; extra == "dev"
+Requires-Dist: pytest-xdist[psutil]>=3.8.0; extra == "dev"
+Requires-Dist: taskiq[reload]>=0.11.20; extra == "dev"
