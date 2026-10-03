@@ -1,0 +1,192 @@
+corpus_version: 2026-10-04-v1
+sources:
+- source_id: sebi_cir_jagrook_investor_awareness_2026
+  source_class: REGULATORY
+  url: https://www.sebi.gov.in/sebi_data/attachdocs/oct-2026/1790852162769.pdf
+  authority: SEBI
+  organisation_id: null
+  document_type: circular
+  topic:
+  - stock_broker
+  - investor_grievance
+  - investor_awareness
+  expected_domain: sebi.gov.in
+  description: SEBI Circular on Display of investor awareness message(s) by stock
+    brokers under Project Jagrook.
+- source_id: sebi_cir_transmission_securities_2026
+  source_class: REGULATORY
+  url: https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1784869499027.pdf
+  authority: SEBI
+  organisation_id: null
+  document_type: circular
+  topic:
+  - securities_transfer
+  - investor_rights
+  - demat_transfer
+  expected_domain: sebi.gov.in
+  description: SEBI Circular on Simplification and standardisation of framework for
+    transmission of securities.
+- source_id: sebi_cir_mf_demat_standing_instructions_2026
+  source_class: REGULATORY
+  url: https://www.sebi.gov.in/sebi_data/attachdocs/jul-2026/1784285542603.pdf
+  authority: SEBI
+  organisation_id: null
+  document_type: circular
+  topic:
+  - demat_transfer
+  - depository
+  - mutual_funds
+  expected_domain: sebi.gov.in
+  description: SEBI Circular on Standing instructions for SWP/STP for Mutual Fund
+    units held in demat form.
+- source_id: cdsl_investor_corner
+  source_class: REGULATORY
+  url: https://www.cdslindia.com/eservices/Investors/InvestorCorner
+  authority: CDSL
+  organisation_id: null
+  document_type: depository_procedure
+  topic:
+  - depository
+  - demat_transfer
+  - dp_charges
+  - investor_grievance
+  expected_domain: cdslindia.com
+  description: 'CDSL Investor Corner: DP Tariffs, Grievance handling, and pending
+    demat instructions.'
+- source_id: cdsl_demat_operating_instructions
+  source_class: REGULATORY
+  url: https://www.cdslindia.com/Investors/open-demat.html
+  authority: CDSL
+  organisation_id: null
+  document_type: depository_procedure
+  topic:
+  - depository
+  - demat_transfer
+  expected_domain: cdslindia.com
+  description: CDSL Official Demat Account Operating Instructions and Investor Guidelines.
+- source_id: nsdl_investor_grievance_portal
+  source_class: REGULATORY
+  url: https://nsdl.com/investor/investor-grievance
+  authority: NSDL
+  organisation_id: null
+  document_type: depository_procedure
+  topic:
+  - depository
+  - investor_grievance
+  - grievance_escalation
+  expected_domain: nsdl.com
+  description: NSDL Official Grievance Redressal Portal and Complaint Handling Structure.
+- source_id: nsdl_investor_charter
+  source_class: REGULATORY
+  url: https://nsdl.com/investor/investor-charter
+  authority: NSDL
+  organisation_id: null
+  document_type: investor_charter
+  topic:
+  - depository
+  - investor_rights
+  - investor_grievance
+  expected_domain: nsdl.com
+  description: NSDL Official Investor Charter for Depositories and Depository Participants.
+- source_id: zerodha_charges_schedule
+  source_class: ORGANISATION_POLICY
+  url: https://zerodha.com/charges
+  authority: null
+  organisation_id: ORG_ZERODHA
+  document_type: charges_schedule
+  topic:
+  - dp_charges
+  - brokerage
+  - amc
+  expected_domain: zerodha.com
+  description: Zerodha Official List of Charges, Brokerage, and Depository Participant
+    Fees.
+- source_id: zerodha_policies_and_procedures
+  source_class: ORGANISATION_POLICY
+  url: https://zerodha.com/policies-and-procedures
+  authority: null
+  organisation_id: ORG_ZERODHA
+  document_type: policy
+  topic:
+  - broker_obligations
+  - trading
+  - investor_grievance
+  expected_domain: zerodha.com
+  description: Zerodha Mandatory Client Policies and Operational Procedures.
+- source_id: groww_pricing_schedule
+  source_class: ORGANISATION_POLICY
+  url: https://groww.in/pricing
+  authority: null
+  organisation_id: ORG_GROWW
+  document_type: charges_schedule
+  topic:
+  - brokerage
+  - dp_charges
+  expected_domain: groww.in
+  description: Groww Official Brokerage Charges, Demat Charges, and Fee Schedule.
+- source_id: groww_grievance_mechanism
+  source_class: ORGANISATION_PROCEDURE
+  url: https://groww.in/help/customer-grievance-redressal-mechanism
+  authority: null
+  organisation_id: ORG_GROWW
+  document_type: grievance_procedure
+  topic:
+  - investor_grievance
+  - grievance_escalation
+  expected_domain: groww.in
+  description: Groww Customer Grievance Redressal Mechanism and Escalation Hierarchy.
+- source_id: upstox_brokerage_charges
+  source_class: ORGANISATION_POLICY
+  url: https://upstox.com/brokerage-charges/
+  authority: null
+  organisation_id: ORG_UPSTOX
+  document_type: charges_schedule
+  topic:
+  - brokerage
+  - dp_charges
+  expected_domain: upstox.com
+  description: Upstox Official Brokerage Charges and Account Fee Structure.
+- source_id: angelone_exchange_charges
+  source_class: ORGANISATION_POLICY
+  url: https://www.angelone.in/exchange-transaction-charges
+  authority: null
+  organisation_id: ORG_ANGELONE
+  document_type: charges_schedule
+  topic:
+  - brokerage
+  - dp_charges
+  expected_domain: angelone.in
+  description: Angel One Official Brokerage, Exchange Transaction & Depository Charges.
+- source_id: angelone_escalation_matrix
+  source_class: ORGANISATION_PROCEDURE
+  url: https://www.angelone.in/escalation-matrix
+  authority: null
+  organisation_id: ORG_ANGELONE
+  document_type: escalation_matrix
+  topic:
+  - investor_grievance
+  - grievance_escalation
+  expected_domain: angelone.in
+  description: Angel One Official Investor Redressal and Grievance Escalation Matrix.
+- source_id: icicidirect_brokerage_plans
+  source_class: ORGANISATION_POLICY
+  url: https://www.icicidirect.com/brokerage
+  authority: null
+  organisation_id: ORG_ICICIDIRECT
+  document_type: charges_schedule
+  topic:
+  - brokerage
+  - dp_charges
+  expected_domain: icicidirect.com
+  description: ICICI Direct Official Equity Brokerage Plans and Fee Structure.
+- source_id: icicidirect_escalation_matrix
+  source_class: ORGANISATION_PROCEDURE
+  url: https://www.icicidirect.com/mailimages/Escalation_Matrix.pdf
+  authority: null
+  organisation_id: ORG_ICICIDIRECT
+  document_type: escalation_matrix
+  topic:
+  - investor_grievance
+  - grievance_escalation
+  expected_domain: icicidirect.com
+  description: ICICI Direct Official Customer Service and Escalation Matrix PDF.

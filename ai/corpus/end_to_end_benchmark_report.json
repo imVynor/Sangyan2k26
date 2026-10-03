@@ -1,0 +1,563 @@
+{
+  "total_cases": 20,
+  "fact_extraction_accuracy": 1.0,
+  "numeric_accuracy": 1.0,
+  "date_accuracy": 1.0,
+  "entity_accuracy": 1.0,
+  "citation_correctness": 1.0,
+  "assessment_preservation": 1.0,
+  "unsupported_claim_rate": 0.0,
+  "multilingual_accuracy": 1.0,
+  "validation_pass_rate": 1.0,
+  "evaluated_at": "2026-10-03T22:02:47.076048Z",
+  "cases": [
+    {
+      "case_id": "E2E-01",
+      "description": "Investor sold shares on Zerodha and questions DP charges.",
+      "language": "en",
+      "expected_status": "COMPLIANT_WITH_REGULATION",
+      "actual_status": "COMPLIANT_WITH_REGULATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "13.50",
+        "transaction_date": "2026-09-12",
+        "transaction_type": "equity_delivery",
+        "quantity": 10
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "13.50",
+        "transaction_date": "2026-09-12",
+        "transaction_type": "equity_delivery",
+        "quantity": 10
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-02",
+      "description": "Broker charged ₹25.00 exceeding statutory ceiling of ₹15.",
+      "language": "en",
+      "expected_status": "VIOLATION_CONFIRMED",
+      "actual_status": "VIOLATION_CONFIRMED",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ANGELONE",
+        "charged_amount": "25.00",
+        "transaction_date": "2026-03-01",
+        "transaction_type": "equity_delivery",
+        "quantity": 50
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ANGELONE",
+        "charged_amount": "25.00",
+        "transaction_date": "2026-03-01",
+        "transaction_type": "equity_delivery",
+        "quantity": 50
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-03",
+      "description": "Broker charged ₹13.50 within permitted statutory parameters.",
+      "language": "en",
+      "expected_status": "COMPLIANT_WITH_REGULATION",
+      "actual_status": "COMPLIANT_WITH_REGULATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "13.50",
+        "transaction_date": "2026-08-15",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "13.50",
+        "transaction_date": "2026-08-15",
+        "transaction_type": "equity_delivery",
+        "quantity": 5
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-04",
+      "description": "Zerodha charged ₹14.00 while its declared tariff schedule specifies ₹13.50.",
+      "language": "en",
+      "expected_status": "ORGANISATION_POLICY_DEVIATION",
+      "actual_status": "ORGANISATION_POLICY_DEVIATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "14.00",
+        "transaction_date": "2026-01-10",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "14.00",
+        "transaction_date": "2026-01-10",
+        "transaction_type": "equity_delivery"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-05",
+      "description": "Complaint specifies amount and date but transaction_type is unknown.",
+      "language": "en",
+      "expected_status": "EVIDENCE_INSUFFICIENT",
+      "actual_status": "EVIDENCE_INSUFFICIENT",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "20.00",
+        "transaction_date": "2026-02-10"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "20.00",
+        "transaction_date": "2026-02-10"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-06",
+      "description": "Complaint narrative claims ₹50 was charged but contract note shows ₹15.",
+      "language": "en",
+      "expected_status": "EVIDENCE_INSUFFICIENT",
+      "actual_status": "EVIDENCE_INSUFFICIENT",
+      "status_preserved": true,
+      "expected_fields": {
+        "transaction_date": "2026-01-10",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "charged_amount": "15.00",
+        "transaction_date": "2026-01-10",
+        "transaction_type": "equity_delivery"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 1
+    },
+    {
+      "case_id": "E2E-07",
+      "description": "2021 incident evaluated against 2026 prospective circular.",
+      "language": "en",
+      "expected_status": "REGULATORY_COVERAGE_UNRESOLVED",
+      "actual_status": "REGULATORY_COVERAGE_UNRESOLVED",
+      "status_preserved": true,
+      "expected_fields": {
+        "transaction_date": "2021-05-20",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "transaction_date": "2021-05-20",
+        "transaction_type": "equity_delivery"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-08",
+      "description": "Complaint where transaction date cannot be resolved because relative date lacks reference_date.",
+      "language": "en",
+      "expected_status": "EVIDENCE_INSUFFICIENT",
+      "actual_status": "EVIDENCE_INSUFFICIENT",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "15.00",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "15.00",
+        "transaction_type": "equity_delivery"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-09",
+      "description": "Algo trading fee dispute where no statutory SEBI rule exists in corpus.",
+      "language": "en",
+      "expected_status": "REGULATORY_COVERAGE_UNRESOLVED",
+      "actual_status": "REGULATORY_COVERAGE_UNRESOLVED",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "50.00",
+        "transaction_date": "2026-01-10"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "50.00",
+        "transaction_date": "2026-01-10"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-10",
+      "description": "Standard delivery fee evaluation with explicit quantities and price.",
+      "language": "en",
+      "expected_status": "COMPLIANT_WITH_REGULATION",
+      "actual_status": "COMPLIANT_WITH_REGULATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_UPSTOX",
+        "charged_amount": "15.00",
+        "transaction_date": "2026-04-12",
+        "transaction_type": "equity_delivery",
+        "quantity": 100
+      },
+      "extracted_fields": {
+        "organisation": "ORG_UPSTOX",
+        "charged_amount": "15.00",
+        "transaction_date": "2026-04-12",
+        "transaction_type": "equity_delivery",
+        "quantity": 100
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-11",
+      "description": "Dispute of ₹15.93 which represents base tariff ₹13.50 + 18% GST.",
+      "language": "en",
+      "expected_status": "COMPLIANT_WITH_REGULATION",
+      "actual_status": "COMPLIANT_WITH_REGULATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "15.93",
+        "transaction_date": "2026-05-10",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "15.93",
+        "transaction_date": "2026-05-10",
+        "transaction_type": "equity_delivery",
+        "gst_breakdown": {
+          "base_tariff": "13.50",
+          "gst_rate": "0.18",
+          "total": "15.93"
+        }
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-12",
+      "description": "Customer queries ICICI Direct debit charges under CDSL regulations.",
+      "language": "en",
+      "expected_status": "COMPLIANT_WITH_REGULATION",
+      "actual_status": "COMPLIANT_WITH_REGULATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ICICIDIRECT",
+        "charged_amount": "15.00",
+        "transaction_date": "2026-02-15",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ICICIDIRECT",
+        "charged_amount": "15.00",
+        "transaction_date": "2026-02-15",
+        "transaction_type": "equity_delivery"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-13",
+      "description": "Complaint requesting validation under SEBI Master Circular 2024.",
+      "language": "en",
+      "expected_status": "COMPLIANT_WITH_REGULATION",
+      "actual_status": "COMPLIANT_WITH_REGULATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "charged_amount": "13.50",
+        "transaction_date": "2026-01-20",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "charged_amount": "13.50",
+        "transaction_date": "2026-01-20",
+        "transaction_type": "equity_delivery"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-14",
+      "description": "Hindi complaint: मैंने 12 सितंबर 2026 को शेयर बेचे। ज़ेरोधा ने ₹13.50 काटा।",
+      "language": "hi",
+      "expected_status": "COMPLIANT_WITH_REGULATION",
+      "actual_status": "COMPLIANT_WITH_REGULATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "13.50",
+        "transaction_date": "2026-09-12",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "13.50",
+        "transaction_date": "2026-09-12",
+        "transaction_type": "equity_delivery"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-15",
+      "description": "Hinglish complaint: Maine Zerodha me 10 share becha on 15 August 2026 and unhone Rs 13.50 kaata.",
+      "language": "hinglish",
+      "expected_status": "COMPLIANT_WITH_REGULATION",
+      "actual_status": "COMPLIANT_WITH_REGULATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "13.50",
+        "transaction_date": "2026-08-15",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "13.50",
+        "transaction_date": "2026-08-15",
+        "transaction_type": "equity_delivery",
+        "quantity": 10
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-16",
+      "description": "Contract note table snippet with formal headers.",
+      "language": "en",
+      "expected_status": "COMPLIANT_WITH_REGULATION",
+      "actual_status": "COMPLIANT_WITH_REGULATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "13.50",
+        "transaction_date": "2026-03-15",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "13.50",
+        "transaction_date": "2026-03-15",
+        "transaction_type": "equity_delivery"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-17",
+      "description": "User states: I think Zerodha overcharged me some money last week.",
+      "language": "en",
+      "expected_status": "EVIDENCE_INSUFFICIENT",
+      "actual_status": "EVIDENCE_INSUFFICIENT",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-18",
+      "description": "Bare allegation: Zerodha is running a scam and stealing funds.",
+      "language": "en",
+      "expected_status": "EVIDENCE_INSUFFICIENT",
+      "actual_status": "EVIDENCE_INSUFFICIENT",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-19",
+      "description": "Charged ₹14.00 which is within SEBI limit ₹15 but deviates from Zerodha ₹13.50 tariff.",
+      "language": "en",
+      "expected_status": "ORGANISATION_POLICY_DEVIATION",
+      "actual_status": "ORGANISATION_POLICY_DEVIATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "14.00",
+        "transaction_date": "2026-01-20",
+        "transaction_type": "equity_delivery"
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ZERODHA",
+        "charged_amount": "14.00",
+        "transaction_date": "2026-01-20",
+        "transaction_type": "equity_delivery"
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    },
+    {
+      "case_id": "E2E-20",
+      "description": "Full verified facts with exact dates and amounts allowing definitive compliance.",
+      "language": "en",
+      "expected_status": "COMPLIANT_WITH_REGULATION",
+      "actual_status": "COMPLIANT_WITH_REGULATION",
+      "status_preserved": true,
+      "expected_fields": {
+        "organisation": "ORG_ICICIDIRECT",
+        "charged_amount": "15.00",
+        "transaction_date": "2026-06-10",
+        "transaction_type": "equity_delivery",
+        "quantity": 10
+      },
+      "extracted_fields": {
+        "organisation": "ORG_ICICIDIRECT",
+        "charged_amount": "15.00",
+        "transaction_date": "2026-06-10",
+        "transaction_type": "equity_delivery",
+        "quantity": 10
+      },
+      "extraction_match": true,
+      "numeric_match": true,
+      "date_match": true,
+      "entity_match": true,
+      "citation_valid": true,
+      "unsupported_claim": false,
+      "validation_passed": true,
+      "contradictions_found": 0
+    }
+  ]
+}

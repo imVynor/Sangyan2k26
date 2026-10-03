@@ -1,0 +1,572 @@
+{
+  "timestamp": "2026-10-03T18:48:44.024238+00:00",
+  "models_evaluated": [
+    "gemma4:12b"
+  ],
+  "total_cases": 10,
+  "summary_by_model": {
+    "gemma4:12b": {
+      "alias": "gemma_fast",
+      "total_cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "accuracy_pct": 100.0,
+      "avg_latency_ms": 57104.0
+    }
+  },
+  "results": [
+    {
+      "case_id": "case_01_fact_extraction",
+      "model": "gemma4:12b",
+      "success": true,
+      "latency_ms": 47117.72470000142,
+      "output": "{\n  \"intent\": \"Inquiry regarding an unauthorized or unexplained deduction\",\n  \"entities\": [\n    {\n      \"name\": \"HDFC Securities\",\n      \"category\": \"Institution\",\n      \"details\": null\n    },\n    {\n      \"name\": \"Rs 236\",\n      \"category\": \"Amount\",\n      \"details\": null\n    },\n    {\n      \"name\": \"15th September 2024\",\n      \"category\": \"Date\",\n      \"details\": null\n    },\n    {\n      \"name\": \"trading account\",\n      \"category\": \"Account Type\",\n      \"details\": null\n    }\n  ],\n  \"facts\": [\n    {\n      \"statement\": \"A deduction of Rs 236 occurred in the user's HDFC Securities trading account.\",\n      \"status\": \"USER_ASSERTED\",\n      \"source\": \"User Input\"\n    },\n    {\n      \"statement\": \"The transaction date is 15th September 2024.\",\n      \"status\": \"USER_ASSERTED\",\n      \"source\": \"User Input\"\n    }\n  ],\n  \"claims\": [],\n  \"unknowns\": [\n    {\n      \"item\": \"Reason for the deduction (e.g., AMC, brokerage, taxes, or fees)\",\n      \"importance\": \"critical\",\n      \"reason\": null\n    },\n    {\n      \"item\": \"Transaction ID or reference number\",\n      \"importance\": \"critical\",\n      \"reason\": null\n    },\n    {\n      \"item\": \"Specific account number\",\n      \"importance\": \"critical\",\n      \"reason\": null\n    }\n  ],\n  \"hypotheses\": [],\n  \"next_question\": null\n}",
+      "parsed_output": {
+        "intent": "Inquiry regarding an unauthorized or unexplained deduction",
+        "entities": [
+          {
+            "name": "HDFC Securities",
+            "category": "Institution",
+            "details": null
+          },
+          {
+            "name": "Rs 236",
+            "category": "Amount",
+            "details": null
+          },
+          {
+            "name": "15th September 2024",
+            "category": "Date",
+            "details": null
+          },
+          {
+            "name": "trading account",
+            "category": "Account Type",
+            "details": null
+          }
+        ],
+        "facts": [
+          {
+            "statement": "A deduction of Rs 236 occurred in the user's HDFC Securities trading account.",
+            "status": "USER_ASSERTED",
+            "source": "User Input"
+          },
+          {
+            "statement": "The transaction date is 15th September 2024.",
+            "status": "USER_ASSERTED",
+            "source": "User Input"
+          }
+        ],
+        "claims": [],
+        "unknowns": [
+          {
+            "item": "Reason for the deduction (e.g., AMC, brokerage, taxes, or fees)",
+            "importance": "critical",
+            "reason": null
+          },
+          {
+            "item": "Transaction ID or reference number",
+            "importance": "critical",
+            "reason": null
+          },
+          {
+            "item": "Specific account number",
+            "importance": "critical",
+            "reason": null
+          }
+        ],
+        "hypotheses": [],
+        "next_question": null
+      },
+      "validation_error": null,
+      "notes": "Successfully validated against CaseUnderstanding | Parsed: 4 entity(s), 2 fact(s), 0 claim(s), 3 unknown(s), 0 hypothesis(es)"
+    },
+    {
+      "case_id": "case_02_claim_vs_fact",
+      "model": "gemma4:12b",
+      "success": true,
+      "latency_ms": 67103.77209999933,
+      "output": "{\n  \"intent\": \"query_regulatory_compliance\",\n  \"entities\": [\n    {\n      \"name\": \"Zerodha\",\n      \"category\": \"Broker\",\n      \"details\": null\n    },\n    {\n      \"name\": \"SEBI\",\n      \"category\": \"Regulator\",\n      \"details\": null\n    }\n  ],\n  \"facts\": [],\n  \"claims\": [\n    {\n      \"statement\": \"Zerodha charged ₹500\",\n      \"status\": \"USER_ASSERTED\",\n      \"basis\": \"user_input\"\n    },\n    {\n      \"statement\": \"The ₹500 charge is a SEBI violation\",\n      \"status\": \"USER_ASSERTED\",\n      \"basis\": \"user_inference\"\n    }\n  ],\n  \"unknowns\": [\n    {\n      \"item\": \"Nature of the ₹500 charge\",\n      \"importance\": \"critical\",\n      \"reason\": \"The specific type of fee (e.g., AMC, transaction fee, penalty, or service charge) is not specified.\"\n    },\n    {\n      \"item\": \"Applicable SEBI guidelines for this specific transaction\",\n      \"importance\": \"critical\",\n      \"reason\": \"Verification of whether the specific fee structure complies with current SEBI regulations requires specific transaction details.\"\n    }\n  ],\n  \"hypotheses\": [\n    {\n      \"description\": \"The user believes a specific fee is illegal and is seeking confirmation of a regulatory violation.\",\n      \"likelihood\": \"high\",\n      \"investigation_needed\": null\n    }\n  ],\n  \"next_question\": null\n}",
+      "parsed_output": {
+        "intent": "query_regulatory_compliance",
+        "entities": [
+          {
+            "name": "Zerodha",
+            "category": "Broker",
+            "details": null
+          },
+          {
+            "name": "SEBI",
+            "category": "Regulator",
+            "details": null
+          }
+        ],
+        "facts": [],
+        "claims": [
+          {
+            "statement": "Zerodha charged ₹500",
+            "status": "USER_ASSERTED",
+            "basis": "user_input"
+          },
+          {
+            "statement": "The ₹500 charge is a SEBI violation",
+            "status": "USER_ASSERTED",
+            "basis": "user_inference"
+          }
+        ],
+        "unknowns": [
+          {
+            "item": "Nature of the ₹500 charge",
+            "importance": "critical",
+            "reason": "The specific type of fee (e.g., AMC, transaction fee, penalty, or service charge) is not specified."
+          },
+          {
+            "item": "Applicable SEBI guidelines for this specific transaction",
+            "importance": "critical",
+            "reason": "Verification of whether the specific fee structure complies with current SEBI regulations requires specific transaction details."
+          }
+        ],
+        "hypotheses": [
+          {
+            "description": "The user believes a specific fee is illegal and is seeking confirmation of a regulatory violation.",
+            "likelihood": "high",
+            "investigation_needed": null
+          }
+        ],
+        "next_question": null
+      },
+      "validation_error": null,
+      "notes": "Successfully validated against CaseUnderstanding | Parsed: 2 entity(s), 0 fact(s), 2 claim(s), 2 unknown(s), 1 hypothesis(es)"
+    },
+    {
+      "case_id": "case_03_unknown_identification",
+      "model": "gemma4:12b",
+      "success": true,
+      "latency_ms": 66628.77850000223,
+      "output": "{\n  \"intent\": \"unauthorized_transaction_report\",\n  \"entities\": [\n    {\n      \"name\": \"broker\",\n      \"category\": \"financial_institution\",\n      \"details\": \"unspecified\"\n    }\n  ],\n  \"facts\": [\n    {\n      \"statement\": \"money debited without permission\",\n      \"status\": \"USER_ASSERTED\",\n      \"source\": null\n    }\n  ],\n  \"claims\": [\n    {\n      \"statement\": \"unauthorized_debit\",\n      \"status\": \"UNKNOWN\",\n      \"basis\": null\n    }\n  ],\n  \"unknowns\": [\n    {\n      \"item\": \"exact_amount\",\n      \"importance\": \"critical\",\n      \"reason\": \"Required to determine severity and regulatory threshold.\"\n    },\n    {\n      \"item\": \"transaction_date\",\n      \"importance\": \"critical\",\n      \"reason\": \"Specific date needed to cross-reference with broker logs.\"\n    },\n    {\n      \"item\": \"broker_name\",\n      \"importance\": \"critical\",\n      \"reason\": \"Required to identify the specific regulatory jurisdiction and entity.\"\n    },\n    {\n      \"item\": \"account_identifier\",\n      \"importance\": \"critical\",\n      \"reason\": \"Required to link the transaction to a specific user profile.\"\n    },\n    {\n      \"item\": \"transaction_reference_id\",\n      \"importance\": \"critical\",\n      \"reason\": \"Required for tracking and investigation.\"\n    },\n    {\n      \"item\": \"communication_history\",\n      \"importance\": \"critical\",\n      \"reason\": \"Need to know if the user has already contacted the broker and what the response was.\"\n    }\n  ],\n  \"hypotheses\": [],\n  \"next_question\": \"Could you please provide the exact amount debited, the date of the transaction, and the name of the brokerage firm?\"\n}",
+      "parsed_output": {
+        "intent": "unauthorized_transaction_report",
+        "entities": [
+          {
+            "name": "broker",
+            "category": "financial_institution",
+            "details": "unspecified"
+          }
+        ],
+        "facts": [
+          {
+            "statement": "money debited without permission",
+            "status": "USER_ASSERTED",
+            "source": null
+          }
+        ],
+        "claims": [
+          {
+            "statement": "unauthorized_debit",
+            "status": "UNKNOWN",
+            "basis": null
+          }
+        ],
+        "unknowns": [
+          {
+            "item": "exact_amount",
+            "importance": "critical",
+            "reason": "Required to determine severity and regulatory threshold."
+          },
+          {
+            "item": "transaction_date",
+            "importance": "critical",
+            "reason": "Specific date needed to cross-reference with broker logs."
+          },
+          {
+            "item": "broker_name",
+            "importance": "critical",
+            "reason": "Required to identify the specific regulatory jurisdiction and entity."
+          },
+          {
+            "item": "account_identifier",
+            "importance": "critical",
+            "reason": "Required to link the transaction to a specific user profile."
+          },
+          {
+            "item": "transaction_reference_id",
+            "importance": "critical",
+            "reason": "Required for tracking and investigation."
+          },
+          {
+            "item": "communication_history",
+            "importance": "critical",
+            "reason": "Need to know if the user has already contacted the broker and what the response was."
+          }
+        ],
+        "hypotheses": [],
+        "next_question": "Could you please provide the exact amount debited, the date of the transaction, and the name of the brokerage firm?"
+      },
+      "validation_error": null,
+      "notes": "Successfully validated against CaseUnderstanding | Parsed: 1 entity(s), 1 fact(s), 1 claim(s), 6 unknown(s), 0 hypothesis(es)"
+    },
+    {
+      "case_id": "case_04_intent_classification",
+      "model": "gemma4:12b",
+      "success": true,
+      "latency_ms": 48198.924199998146,
+      "output": "{\n  \"intent\": \"NON_SETTLEMENT_OF_FUNDS\",\n  \"entities\": [\n    {\n      \"name\": \"Stock Broker\",\n      \"category\": \"Financial Institution\",\n      \"details\": null\n    }\n  ],\n  \"facts\": [],\n  \"claims\": [\n    {\n      \"statement\": \"non-settlement of funds\",\n      \"status\": \"UNKNOWN\",\n      \"basis\": null\n    }\n  ],\n  \"unknowns\": [],\n  \"hypotheses\": [],\n  \"next_question\": \"Could you please provide the name of the brokerage firm and the specific transaction details (date, amount, and transaction ID) to help identify the correct regulatory body?\"\n}",
+      "parsed_output": {
+        "intent": "NON_SETTLEMENT_OF_FUNDS",
+        "entities": [
+          {
+            "name": "Stock Broker",
+            "category": "Financial Institution",
+            "details": null
+          }
+        ],
+        "facts": [],
+        "claims": [
+          {
+            "statement": "non-settlement of funds",
+            "status": "UNKNOWN",
+            "basis": null
+          }
+        ],
+        "unknowns": [],
+        "hypotheses": [],
+        "next_question": "Could you please provide the name of the brokerage firm and the specific transaction details (date, amount, and transaction ID) to help identify the correct regulatory body?"
+      },
+      "validation_error": null,
+      "notes": "Successfully validated against CaseUnderstanding | Parsed: 1 entity(s), 0 fact(s), 1 claim(s), 0 unknown(s), 0 hypothesis(es)"
+    },
+    {
+      "case_id": "case_05_hindi_input",
+      "model": "gemma4:12b",
+      "success": true,
+      "latency_ms": 51515.24359999894,
+      "output": "{\n  \"intent\": \"financial_inquiry\",\n  \"entities\": [\n    {\n      \"name\": \"Broker\",\n      \"category\": \"Service Provider\",\n      \"details\": null\n    },\n    {\n      \"name\": \"₹500\",\n      \"category\": \"Amount\",\n      \"details\": null\n    }\n  ],\n  \"facts\": [\n    {\n      \"statement\": \"Broker deducted ₹500 from the user's account.\",\n      \"status\": \"CONFIRMED\",\n      \"source\": null\n    }\n  ],\n  \"claims\": [],\n  \"unknowns\": [\n    {\n      \"item\": \"Reason for deduction\",\n      \"importance\": \"critical\",\n      \"reason\": \"User is unaware of the specific charge type\"\n    }\n  ],\n  \"hypotheses\": [\n    {\n      \"description\": \"Annual Maintenance Charges (AMC)\",\n      \"likelihood\": \"High\",\n      \"investigation_needed\": null\n    },\n    {\n      \"description\": \"Transaction Fees\",\n      \"likelihood\": \"High\",\n      \"investigation_needed\": null\n    },\n    {\n      \"description\": \"Regulatory Charges (GST/STT)\",\n      \"likelihood\": \"Medium\",\n      \"investigation_needed\": null\n    },\n    {\n      \"description\": \"Platform Subscription Fee\",\n      \"likelihood\": \"Medium\",\n      \"investigation_needed\": null\n    }\n  ],\n  \"next_question\": \"क्या आपके पास ब्रोकर द्वारा भेजे गए किसी नोटिफिकेशन या स्टेटमेंट का एक्सेस है?\"\n}",
+      "parsed_output": {
+        "intent": "financial_inquiry",
+        "entities": [
+          {
+            "name": "Broker",
+            "category": "Service Provider",
+            "details": null
+          },
+          {
+            "name": "₹500",
+            "category": "Amount",
+            "details": null
+          }
+        ],
+        "facts": [
+          {
+            "statement": "Broker deducted ₹500 from the user's account.",
+            "status": "CONFIRMED",
+            "source": null
+          }
+        ],
+        "claims": [],
+        "unknowns": [
+          {
+            "item": "Reason for deduction",
+            "importance": "critical",
+            "reason": "User is unaware of the specific charge type"
+          }
+        ],
+        "hypotheses": [
+          {
+            "description": "Annual Maintenance Charges (AMC)",
+            "likelihood": "High",
+            "investigation_needed": null
+          },
+          {
+            "description": "Transaction Fees",
+            "likelihood": "High",
+            "investigation_needed": null
+          },
+          {
+            "description": "Regulatory Charges (GST/STT)",
+            "likelihood": "Medium",
+            "investigation_needed": null
+          },
+          {
+            "description": "Platform Subscription Fee",
+            "likelihood": "Medium",
+            "investigation_needed": null
+          }
+        ],
+        "next_question": "क्या आपके पास ब्रोकर द्वारा भेजे गए किसी नोटिफिकेशन या स्टेटमेंट का एक्सेस है?"
+      },
+      "validation_error": null,
+      "notes": "Successfully validated against CaseUnderstanding | Parsed: 2 entity(s), 1 fact(s), 0 claim(s), 1 unknown(s), 4 hypothesis(es)"
+    },
+    {
+      "case_id": "case_06_hinglish_input",
+      "model": "gemma4:12b",
+      "success": true,
+      "latency_ms": 48313.42650000079,
+      "output": "{\n  \"intent\": \"Report unauthorized/unexplained transaction\",\n  \"entities\": [\n    {\n      \"name\": \"Broker\",\n      \"category\": \"Service Provider\",\n      \"details\": null\n    },\n    {\n      \"name\": \"500\",\n      \"category\": \"Amount\",\n      \"details\": null\n    },\n    {\n      \"name\": \"Account\",\n      \"category\": \"Financial Account\",\n      \"details\": null\n    }\n  ],\n  \"facts\": [],\n  \"claims\": [\n    {\n      \"statement\": \"Broker deducted 500 rupees from the account\",\n      \"status\": \"CONFIRMED\",\n      \"basis\": null\n    }\n  ],\n  \"unknowns\": [],\n  \"hypotheses\": [\n    {\n      \"description\": \"The user is unaware of the reason for the deduction\",\n      \"likelihood\": \"HIGH\",\n      \"investigation_needed\": null\n    }\n  ],\n  \"next_question\": \"Can you provide the transaction ID or the specific date and time of the deduction?\"\n}",
+      "parsed_output": {
+        "intent": "Report unauthorized/unexplained transaction",
+        "entities": [
+          {
+            "name": "Broker",
+            "category": "Service Provider",
+            "details": null
+          },
+          {
+            "name": "500",
+            "category": "Amount",
+            "details": null
+          },
+          {
+            "name": "Account",
+            "category": "Financial Account",
+            "details": null
+          }
+        ],
+        "facts": [],
+        "claims": [
+          {
+            "statement": "Broker deducted 500 rupees from the account",
+            "status": "CONFIRMED",
+            "basis": null
+          }
+        ],
+        "unknowns": [],
+        "hypotheses": [
+          {
+            "description": "The user is unaware of the reason for the deduction",
+            "likelihood": "HIGH",
+            "investigation_needed": null
+          }
+        ],
+        "next_question": "Can you provide the transaction ID or the specific date and time of the deduction?"
+      },
+      "validation_error": null,
+      "notes": "Successfully validated against CaseUnderstanding | Parsed: 3 entity(s), 0 fact(s), 1 claim(s), 0 unknown(s), 1 hypothesis(es)"
+    },
+    {
+      "case_id": "case_07_ambiguous_statement",
+      "model": "gemma4:12b",
+      "success": true,
+      "latency_ms": 49052.22610000055,
+      "output": "{\n  \"intent\": \"Report_Stuck_Funds\",\n  \"entities\": [\n    {\n      \"name\": \"trading_app\",\n      \"category\": \"platform\",\n      \"details\": \"unspecified trading application\"\n    }\n  ],\n  \"facts\": [\n    {\n      \"statement\": \"User's money is stuck on a trading app.\",\n      \"status\": \"USER_ASSERTED\",\n      \"source\": \"user_input\"\n    }\n  ],\n  \"claims\": [],\n  \"unknowns\": [\n    {\n      \"item\": \"Name of the trading application\",\n      \"importance\": \"critical\",\n      \"reason\": \"User only mentioned 'trading app'\"\n    },\n    {\n      \"item\": \"Amount of money\",\n      \"importance\": \"critical\",\n      \"reason\": \"Not specified\"\n    },\n    {\n      \"item\": \"Transaction ID/Reference Number\",\n      \"importance\": \"critical\",\n      \"reason\": \"Not provided\"\n    },\n    {\n      \"item\": \"Date of transaction\",\n      \"importance\": \"critical\",\n      \"reason\": \"Not provided\"\n    },\n    {\n      \"item\": \"Specific error message or status\",\n      \"importance\": \"critical\",\n      \"reason\": \"User did not specify why the money is stuck (e.g., withdrawal pending, technical glitch, or account freeze)\"\n    }\n  ],\n  \"hypotheses\": [],\n  \"next_question\": \"Please provide the name of the trading app, the amount involved, and the transaction ID or any error message you received.\"\n}",
+      "parsed_output": {
+        "intent": "Report_Stuck_Funds",
+        "entities": [
+          {
+            "name": "trading_app",
+            "category": "platform",
+            "details": "unspecified trading application"
+          }
+        ],
+        "facts": [
+          {
+            "statement": "User's money is stuck on a trading app.",
+            "status": "USER_ASSERTED",
+            "source": "user_input"
+          }
+        ],
+        "claims": [],
+        "unknowns": [
+          {
+            "item": "Name of the trading application",
+            "importance": "critical",
+            "reason": "User only mentioned 'trading app'"
+          },
+          {
+            "item": "Amount of money",
+            "importance": "critical",
+            "reason": "Not specified"
+          },
+          {
+            "item": "Transaction ID/Reference Number",
+            "importance": "critical",
+            "reason": "Not provided"
+          },
+          {
+            "item": "Date of transaction",
+            "importance": "critical",
+            "reason": "Not provided"
+          },
+          {
+            "item": "Specific error message or status",
+            "importance": "critical",
+            "reason": "User did not specify why the money is stuck (e.g., withdrawal pending, technical glitch, or account freeze)"
+          }
+        ],
+        "hypotheses": [],
+        "next_question": "Please provide the name of the trading app, the amount involved, and the transaction ID or any error message you received."
+      },
+      "validation_error": null,
+      "notes": "Successfully validated against CaseUnderstanding | Parsed: 1 entity(s), 1 fact(s), 0 claim(s), 5 unknown(s), 0 hypothesis(es)"
+    },
+    {
+      "case_id": "case_08_hallucination_resistance",
+      "model": "gemma4:12b",
+      "success": true,
+      "latency_ms": 53390.38419999997,
+      "output": "{\n  \"intent\": \"Identify specific SEBI circular regarding account maintenance fees.\",\n  \"entities\": [\n    {\n      \"name\": \"SEBI\",\n      \"category\": \"Regulatory Body\",\n      \"details\": null\n    },\n    {\n      \"name\": \"Account Maintenance Fees\",\n      \"category\": \"Fee Structure\",\n      \"details\": null\n    }\n  ],\n  \"facts\": [\n    {\n      \"statement\": \"The user is looking for a 2021 SEBI circular that prohibits all account maintenance fees.\",\n      \"status\": \"UNKNOWN\",\n      \"source\": null\n    }\n  ],\n  \"claims\": [\n    {\n      \"statement\": \"Brokers cannot charge any account maintenance fees ever.\",\n      \"status\": \"UNKNOWN\",\n      \"basis\": null\n    }\n  ],\n  \"unknowns\": [],\n  \"hypotheses\": [],\n  \"next_question\": \"Are you referring to the disclosure requirements for fees and charges?\"\n}",
+      "parsed_output": {
+        "intent": "Identify specific SEBI circular regarding account maintenance fees.",
+        "entities": [
+          {
+            "name": "SEBI",
+            "category": "Regulatory Body",
+            "details": null
+          },
+          {
+            "name": "Account Maintenance Fees",
+            "category": "Fee Structure",
+            "details": null
+          }
+        ],
+        "facts": [
+          {
+            "statement": "The user is looking for a 2021 SEBI circular that prohibits all account maintenance fees.",
+            "status": "UNKNOWN",
+            "source": null
+          }
+        ],
+        "claims": [
+          {
+            "statement": "Brokers cannot charge any account maintenance fees ever.",
+            "status": "UNKNOWN",
+            "basis": null
+          }
+        ],
+        "unknowns": [],
+        "hypotheses": [],
+        "next_question": "Are you referring to the disclosure requirements for fees and charges?"
+      },
+      "validation_error": null,
+      "notes": "Successfully validated against CaseUnderstanding | Parsed: 2 entity(s), 1 fact(s), 1 claim(s), 0 unknown(s), 0 hypothesis(es)"
+    },
+    {
+      "case_id": "case_09_structured_json_compliance",
+      "model": "gemma4:12b",
+      "success": true,
+      "latency_ms": 78285.32550000091,
+      "output": "{\n  \"intent\": \"billing_inquiry\",\n  \"entities\": [\n    {\n      \"name\": \"Groww\",\n      \"category\": \"platform\",\n      \"details\": null\n    },\n    {\n      \"name\": \"20\",\n      \"category\": \"amount\",\n      \"details\": null\n    },\n    {\n      \"name\": \"1st October\",\n      \"category\": \"date\",\n      \"details\": null\n    },\n    {\n      \"name\": \"DP Charges\",\n      \"category\": \"remark\",\n      \"details\": null\n    }\n  ],\n  \"facts\": [\n    {\n      \"statement\": \"The user was charged 20 rupees on Groww.\",\n      \"status\": \"USER_ASSERTED\",\n      \"source\": \"user_input\"\n    },\n    {\n      \"statement\": \"The charge occurred on October 1st.\",\n      \"status\": \"USER_ASSERTED\",\n      \"source\": \"user_input\"\n    },\n    {\n      \"statement\": \"The transaction remark is 'DP Charges'.\",\n      \"status\": \"USER_ASSERTED\",\n      \"source\": \"user_input\"\n    }\n  ],\n  \"claims\": [\n    {\n      \"statement\": \"Groww deducted 20 rupees for DP Charges.\",\n      \"status\": \"UNKNOWN\",\n      \"basis\": null\n    }\n  ],\n  \"unknowns\": [],\n  \"hypotheses\": [],\n  \"next_question\": \"Could you please provide the transaction ID or the specific stock/security associated with these DP charges?\"\n}",
+      "parsed_output": {
+        "intent": "billing_inquiry",
+        "entities": [
+          {
+            "name": "Groww",
+            "category": "platform",
+            "details": null
+          },
+          {
+            "name": "20",
+            "category": "amount",
+            "details": null
+          },
+          {
+            "name": "1st October",
+            "category": "date",
+            "details": null
+          },
+          {
+            "name": "DP Charges",
+            "category": "remark",
+            "details": null
+          }
+        ],
+        "facts": [
+          {
+            "statement": "The user was charged 20 rupees on Groww.",
+            "status": "USER_ASSERTED",
+            "source": "user_input"
+          },
+          {
+            "statement": "The charge occurred on October 1st.",
+            "status": "USER_ASSERTED",
+            "source": "user_input"
+          },
+          {
+            "statement": "The transaction remark is 'DP Charges'.",
+            "status": "USER_ASSERTED",
+            "source": "user_input"
+          }
+        ],
+        "claims": [
+          {
+            "statement": "Groww deducted 20 rupees for DP Charges.",
+            "status": "UNKNOWN",
+            "basis": null
+          }
+        ],
+        "unknowns": [],
+        "hypotheses": [],
+        "next_question": "Could you please provide the transaction ID or the specific stock/security associated with these DP charges?"
+      },
+      "validation_error": null,
+      "notes": "Successfully validated against CaseUnderstanding | Parsed: 4 entity(s), 3 fact(s), 1 claim(s), 0 unknown(s), 0 hypothesis(es)"
+    },
+    {
+      "case_id": "case_10_simple_reasoning",
+      "model": "gemma4:12b",
+      "success": true,
+      "latency_ms": 61434.33729999742,
+      "output": "{\n  \"intent\": \"investigate_transaction_discrepancy\",\n  \"entities\": [\n    {\n      \"name\": \"Tata Motors\",\n      \"category\": \"Stock\",\n      \"details\": null\n    },\n    {\n      \"name\": \"15.93\",\n      \"category\": \"Currency/Amount\",\n      \"details\": null\n    }\n  ],\n  \"facts\": [\n    {\n      \"statement\": \"User sold 10 shares of Tata Motors.\",\n      \"status\": \"USER_ASSERTED\",\n      \"source\": \"user_input\"\n    },\n    {\n      \"statement\": \"The sale occurred yesterday.\",\n      \"status\": \"USER_ASSERTED\",\n      \"source\": \"user_input\"\n    },\n    {\n      \"statement\": \"A debit of ₹15.93 appeared in the ledger today.\",\n      \"status\": \"USER_ASSERTED\",\n      \"source\": \"user_input\"\n    }\n  ],\n  \"claims\": [\n    {\n      \"statement\": \"The broker stole my money.\",\n      \"status\": \"USER_ASSERTED\",\n      \"basis\": null\n    }\n  ],\n  \"unknowns\": [],\n  \"hypotheses\": [\n    {\n      \"description\": \"The debit represents standard transaction costs (STT, GST, or Exchange charges).\",\n      \"likelihood\": \"high\",\n      \"investigation_needed\": null\n    },\n    {\n      \"description\": \"The debit is a brokerage fee charged by the platform.\",\n      \"likelihood\": \"high\",\n      \"investigation_needed\": null\n    },\n    {\n      \"description\": \"The debit is a DP charge or other regulatory levy.\",\n      \"likelihood\": \"medium\",\n      \"investigation_needed\": null\n    }\n  ],\n  \"next_question\": null\n}",
+      "parsed_output": {
+        "intent": "investigate_transaction_discrepancy",
+        "entities": [
+          {
+            "name": "Tata Motors",
+            "category": "Stock",
+            "details": null
+          },
+          {
+            "name": "15.93",
+            "category": "Currency/Amount",
+            "details": null
+          }
+        ],
+        "facts": [
+          {
+            "statement": "User sold 10 shares of Tata Motors.",
+            "status": "USER_ASSERTED",
+            "source": "user_input"
+          },
+          {
+            "statement": "The sale occurred yesterday.",
+            "status": "USER_ASSERTED",
+            "source": "user_input"
+          },
+          {
+            "statement": "A debit of ₹15.93 appeared in the ledger today.",
+            "status": "USER_ASSERTED",
+            "source": "user_input"
+          }
+        ],
+        "claims": [
+          {
+            "statement": "The broker stole my money.",
+            "status": "USER_ASSERTED",
+            "basis": null
+          }
+        ],
+        "unknowns": [],
+        "hypotheses": [
+          {
+            "description": "The debit represents standard transaction costs (STT, GST, or Exchange charges).",
+            "likelihood": "high",
+            "investigation_needed": null
+          },
+          {
+            "description": "The debit is a brokerage fee charged by the platform.",
+            "likelihood": "high",
+            "investigation_needed": null
+          },
+          {
+            "description": "The debit is a DP charge or other regulatory levy.",
+            "likelihood": "medium",
+            "investigation_needed": null
+          }
+        ],
+        "next_question": null
+      },
+      "validation_error": null,
+      "notes": "Successfully validated against CaseUnderstanding | Parsed: 2 entity(s), 3 fact(s), 1 claim(s), 0 unknown(s), 3 hypothesis(es)"
+    }
+  ]
+}
