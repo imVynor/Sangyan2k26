@@ -21,7 +21,7 @@ from ai.app.api.websocket.handlers import ws_router
 from ai.app.api.websocket.manager import ConnectionManager
 from ai.app.config.settings import settings
 from ai.app.generation.generator import AuditableResponseGenerator
-from ai.app.models.ollama import OllamaProvider
+from ai.app.models.gemini import GeminiProvider
 from ai.app.orchestration.orchestrator import CaseOrchestrator
 
 
@@ -57,10 +57,13 @@ def create_app(
                     autoflush=False,
                 )
             )
-        response_provider = OllamaProvider(
-            model_name=settings.response_model,
-            timeout=settings.response_generation_timeout,
-        )
+        response_provider = None
+        if settings.gemini_api_key and settings.gemini_api_key.get_secret_value().strip():
+            response_provider = GeminiProvider(
+                api_key=settings.gemini_api_key.get_secret_value(),
+                model_name=settings.gemini_model,
+                timeout=settings.response_generation_timeout,
+            )
         app.state.orchestrator = CaseOrchestrator(
             repository=repository,
             generator=AuditableResponseGenerator(llm_provider=response_provider),

@@ -123,7 +123,7 @@ The system maintains strict architectural boundaries between empirical fact extr
   - Validates all statutory citations against retrieved context; rejects hallucinations (`INVALID_CITATION`).
   - Verifies factual grounding; rejects unsupported claims (`UNSUPPORTED_CLAIM`).
   - Formats actionable next steps with official grievance escalation routes (SCORES 2.0, SMART ODR).
-- After deterministic generation, an optional small Ollama model (`gemma3:1b` by default) rewrites only the citizen-facing summary for clarity. Assessment status, evidence, citations, and follow-up questions remain authoritative and unchanged. The rewrite has a 2.5-second timeout and falls back to the deterministic summary if Ollama or the model is unavailable. Configure with `RESPONSE_MODEL`, `RESPONSE_GENERATION_TIMEOUT`, and `OLLAMA_BASE_URL`; install the default model with `ollama pull gemma3:1b`.
+- After deterministic generation, Gemini (`gemini-2.5-flash` by default) optionally rewrites only the citizen-facing summary for clarity. Assessment status, evidence, citations, and follow-up questions remain authoritative and unchanged. The rewrite has an 8-second timeout and falls back to the deterministic summary if Gemini is not configured, unavailable, or returns invalid wording. Set `GEMINI_API_KEY` in the ignored local `ai/.env`; configure the model and timeout with `GEMINI_MODEL` and `RESPONSE_GENERATION_TIMEOUT`. Ollama may still be used locally for embeddings.
 
 ---
 

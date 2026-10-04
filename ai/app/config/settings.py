@@ -1,6 +1,6 @@
 """Configuration settings for SANGYAN AI backend."""
 
-from pydantic import AliasChoices, Field
+from pydantic import AliasChoices, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -13,11 +13,17 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # Ollama settings
+    # Local Ollama remains available for embeddings.
     ollama_base_url: str = "http://localhost:11434"
     default_request_timeout: float = 120.0
-    response_model: str = "gemma3:1b"
-    response_generation_timeout: float = 2.5
+
+    # Gemini is used only to polish deterministic citizen-facing explanations.
+    gemini_api_key: SecretStr | None = Field(
+        default=None,
+        validation_alias=AliasChoices("GEMINI_API_KEY", "GOOGLE_API_KEY"),
+    )
+    gemini_model: str = "gemini-2.5-flash"
+    response_generation_timeout: float = 8.0
 
     # Logging settings
     log_level: str = "INFO"
