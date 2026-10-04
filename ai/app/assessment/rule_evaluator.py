@@ -82,15 +82,17 @@ class RuleEvaluator:
         fee_outcome, fee_condition = cls._evaluate_fees(result, evidence_mgr, case_facts)
         if fee_condition is not None:
             condition_evals.append(fee_condition)
-            all_conditions_result = all_conditions_result & fee_condition.result
 
         # 6. Synthesize Rule Outcome
-        rule_outcome = cls._synthesize_outcome(
-            all_conditions_result,
-            exception_applies,
-            fee_outcome,
-            result.source_class,
-        )
+        if all_conditions_result == ThreeValuedLogic.FALSE:
+            rule_outcome = RuleOutcome.NOT_APPLICABLE
+        else:
+            rule_outcome = cls._synthesize_outcome(
+                all_conditions_result,
+                exception_applies,
+                fee_outcome,
+                result.source_class,
+            )
 
         # 7. Overall Applicability
         if temp_status == "TEMPORALITY_UNRESOLVED" or auth_status == "AUTHORITY_UNRESOLVED":
@@ -124,6 +126,10 @@ class RuleEvaluator:
     @staticmethod
     def _evaluate_temporal(result: RetrievalResult, incident_date: date | None) -> str:
         if incident_date is None:
+            if result.effective_to and result.effective_to < date.today():
+                return "TEMPORALITY_UNRESOLVED"
+            if result.temporal_status == "SUPERSEDED":
+                return "TEMPORALITY_UNRESOLVED"
             return "APPLICABLE" if result.temporal_status == "CURRENT" else "TEMPORALITY_UNRESOLVED"
 
         sup_enum = SupersededStatus.SUPERSEDED if result.temporal_status == "SUPERSEDED" else SupersededStatus.CURRENT
@@ -169,12 +175,20 @@ class RuleEvaluator:
 
         # Check transaction_type match if present in case_facts
         if "transaction_type" in case_facts:
-            obs_type, status, ev_ids = evidence_mgr.get_field_value("transaction_type")
+            obs_type, status, ev_ids = evidence_mgr.get_field_value("transaction_type", prefer_documentary=True)
+            p_text = (result.provision_text or "").lower()
+            if "delivery" in p_text and "amc" not in p_text:
+                target_type = "equity_delivery"
+            elif "amc" in p_text or "maintenance" in p_text:
+                target_type = "amc"
+            else:
+                target_type = case_facts["transaction_type"]
+
             cond = ConditionEvaluator.evaluate(
                 condition_id=f"COND-{result.provision_id[:8]}-TXN",
                 field="transaction_type",
                 operator=ConditionOperator.EQUALS,
-                target_value=case_facts["transaction_type"],
+                target_value=target_type,
                 observed_value=obs_type,
                 evidence_ids=ev_ids,
             )
@@ -183,7 +197,7 @@ class RuleEvaluator:
 
         # Check account_type if present in case_facts
         if "account_type" in case_facts:
-            obs_acc, status, ev_ids = evidence_mgr.get_field_value("account_type")
+            obs_acc, status, ev_ids = evidence_mgr.get_field_value("account_type", prefer_documentary=True)
             cond = ConditionEvaluator.evaluate(
                 condition_id=f"COND-{result.provision_id[:8]}-ACC",
                 field="account_type",
@@ -208,9 +222,10 @@ class RuleEvaluator:
         evals: list[ExceptionEvaluation] = []
         applies = ThreeValuedLogic.FALSE
 
-        # Check BSDA exception if case involves basic services demat account
-        if "is_bsda" in case_facts or "account_type" in case_facts:
-            obs_bsda, status, ev_ids = evidence_mgr.get_field_value("is_bsda")
+        # Check BSDA exception for general tariff provisions (not the BSDA rule itself)
+        p_text_lower = (result.provision_text or "").lower()
+        if ("is_bsda" in case_facts or "account_type" in case_facts) and "bsda" not in result.provision_id.lower() and "bsda" not in p_text_lower:
+            obs_bsda, status, ev_ids = evidence_mgr.get_field_value("is_bsda", prefer_documentary=True)
             if obs_bsda is True or case_facts.get("account_type") == "BSDA":
                 ex_eval = ExceptionEvaluation(
                     exception_id=f"EX-{result.provision_id[:8]}-BSDA",
@@ -232,8 +247,8 @@ class RuleEvaluator:
         case_facts: dict[str, Any],
     ) -> tuple[RuleOutcome | None, ConditionEvaluation | None]:
         """Evaluate fee conditions if the case and provision involve tariffs or charges."""
-        charged_val, status, ev_ids = evidence_mgr.get_field_value("charged_amount")
-        permitted_val, p_status, p_ev_ids = evidence_mgr.get_field_value("permitted_amount")
+        charged_val, status, ev_ids = evidence_mgr.get_field_value("charged_amount", prefer_documentary=True)
+        permitted_val, p_status, p_ev_ids = evidence_mgr.get_field_value("permitted_amount", prefer_documentary=True)
 
         # If GST breakdown was derived (e.g. ₹15.93 comprises ₹13.50 base tariff + 18% GST), evaluate base tariff
         if "gst_breakdown" in case_facts and isinstance(case_facts["gst_breakdown"], dict):
@@ -243,24 +258,23 @@ class RuleEvaluator:
 
         # Determine the permitted rate for THIS specific provision:
         # Regulatory provisions enforce statutory ceilings; Organisation policies enforce declared tariffs
-        if result.source_class == "REGULATORY":
-            if "regulatory_ceiling" in case_facts:
-                permitted_val = case_facts["regulatory_ceiling"]
-            elif "₹15" in result.provision_text or " 15 " in result.provision_text:
-                permitted_val = Decimal("15.00")
-            elif permitted_val is None and "permitted_amount" in case_facts:
-                permitted_val = case_facts["permitted_amount"]
-        else:
-            if "₹13.50" in result.provision_text:
-                permitted_val = Decimal("13.50")
-            elif "₹15" in result.provision_text or " 15 " in result.provision_text:
-                permitted_val = Decimal("15.00")
-            elif "₹20" in result.provision_text or " 20 " in result.provision_text:
-                permitted_val = Decimal("20.00")
-            elif "organisation_tariff" in case_facts:
-                permitted_val = case_facts["organisation_tariff"]
-            elif "permitted_amount" in case_facts:
-                permitted_val = case_facts["permitted_amount"]
+        p_text_lower = (result.provision_text or "").lower()
+        if "regulatory_ceiling" in case_facts and result.source_class == "REGULATORY":
+            permitted_val = case_facts["regulatory_ceiling"]
+        elif "organisation_tariff" in case_facts and result.source_class != "REGULATORY":
+            permitted_val = case_facts["organisation_tariff"]
+        elif "nil amc" in p_text_lower or "nil charge" in p_text_lower or "zero amc" in p_text_lower:
+            permitted_val = Decimal("0.00")
+        elif "₹20" in result.provision_text or " 20 " in result.provision_text or "20.00" in result.provision_text:
+            permitted_val = Decimal("20.00")
+        elif "₹13.50" in result.provision_text or "13.50" in result.provision_text:
+            permitted_val = Decimal("13.50")
+        elif "₹15" in result.provision_text or " 15 " in result.provision_text or "15.00" in result.provision_text:
+            permitted_val = Decimal("15.00")
+        elif "₹300" in result.provision_text or " 300 " in result.provision_text or "300.00" in result.provision_text:
+            permitted_val = Decimal("300.00")
+        elif permitted_val is None and "permitted_amount" in case_facts:
+            permitted_val = case_facts["permitted_amount"]
 
         if charged_val is not None and permitted_val is not None:
             try:

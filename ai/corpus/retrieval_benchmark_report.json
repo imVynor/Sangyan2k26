@@ -1,19 +1,19 @@
 {
-  "timestamp": "2026-10-03T22:02:45.479403+00:00",
+  "timestamp": "2026-10-04T10:16:19.439224+00:00",
   "total_cases": 25,
   "metrics": {
-    "recall_at_5": 0.7027,
-    "recall_at_10": 0.7427,
-    "recall_at_20": 0.7427,
-    "precision_at_5": 0.2,
+    "recall_at_5": 0.676,
+    "recall_at_10": 0.7693,
+    "recall_at_20": 0.7693,
+    "precision_at_5": 0.184,
     "precision_at_10": 0.104,
-    "mrr": 0.7111,
+    "mrr": 0.6607,
     "authority_correctness": 1.0,
     "organisation_correctness": 1.0,
     "temporal_correctness": 0.96,
     "citation_correctness": 1.0,
     "total_failures": 5,
-    "mean_latency_ms": 2166.28
+    "mean_latency_ms": 2195.94
   },
   "cases": [
     {
@@ -32,11 +32,11 @@
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_5d2d26dbc303",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
         "prov_doc_reg_cdsl_5d21271c12f3a487_sec_8_ca9f4a4e736d",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_6_43f4098ca632",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_28_13f51f8cd117",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_6_43f4098ca632",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_28_13f51f8cd117",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_5af782063dd2",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_5_a635851decd3"
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3"
       ],
       "top_5_ids": [
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_3_6b6838684053",
@@ -51,11 +51,11 @@
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_5d2d26dbc303",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
         "prov_doc_reg_cdsl_5d21271c12f3a487_sec_8_ca9f4a4e736d",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_6_43f4098ca632",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_28_13f51f8cd117",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_6_43f4098ca632",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_28_13f51f8cd117",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_5af782063dd2",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_5_a635851decd3"
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3"
       ],
       "top_20_ids": [
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_3_6b6838684053",
@@ -63,11 +63,11 @@
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_5d2d26dbc303",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
         "prov_doc_reg_cdsl_5d21271c12f3a487_sec_8_ca9f4a4e736d",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_6_43f4098ca632",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_28_13f51f8cd117",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_6_43f4098ca632",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_28_13f51f8cd117",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_5af782063dd2",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_5_a635851decd3"
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3"
       ],
       "recall_at_5": 0.4,
       "recall_at_10": 0.4,
@@ -85,7 +85,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 3092.93
+      "latency_ms": 3957.34
     },
     {
       "case_id": "GOLD-02",
@@ -95,45 +95,45 @@
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_28_13f51f8cd117"
       ],
       "retrieved_provision_ids": [
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_28_13f51f8cd117",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_28_13f51f8cd117",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_25_a76e5ecb67e4",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_25_a76e5ecb67e4",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_23_6c851529ab06",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_a9e6f3f41ceb",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_661cdbb1f47b",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_21_9ef2b031022d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_13_66bbf3ff5bc2",
         "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_d2a77f7951d7"
       ],
       "top_5_ids": [
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_28_13f51f8cd117",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_28_13f51f8cd117",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_25_a76e5ecb67e4",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_25_a76e5ecb67e4",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_23_6c851529ab06",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_a9e6f3f41ceb"
       ],
       "top_10_ids": [
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_28_13f51f8cd117",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_28_13f51f8cd117",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_25_a76e5ecb67e4",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_25_a76e5ecb67e4",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_23_6c851529ab06",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_a9e6f3f41ceb",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_661cdbb1f47b",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_21_9ef2b031022d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_13_66bbf3ff5bc2",
         "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_d2a77f7951d7"
       ],
       "top_20_ids": [
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_28_13f51f8cd117",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_28_13f51f8cd117",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_25_a76e5ecb67e4",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_25_a76e5ecb67e4",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_23_6c851529ab06",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_a9e6f3f41ceb",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_661cdbb1f47b",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_21_9ef2b031022d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_13_66bbf3ff5bc2",
         "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_d2a77f7951d7"
       ],
@@ -153,7 +153,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2170.43
+      "latency_ms": 2245.05
     },
     {
       "case_id": "GOLD-03",
@@ -164,65 +164,65 @@
         "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_5a870aeb574d"
       ],
       "retrieved_provision_ids": [
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_5a870aeb574d",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_5a870aeb574d",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_19_aab7d29324e0",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_3_4851fe43e450",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_ccb3aaf8db70",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_ccb3aaf8db70",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_20_5bd2c4155506",
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_4_7f1341409bd9",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_6_42f724618365",
-        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_bb8497abb815",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_bb8497abb815",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_19_725a673787da",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_13a0e35dfc65"
       ],
       "top_5_ids": [
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_5a870aeb574d",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_5a870aeb574d",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_19_aab7d29324e0",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_3_4851fe43e450",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_ccb3aaf8db70",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_ccb3aaf8db70",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_20_5bd2c4155506"
       ],
       "top_10_ids": [
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_5a870aeb574d",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_5a870aeb574d",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_19_aab7d29324e0",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_3_4851fe43e450",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_ccb3aaf8db70",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_ccb3aaf8db70",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_20_5bd2c4155506",
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_4_7f1341409bd9",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_6_42f724618365",
-        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_bb8497abb815",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_bb8497abb815",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_19_725a673787da",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_13a0e35dfc65"
       ],
       "top_20_ids": [
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_5a870aeb574d",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_5a870aeb574d",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_19_aab7d29324e0",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_3_4851fe43e450",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_ccb3aaf8db70",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_ccb3aaf8db70",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_20_5bd2c4155506",
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_4_7f1341409bd9",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_6_42f724618365",
-        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_bb8497abb815",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_bb8497abb815",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_19_725a673787da",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_13a0e35dfc65"
       ],
       "recall_at_5": 0.3333,
-      "recall_at_10": 0.3333,
-      "recall_at_20": 0.3333,
+      "recall_at_10": 0.6667,
+      "recall_at_20": 0.6667,
       "precision_at_5": 0.2,
-      "precision_at_10": 0.1,
+      "precision_at_10": 0.2,
       "reciprocal_rank": 1.0,
       "authority_correct": true,
       "organisation_correct": true,
       "temporal_correct": true,
       "citation_correct": true,
       "failure_reasons": [],
-      "failure_classification": "SEMANTIC_MISS",
+      "failure_classification": null,
       "retrieval_methods": [
         "lexical",
         "vector"
       ],
-      "latency_ms": 2109.78
+      "latency_ms": 2122.1
     },
     {
       "case_id": "GOLD-04",
@@ -233,43 +233,43 @@
       "retrieved_provision_ids": [
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_2_7ce19a8b7a20",
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_3_e3d96bb06bda",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_5a870aeb574d",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_5a870aeb574d",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_20_5bd2c4155506",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_ccb3aaf8db70",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_ccb3aaf8db70",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_2_eea7a9a9ad1c",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_18_baaf44d35134",
-        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_bb8497abb815",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_bb8497abb815",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_4_1665e5671b2a",
         "prov_doc_reg_sebi_32fb02a8ba1e640c_page_3_3689ca11c349"
       ],
       "top_5_ids": [
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_2_7ce19a8b7a20",
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_3_e3d96bb06bda",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_5a870aeb574d",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_5a870aeb574d",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_20_5bd2c4155506",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_ccb3aaf8db70"
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_ccb3aaf8db70"
       ],
       "top_10_ids": [
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_2_7ce19a8b7a20",
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_3_e3d96bb06bda",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_5a870aeb574d",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_5a870aeb574d",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_20_5bd2c4155506",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_ccb3aaf8db70",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_ccb3aaf8db70",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_2_eea7a9a9ad1c",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_18_baaf44d35134",
-        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_bb8497abb815",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_bb8497abb815",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_4_1665e5671b2a",
         "prov_doc_reg_sebi_32fb02a8ba1e640c_page_3_3689ca11c349"
       ],
       "top_20_ids": [
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_2_7ce19a8b7a20",
         "prov_doc_org_org_icicidirect_6976eeb19a00e8e7_page_3_e3d96bb06bda",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_5a870aeb574d",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_5a870aeb574d",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_20_5bd2c4155506",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_ccb3aaf8db70",
+        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_ccb3aaf8db70",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_2_eea7a9a9ad1c",
         "prov_doc_reg_nsdl_37fc29207b492f5f_sec_18_baaf44d35134",
-        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_1_bb8497abb815",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_1_bb8497abb815",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_4_1665e5671b2a",
         "prov_doc_reg_sebi_32fb02a8ba1e640c_page_3_3689ca11c349"
       ],
@@ -289,7 +289,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2051.15
+      "latency_ms": 2112.02
     },
     {
       "case_id": "GOLD-05",
@@ -298,43 +298,43 @@
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_d9dae60e9e8d"
       ],
       "retrieved_provision_ids": [
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_0ef434a08620",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_d9dae60e9e8d",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_10_67b8a385b486",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_19_1b1f152ecc8e",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_10_67b8a385b486",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_19_1b1f152ecc8e",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_55_9fb5f81c2136",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_7_dcf9c1b93d60",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_9c22d207477c",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_594ecf987b0f"
       ],
       "top_5_ids": [
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_0ef434a08620",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_d9dae60e9e8d",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_10_67b8a385b486",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba"
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_10_67b8a385b486",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba"
       ],
       "top_10_ids": [
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_0ef434a08620",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_d9dae60e9e8d",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_10_67b8a385b486",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_19_1b1f152ecc8e",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_10_67b8a385b486",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_19_1b1f152ecc8e",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_55_9fb5f81c2136",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_7_dcf9c1b93d60",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_9c22d207477c",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_594ecf987b0f"
       ],
       "top_20_ids": [
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_0ef434a08620",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_d9dae60e9e8d",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_10_67b8a385b486",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_19_1b1f152ecc8e",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_10_67b8a385b486",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_19_1b1f152ecc8e",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_55_9fb5f81c2136",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_7_dcf9c1b93d60",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_9c22d207477c",
@@ -356,7 +356,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2100.8
+      "latency_ms": 2136.32
     },
     {
       "case_id": "GOLD-06",
@@ -370,9 +370,9 @@
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_7981e448f332",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_f0bec6debc53",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_7789c9e2b6e6",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_7789c9e2b6e6",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_8c4c3ca6e3f3",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_3_6b6838684053",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_5_73fac0788891"
@@ -382,16 +382,16 @@
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_7981e448f332",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157"
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157"
       ],
       "top_10_ids": [
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_039018745ee3",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_7981e448f332",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_f0bec6debc53",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_7789c9e2b6e6",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_7789c9e2b6e6",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_8c4c3ca6e3f3",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_3_6b6838684053",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_5_73fac0788891"
@@ -401,9 +401,9 @@
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_7981e448f332",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_f0bec6debc53",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_7789c9e2b6e6",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_7789c9e2b6e6",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_8c4c3ca6e3f3",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_3_6b6838684053",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_5_73fac0788891"
@@ -424,7 +424,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2175.02
+      "latency_ms": 2134.63
     },
     {
       "case_id": "GOLD-07",
@@ -436,8 +436,8 @@
         "prov_doc_reg_sebi_0822d6895e61d08d_page_2_02136b32fce9",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_3_2b65dc7e5b4b",
         "prov_doc_reg_sebi_32fb02a8ba1e640c_page_2_69ce65a14e81",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_21_43f54da2be6b",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_22_c9bbcd14dfd7",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_21_43f54da2be6b",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_22_c9bbcd14dfd7",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_4_8cdfd88a224f",
         "prov_doc_reg_sebi_32fb02a8ba1e640c_page_3_0ce2c4343f86",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_2_8df2fcf5e30e",
@@ -448,15 +448,15 @@
         "prov_doc_reg_sebi_0822d6895e61d08d_page_2_02136b32fce9",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_3_2b65dc7e5b4b",
         "prov_doc_reg_sebi_32fb02a8ba1e640c_page_2_69ce65a14e81",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_21_43f54da2be6b",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_22_c9bbcd14dfd7"
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_21_43f54da2be6b",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_22_c9bbcd14dfd7"
       ],
       "top_10_ids": [
         "prov_doc_reg_sebi_0822d6895e61d08d_page_2_02136b32fce9",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_3_2b65dc7e5b4b",
         "prov_doc_reg_sebi_32fb02a8ba1e640c_page_2_69ce65a14e81",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_21_43f54da2be6b",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_22_c9bbcd14dfd7",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_21_43f54da2be6b",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_22_c9bbcd14dfd7",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_4_8cdfd88a224f",
         "prov_doc_reg_sebi_32fb02a8ba1e640c_page_3_0ce2c4343f86",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_2_8df2fcf5e30e",
@@ -467,8 +467,8 @@
         "prov_doc_reg_sebi_0822d6895e61d08d_page_2_02136b32fce9",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_3_2b65dc7e5b4b",
         "prov_doc_reg_sebi_32fb02a8ba1e640c_page_2_69ce65a14e81",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_21_43f54da2be6b",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_22_c9bbcd14dfd7",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_21_43f54da2be6b",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_22_c9bbcd14dfd7",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_4_8cdfd88a224f",
         "prov_doc_reg_sebi_32fb02a8ba1e640c_page_3_0ce2c4343f86",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_2_8df2fcf5e30e",
@@ -489,10 +489,10 @@
       "failure_classification": null,
       "retrieval_methods": [
         "lexical",
-        "vector",
-        "exact_citation"
+        "exact_citation",
+        "vector"
       ],
-      "latency_ms": 2132.41
+      "latency_ms": 2131.32
     },
     {
       "case_id": "GOLD-08",
@@ -559,7 +559,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2152.69
+      "latency_ms": 2113.93
     },
     {
       "case_id": "GOLD-09",
@@ -626,7 +626,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2139.5
+      "latency_ms": 2128.12
     },
     {
       "case_id": "GOLD-10",
@@ -693,7 +693,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2145.8
+      "latency_ms": 2106.66
     },
     {
       "case_id": "GOLD-11",
@@ -705,51 +705,51 @@
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_5af782063dd2",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_56_2ef305a6e8fc",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_3_a7567c3b4204",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_3_a7567c3b4204",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_6_1f383e8a35ff",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_ad3e9cbec1ad",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_8dba1e07b155",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_11_a9b6fca11169",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_56_669ee6fe6814",
-        "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_17_a667135eb1c5",
-        "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_20_f298d22cb69a"
+        "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_17_a667135eb1c5"
       ],
       "top_5_ids": [
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_5af782063dd2",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_56_2ef305a6e8fc",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_3_a7567c3b4204",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_3_a7567c3b4204",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_6_1f383e8a35ff"
       ],
       "top_10_ids": [
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_5af782063dd2",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_56_2ef305a6e8fc",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_3_a7567c3b4204",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_3_a7567c3b4204",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_6_1f383e8a35ff",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_ad3e9cbec1ad",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_8dba1e07b155",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_11_a9b6fca11169",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_56_669ee6fe6814",
-        "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_17_a667135eb1c5",
-        "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_20_f298d22cb69a"
+        "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_17_a667135eb1c5"
       ],
       "top_20_ids": [
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_5af782063dd2",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_56_2ef305a6e8fc",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_3_a7567c3b4204",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_3_a7567c3b4204",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_6_1f383e8a35ff",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_ad3e9cbec1ad",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_6_8dba1e07b155",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_11_a9b6fca11169",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_56_669ee6fe6814",
-        "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_17_a667135eb1c5",
-        "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_20_f298d22cb69a"
+        "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_17_a667135eb1c5"
       ],
       "recall_at_5": 0.0,
       "recall_at_10": 1.0,
       "recall_at_20": 1.0,
       "precision_at_5": 0.0,
       "precision_at_10": 0.1,
-      "reciprocal_rank": 0.1111,
+      "reciprocal_rank": 0.1,
       "authority_correct": true,
       "organisation_correct": true,
       "temporal_correct": true,
@@ -760,7 +760,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2152.26
+      "latency_ms": 2106.26
     },
     {
       "case_id": "GOLD-12",
@@ -771,9 +771,9 @@
       ],
       "retrieved_provision_ids": [
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
-        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_957d01daca9b",
+        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_957d01daca9b",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_8e92c3f2af66",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_d7f904930c26",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_d7f904930c26",
         "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e4501d47658c",
         "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_61f95732c17d",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_40d11463e5cb",
@@ -783,16 +783,16 @@
       ],
       "top_5_ids": [
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
-        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_957d01daca9b",
+        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_957d01daca9b",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_8e92c3f2af66",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_d7f904930c26",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_d7f904930c26",
         "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e4501d47658c"
       ],
       "top_10_ids": [
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
-        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_957d01daca9b",
+        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_957d01daca9b",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_8e92c3f2af66",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_d7f904930c26",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_d7f904930c26",
         "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e4501d47658c",
         "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_61f95732c17d",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_40d11463e5cb",
@@ -802,9 +802,9 @@
       ],
       "top_20_ids": [
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_21_9ef2b031022d",
-        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_957d01daca9b",
+        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_957d01daca9b",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_8e92c3f2af66",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_d7f904930c26",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_d7f904930c26",
         "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e4501d47658c",
         "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_61f95732c17d",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_40d11463e5cb",
@@ -828,7 +828,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2146.4
+      "latency_ms": 2152.34
     },
     {
       "case_id": "GOLD-13",
@@ -838,122 +838,53 @@
       ],
       "retrieved_provision_ids": [
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_7789c9e2b6e6",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_9159204f74b2",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_7789c9e2b6e6",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_9159204f74b2",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_dd3b1eaaa985",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_5b7bd5b2b8d7",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_5b7bd5b2b8d7",
         "prov_doc_reg_cdsl_b78236eb9090bedc_sec_1_0cb53104cab9",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_42c4dd17359d",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_0aeec2510c47",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_0aeec2510c47",
         "prov_doc_reg_cdsl_b78236eb9090bedc_sec_1_1052426e798f"
       ],
       "top_5_ids": [
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_7789c9e2b6e6",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_9159204f74b2",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_7789c9e2b6e6",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_9159204f74b2",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_dd3b1eaaa985"
       ],
       "top_10_ids": [
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_7789c9e2b6e6",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_9159204f74b2",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_7789c9e2b6e6",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_9159204f74b2",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_dd3b1eaaa985",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_5b7bd5b2b8d7",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_5b7bd5b2b8d7",
         "prov_doc_reg_cdsl_b78236eb9090bedc_sec_1_0cb53104cab9",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_42c4dd17359d",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_0aeec2510c47",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_0aeec2510c47",
         "prov_doc_reg_cdsl_b78236eb9090bedc_sec_1_1052426e798f"
       ],
       "top_20_ids": [
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_e13b22fe9157",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_7789c9e2b6e6",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_9159204f74b2",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_e13b22fe9157",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_7789c9e2b6e6",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_9159204f74b2",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_dd3b1eaaa985",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_5b7bd5b2b8d7",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_5b7bd5b2b8d7",
         "prov_doc_reg_cdsl_b78236eb9090bedc_sec_1_0cb53104cab9",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_42c4dd17359d",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_3_0aeec2510c47",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_3_0aeec2510c47",
         "prov_doc_reg_cdsl_b78236eb9090bedc_sec_1_1052426e798f"
       ],
-      "recall_at_5": 0.0,
-      "recall_at_10": 0.0,
-      "recall_at_20": 0.0,
-      "precision_at_5": 0.0,
-      "precision_at_10": 0.0,
-      "reciprocal_rank": 0.0,
-      "authority_correct": true,
-      "organisation_correct": true,
-      "temporal_correct": true,
-      "citation_correct": true,
-      "failure_reasons": [],
-      "failure_classification": "SEMANTIC_MISS",
-      "retrieval_methods": [
-        "lexical",
-        "vector"
-      ],
-      "latency_ms": 2141.29
-    },
-    {
-      "case_id": "GOLD-14",
-      "description": "Groww customer support portal for most asked questions and grievance guidance.",
-      "expected_provision_ids": [
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_2ad8c084fb17",
-        "prov_doc_org_org_groww_011e4cd915707471_sec_root_2ad8c084fb17",
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd"
-      ],
-      "retrieved_provision_ids": [
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd",
-        "prov_doc_org_org_groww_011e4cd915707471_sec_root_2ad8c084fb17",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_dba69047f477",
-        "prov_doc_org_org_groww_64558af3e240d2a1_sec_1_7b6c2ac32ec9",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_572245cbd676",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_f2b07ee5af73",
-        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_3_f8295ce878e5",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_2_ec49633eaae6",
-        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_1_3887a928a94e",
-        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_2_eea7a9a9ad1c"
-      ],
-      "top_5_ids": [
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd",
-        "prov_doc_org_org_groww_011e4cd915707471_sec_root_2ad8c084fb17",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_dba69047f477",
-        "prov_doc_org_org_groww_64558af3e240d2a1_sec_1_7b6c2ac32ec9",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_572245cbd676"
-      ],
-      "top_10_ids": [
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd",
-        "prov_doc_org_org_groww_011e4cd915707471_sec_root_2ad8c084fb17",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_dba69047f477",
-        "prov_doc_org_org_groww_64558af3e240d2a1_sec_1_7b6c2ac32ec9",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_572245cbd676",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_f2b07ee5af73",
-        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_3_f8295ce878e5",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_2_ec49633eaae6",
-        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_1_3887a928a94e",
-        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_2_eea7a9a9ad1c"
-      ],
-      "top_20_ids": [
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd",
-        "prov_doc_org_org_groww_011e4cd915707471_sec_root_2ad8c084fb17",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_dba69047f477",
-        "prov_doc_org_org_groww_64558af3e240d2a1_sec_1_7b6c2ac32ec9",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_572245cbd676",
-        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_f2b07ee5af73",
-        "prov_doc_org_org_angelone_c58069cfa2f3b78a_sec_3_f8295ce878e5",
-        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_2_ec49633eaae6",
-        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_1_3887a928a94e",
-        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_2_eea7a9a9ad1c"
-      ],
-      "recall_at_5": 0.6667,
-      "recall_at_10": 0.6667,
-      "recall_at_20": 0.6667,
-      "precision_at_5": 0.4,
-      "precision_at_10": 0.2,
-      "reciprocal_rank": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "recall_at_20": 1.0,
+      "precision_at_5": 0.2,
+      "precision_at_10": 0.1,
+      "reciprocal_rank": 0.3333,
       "authority_correct": true,
       "organisation_correct": true,
       "temporal_correct": true,
@@ -964,7 +895,76 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2114.9
+      "latency_ms": 2134.42
+    },
+    {
+      "case_id": "GOLD-14",
+      "description": "Groww customer support portal for most asked questions and grievance guidance.",
+      "expected_provision_ids": [
+        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_2ad8c084fb17",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_2ad8c084fb17",
+        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd"
+      ],
+      "retrieved_provision_ids": [
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_2ad8c084fb17",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_dba69047f477",
+        "prov_doc_org_org_groww_64558af3e240d2a1_sec_1_7b6c2ac32ec9",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_572245cbd676",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_f2b07ee5af73",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_3_f8295ce878e5",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_2_ec49633eaae6",
+        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_1_3887a928a94e",
+        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_2_eea7a9a9ad1c"
+      ],
+      "top_5_ids": [
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_2ad8c084fb17",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_dba69047f477",
+        "prov_doc_org_org_groww_64558af3e240d2a1_sec_1_7b6c2ac32ec9",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_572245cbd676"
+      ],
+      "top_10_ids": [
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_2ad8c084fb17",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_dba69047f477",
+        "prov_doc_org_org_groww_64558af3e240d2a1_sec_1_7b6c2ac32ec9",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_572245cbd676",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_f2b07ee5af73",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_3_f8295ce878e5",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_2_ec49633eaae6",
+        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_1_3887a928a94e",
+        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_2_eea7a9a9ad1c"
+      ],
+      "top_20_ids": [
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_2ad8c084fb17",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_dba69047f477",
+        "prov_doc_org_org_groww_64558af3e240d2a1_sec_1_7b6c2ac32ec9",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_572245cbd676",
+        "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_15_f2b07ee5af73",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_3_f8295ce878e5",
+        "prov_doc_org_org_angelone_ab690e8e4cf2463b_sec_2_ec49633eaae6",
+        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_1_3887a928a94e",
+        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_2_eea7a9a9ad1c"
+      ],
+      "recall_at_5": 0.3333,
+      "recall_at_10": 0.3333,
+      "recall_at_20": 0.3333,
+      "precision_at_5": 0.2,
+      "precision_at_10": 0.1,
+      "reciprocal_rank": 0.5,
+      "authority_correct": true,
+      "organisation_correct": true,
+      "temporal_correct": true,
+      "citation_correct": true,
+      "failure_reasons": [],
+      "failure_classification": "SEMANTIC_MISS",
+      "retrieval_methods": [
+        "lexical",
+        "vector"
+      ],
+      "latency_ms": 2121.97
     },
     {
       "case_id": "GOLD-15",
@@ -981,8 +981,8 @@
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_5b44c4928957",
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_5873fe97423f",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_58_62acf8cf3f07",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_11_0e4cd56289bd",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_2_6bfaf42ec861"
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_11_0e4cd56289bd",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_2_6bfaf42ec861"
       ],
       "top_5_ids": [
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_27_19a36f8ecadf",
@@ -1000,8 +1000,8 @@
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_5b44c4928957",
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_5873fe97423f",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_58_62acf8cf3f07",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_11_0e4cd56289bd",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_2_6bfaf42ec861"
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_11_0e4cd56289bd",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_2_6bfaf42ec861"
       ],
       "top_20_ids": [
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_27_19a36f8ecadf",
@@ -1012,8 +1012,8 @@
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_5b44c4928957",
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_5873fe97423f",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_58_62acf8cf3f07",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_11_0e4cd56289bd",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_2_6bfaf42ec861"
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_11_0e4cd56289bd",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_2_6bfaf42ec861"
       ],
       "recall_at_5": 0.0,
       "recall_at_10": 0.0,
@@ -1031,7 +1031,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2131.54
+      "latency_ms": 2125.85
     },
     {
       "case_id": "GOLD-16",
@@ -1040,65 +1040,65 @@
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_17_ce782de19337"
       ],
       "retrieved_provision_ids": [
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_10_67b8a385b486",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_3_a7567c3b4204",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_10_67b8a385b486",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_3_a7567c3b4204",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_17_3acc862656c5",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_17_ce782de19337",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_25_a76e5ecb67e4",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_17_ce782de19337",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_25_a76e5ecb67e4",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_23_6c851529ab06",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_a9e6f3f41ceb",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_1_ad3c869d11e0"
       ],
       "top_5_ids": [
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_10_67b8a385b486",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_3_a7567c3b4204",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_10_67b8a385b486",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_3_a7567c3b4204",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_17_3acc862656c5",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba"
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba"
       ],
       "top_10_ids": [
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_10_67b8a385b486",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_3_a7567c3b4204",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_10_67b8a385b486",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_3_a7567c3b4204",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_17_3acc862656c5",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_17_ce782de19337",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_25_a76e5ecb67e4",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_17_ce782de19337",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_25_a76e5ecb67e4",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_23_6c851529ab06",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_a9e6f3f41ceb",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_1_ad3c869d11e0"
       ],
       "top_20_ids": [
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_10_67b8a385b486",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_3_a7567c3b4204",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_10_67b8a385b486",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_3_a7567c3b4204",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_17_3acc862656c5",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_7caf716502ba",
-        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_17_ce782de19337",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_25_a76e5ecb67e4",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_7caf716502ba",
+        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_17_ce782de19337",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_25_a76e5ecb67e4",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_23_6c851529ab06",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_a9e6f3f41ceb",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_1_ad3c869d11e0"
       ],
       "recall_at_5": 0.0,
-      "recall_at_10": 0.0,
-      "recall_at_20": 0.0,
+      "recall_at_10": 1.0,
+      "recall_at_20": 1.0,
       "precision_at_5": 0.0,
-      "precision_at_10": 0.0,
-      "reciprocal_rank": 0.0,
+      "precision_at_10": 0.1,
+      "reciprocal_rank": 0.1667,
       "authority_correct": true,
       "organisation_correct": true,
       "temporal_correct": true,
       "citation_correct": true,
       "failure_reasons": [],
-      "failure_classification": "SEMANTIC_MISS",
+      "failure_classification": null,
       "retrieval_methods": [
         "lexical",
         "vector"
       ],
-      "latency_ms": 2123.93
+      "latency_ms": 2130.22
     },
     {
       "case_id": "GOLD-17",
@@ -1163,10 +1163,10 @@
       "failure_classification": null,
       "retrieval_methods": [
         "lexical",
-        "vector",
-        "exact_citation"
+        "exact_citation",
+        "vector"
       ],
-      "latency_ms": 2099.18
+      "latency_ms": 2115.17
     },
     {
       "case_id": "GOLD-18",
@@ -1176,43 +1176,43 @@
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_7_ae896e093bc8"
       ],
       "retrieved_provision_ids": [
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_7_ae896e093bc8",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_7_ae896e093bc8",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_27_19a36f8ecadf",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_12_042b7ad6cb10",
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_a9e6f3f41ceb",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_1_7a881714e8c5",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_1_2b670b921796",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_51_7b7cc862a783"
       ],
       "top_5_ids": [
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_7_ae896e093bc8",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_7_ae896e093bc8",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_27_19a36f8ecadf",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_12_042b7ad6cb10"
       ],
       "top_10_ids": [
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_7_ae896e093bc8",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_7_ae896e093bc8",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_27_19a36f8ecadf",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_12_042b7ad6cb10",
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_a9e6f3f41ceb",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_1_7a881714e8c5",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_1_2b670b921796",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_51_7b7cc862a783"
       ],
       "top_20_ids": [
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_7_ae896e093bc8",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_7_ae896e093bc8",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_22_3b7d684cc26d",
         "prov_doc_org_org_angelone_15f2261ebececfc3_sec_27_19a36f8ecadf",
         "prov_doc_org_org_icicidirect_b4f6e3964e25cf44_sec_12_042b7ad6cb10",
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd",
         "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_22_a9e6f3f41ceb",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_1_7a881714e8c5",
         "prov_doc_org_org_upstox_f2afe8afaaac8c78_sec_1_2b670b921796",
@@ -1234,7 +1234,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2124.46
+      "latency_ms": 2113.54
     },
     {
       "case_id": "GOLD-19",
@@ -1243,65 +1243,65 @@
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_4_d25914b8e238"
       ],
       "retrieved_provision_ids": [
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_4_d25914b8e238",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_4_d25914b8e238",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_efb0ef3173e5",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_21_43f54da2be6b",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_12_0c0abf272bf7",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_5_efb0ef3173e5",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_1_92b658f3a93f",
-        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_11ae9ad6b4d9",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_30_0b778f802854",
+        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_11ae9ad6b4d9",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_30_0b778f802854",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_30_8c3099ed6856",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_a49488a0d917",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_26_f1616aaaa25e"
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_a49488a0d917"
       ],
       "top_5_ids": [
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_4_d25914b8e238",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_4_d25914b8e238",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_efb0ef3173e5",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_21_43f54da2be6b",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_12_0c0abf272bf7",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_1_92b658f3a93f"
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_5_efb0ef3173e5"
       ],
       "top_10_ids": [
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_4_d25914b8e238",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_4_d25914b8e238",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_efb0ef3173e5",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_21_43f54da2be6b",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_12_0c0abf272bf7",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_5_efb0ef3173e5",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_1_92b658f3a93f",
-        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_11ae9ad6b4d9",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_30_0b778f802854",
+        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_11ae9ad6b4d9",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_30_0b778f802854",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_30_8c3099ed6856",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_a49488a0d917",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_26_f1616aaaa25e"
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_a49488a0d917"
       ],
       "top_20_ids": [
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_4_d25914b8e238",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_4_d25914b8e238",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_efb0ef3173e5",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_21_43f54da2be6b",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_12_0c0abf272bf7",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_5_efb0ef3173e5",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_1_92b658f3a93f",
-        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_11ae9ad6b4d9",
-        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_30_0b778f802854",
+        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_11ae9ad6b4d9",
+        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_30_0b778f802854",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_30_8c3099ed6856",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_a49488a0d917",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_26_f1616aaaa25e"
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_a49488a0d917"
       ],
-      "recall_at_5": 1.0,
-      "recall_at_10": 1.0,
-      "recall_at_20": 1.0,
-      "precision_at_5": 0.2,
-      "precision_at_10": 0.1,
-      "reciprocal_rank": 1.0,
+      "recall_at_5": 0.0,
+      "recall_at_10": 0.0,
+      "recall_at_20": 0.0,
+      "precision_at_5": 0.0,
+      "precision_at_10": 0.0,
+      "reciprocal_rank": 0.0,
       "authority_correct": true,
       "organisation_correct": true,
       "temporal_correct": true,
       "citation_correct": true,
       "failure_reasons": [],
-      "failure_classification": null,
+      "failure_classification": "SEMANTIC_MISS",
       "retrieval_methods": [
         "lexical",
         "vector"
       ],
-      "latency_ms": 2131.71
+      "latency_ms": 2117.35
     },
     {
       "case_id": "GOLD-20",
@@ -1368,7 +1368,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2133.53
+      "latency_ms": 2074.41
     },
     {
       "case_id": "GOLD-21",
@@ -1437,7 +1437,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2117.83
+      "latency_ms": 2076.53
     },
     {
       "case_id": "GOLD-22",
@@ -1450,7 +1450,7 @@
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_7981e448f332",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_35_b4527d9ab06f",
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_8c4c3ca6e3f3",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_2_4e135e782d4c",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_1_55931656fcf9",
@@ -1462,14 +1462,14 @@
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_7981e448f332",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_35_b4527d9ab06f",
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd"
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd"
       ],
       "top_10_ids": [
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_039018745ee3",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_7981e448f332",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_35_b4527d9ab06f",
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_8c4c3ca6e3f3",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_2_4e135e782d4c",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_1_55931656fcf9",
@@ -1481,7 +1481,7 @@
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_7981e448f332",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_35_b4527d9ab06f",
-        "prov_doc_org_org_groww_2a1d9c223b9d744b_sec_root_43bd27caccdd",
+        "prov_doc_org_org_groww_011e4cd915707471_sec_root_43bd27caccdd",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_8c4c3ca6e3f3",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_2_4e135e782d4c",
         "prov_doc_reg_sebi_1fa7fdbd6f70d052_page_1_55931656fcf9",
@@ -1504,7 +1504,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2130.36
+      "latency_ms": 2111.51
     },
     {
       "case_id": "GOLD-23",
@@ -1516,64 +1516,64 @@
       ],
       "retrieved_provision_ids": [
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_4_d25914b8e238",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_4_d25914b8e238",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_200cee0d8b84",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_a49488a0d917",
-        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_11ae9ad6b4d9",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_a49488a0d917",
+        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_11ae9ad6b4d9",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_12_0c0abf272bf7",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_7_9040a1818003",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_7_9040a1818003",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_8_cb3cb745a541"
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_8_01229dd6a078"
       ],
       "top_5_ids": [
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_4_d25914b8e238",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_4_d25914b8e238",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_200cee0d8b84",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_a49488a0d917"
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_a49488a0d917"
       ],
       "top_10_ids": [
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_4_d25914b8e238",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_4_d25914b8e238",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_200cee0d8b84",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_a49488a0d917",
-        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_11ae9ad6b4d9",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_a49488a0d917",
+        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_11ae9ad6b4d9",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_12_0c0abf272bf7",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_7_9040a1818003",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_7_9040a1818003",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_8_cb3cb745a541"
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_8_01229dd6a078"
       ],
       "top_20_ids": [
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_5_a635851decd3",
-        "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_4_d25914b8e238",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_e8b985531c10",
+        "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_4_d25914b8e238",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_e8b985531c10",
         "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_200cee0d8b84",
-        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_a49488a0d917",
-        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_11ae9ad6b4d9",
+        "prov_doc_org_org_zerodha_8ff8b5fc0f7960ca_sec_9_a49488a0d917",
+        "prov_doc_org_org_zerodha_fff0bf49a674ef5d_sec_9_11ae9ad6b4d9",
         "prov_doc_org_org_zerodha_117f5c9d5dc992ba_sec_12_0c0abf272bf7",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_7_9040a1818003",
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_7_9040a1818003",
         "prov_doc_org_org_zerodha_591f5ecebb5b3fc3_sec_2_8c1525537d67",
-        "prov_doc_org_org_angelone_e6c7f9c9c4341582_sec_8_cb3cb745a541"
+        "prov_doc_org_org_angelone_15f2261ebececfc3_sec_8_01229dd6a078"
       ],
-      "recall_at_5": 0.6667,
-      "recall_at_10": 0.6667,
-      "recall_at_20": 0.6667,
-      "precision_at_5": 0.4,
-      "precision_at_10": 0.2,
-      "reciprocal_rank": 0.5,
+      "recall_at_5": 0.3333,
+      "recall_at_10": 0.3333,
+      "recall_at_20": 0.3333,
+      "precision_at_5": 0.2,
+      "precision_at_10": 0.1,
+      "reciprocal_rank": 0.25,
       "authority_correct": true,
       "organisation_correct": true,
       "temporal_correct": true,
       "citation_correct": true,
       "failure_reasons": [],
-      "failure_classification": null,
+      "failure_classification": "SEMANTIC_MISS",
       "retrieval_methods": [
         "lexical",
         "vector"
       ],
-      "latency_ms": 2148.16
+      "latency_ms": 2107.77
     },
     {
       "case_id": "GOLD-24",
@@ -1588,8 +1588,8 @@
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_bc92dbc75a1b",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_bb16ea1de9b3",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_5_bb0515a24cbf",
-        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_10_0ba8d9c75152",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
+        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_10_0ba8d9c75152",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_5_73fac0788891",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_bb72da4f3b1f"
       ],
@@ -1607,8 +1607,8 @@
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_bc92dbc75a1b",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_bb16ea1de9b3",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_5_bb0515a24cbf",
-        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_10_0ba8d9c75152",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
+        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_10_0ba8d9c75152",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_5_73fac0788891",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_bb72da4f3b1f"
       ],
@@ -1619,8 +1619,8 @@
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_bc92dbc75a1b",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_bb16ea1de9b3",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_5_bb0515a24cbf",
-        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_10_0ba8d9c75152",
         "prov_doc_reg_sebi_0822d6895e61d08d_page_1_5102bad08872",
+        "prov_doc_reg_nsdl_37fc29207b492f5f_sec_10_0ba8d9c75152",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_5_73fac0788891",
         "prov_doc_reg_nsdl_4727a8dab5c302fc_sec_7_bb72da4f3b1f"
       ],
@@ -1640,7 +1640,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2074.41
+      "latency_ms": 2108.64
     },
     {
       "case_id": "GOLD-25",
@@ -1707,7 +1707,7 @@
         "lexical",
         "vector"
       ],
-      "latency_ms": 2116.51
+      "latency_ms": 2115.11
     }
   ]
 }

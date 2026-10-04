@@ -5,13 +5,13 @@
   "exception_accuracy": 1.0,
   "temporal_accuracy": 1.0,
   "authority_accuracy": 1.0,
-  "evidence_sufficiency_accuracy": 0.9375,
+  "evidence_sufficiency_accuracy": 0.625,
   "conflict_detection_accuracy": 1.0,
   "numerical_accuracy": 1.0,
   "provenance_completeness": 1.0,
   "false_positive_violations": 0,
   "false_positive_compliances": 0,
-  "evaluated_at": "2026-10-03T22:02:43.517194Z",
+  "evaluated_at": "2026-10-04T10:16:35.985166Z",
   "cases": [
     {
       "case_id": "GOLD-ASSESS-01",
@@ -73,9 +73,10 @@
         "transaction_type"
       ],
       "missing_fields_actual": [
-        "transaction_type"
+        "transaction_type",
+        "organisation"
       ],
-      "missing_fields_match": true,
+      "missing_fields_match": false,
       "provenance_count": 1,
       "is_false_positive_violation": false,
       "is_false_positive_compliance": false,
@@ -93,9 +94,10 @@
         "charged_amount"
       ],
       "missing_fields_actual": [
-        "charged_amount"
+        "charged_amount",
+        "organisation"
       ],
-      "missing_fields_match": true,
+      "missing_fields_match": false,
       "provenance_count": 1,
       "is_false_positive_violation": false,
       "is_false_positive_compliance": false,
@@ -110,8 +112,10 @@
       "unresolved_conflicts_expected": 0,
       "unresolved_conflicts_actual": 0,
       "missing_fields_expected": [],
-      "missing_fields_actual": [],
-      "missing_fields_match": true,
+      "missing_fields_actual": [
+        "organisation"
+      ],
+      "missing_fields_match": false,
       "provenance_count": 1,
       "is_false_positive_violation": false,
       "is_false_positive_compliance": false,
@@ -127,7 +131,8 @@
       "unresolved_conflicts_actual": 0,
       "missing_fields_expected": [],
       "missing_fields_actual": [
-        "transaction_date"
+        "transaction_date",
+        "organisation"
       ],
       "missing_fields_match": false,
       "provenance_count": 1,
@@ -240,8 +245,10 @@
       "unresolved_conflicts_expected": 0,
       "unresolved_conflicts_actual": 0,
       "missing_fields_expected": [],
-      "missing_fields_actual": [],
-      "missing_fields_match": true,
+      "missing_fields_actual": [
+        "organisation"
+      ],
+      "missing_fields_match": false,
       "provenance_count": 1,
       "is_false_positive_violation": false,
       "is_false_positive_compliance": false,
@@ -259,9 +266,9 @@
         "charged_amount"
       ],
       "missing_fields_actual": [
-        "charged_amount"
+        "organisation"
       ],
-      "missing_fields_match": true,
+      "missing_fields_match": false,
       "provenance_count": 1,
       "is_false_positive_violation": false,
       "is_false_positive_compliance": false,

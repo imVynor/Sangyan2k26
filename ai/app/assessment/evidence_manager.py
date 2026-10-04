@@ -16,6 +16,7 @@ from ai.app.assessment.contracts import (
     EvidenceItem,
     EvidenceRequirement,
     EvidenceRequirementStatus,
+    EvidenceType,
     ThreeValuedLogic,
 )
 
@@ -36,7 +37,11 @@ class EvidenceManager:
         self.items.append(item)
         self._by_field[item.field_name].append(item)
 
-    def get_field_value(self, field_name: str) -> tuple[Any, EvidenceRequirementStatus, list[str]]:
+    def get_field_value(
+        self,
+        field_name: str,
+        prefer_documentary: bool = False,
+    ) -> tuple[Any, EvidenceRequirementStatus, list[str]]:
         """Retrieve resolved value, status, and supporting evidence IDs for a field.
         
         Returns:
@@ -50,7 +55,44 @@ class EvidenceManager:
         if len(items) == 1:
             return items[0].value, EvidenceRequirementStatus.KNOWN, ev_ids
 
-        # Multiple items: check for contradiction
+        if prefer_documentary:
+            # Check if documentary evidence takes precedence over user statement
+            doc_items = [
+                item for item in items
+                if getattr(item, "evidence_type", None) in {
+                    EvidenceType.DOCUMENT,
+                    EvidenceType.TRANSACTION_RECORD,
+                    EvidenceType.BROKER_STATEMENT,
+                    EvidenceType.INVOICE,
+                }
+            ]
+            user_items = [
+                item for item in items
+                if getattr(item, "evidence_type", None) == EvidenceType.USER_STATEMENT
+            ]
+            if doc_items and user_items:
+                doc_val = doc_items[0].value
+                doc_conflict = False
+                for d in doc_items[1:]:
+                    if not self._values_equal(doc_val, d.value):
+                        doc_conflict = True
+                        break
+                if not doc_conflict:
+                    # Documentary evidence takes precedence over user narrative claim
+                    return doc_val, EvidenceRequirementStatus.KNOWN, [d.evidence_id for d in doc_items]
+
+            # Check if multiple user statements represent sequential updates/corrections
+            if user_items and not doc_items:
+                latest_val = user_items[-1].value
+                all_equal = all(self._values_equal(latest_val, u.value) for u in user_items)
+                if not all_equal:
+                    logger.info(
+                        f"Sequential user correction for field '{field_name}': operative value '{latest_val}' "
+                        f"supersedes prior assertions ({[u.value for u in user_items[:-1]]})."
+                    )
+                return latest_val, EvidenceRequirementStatus.KNOWN, ev_ids
+
+        # Multiple items without documentary precedence: check for contradiction
         first_val = items[0].value
         for item in items[1:]:
             if not self._values_equal(first_val, item.value):
@@ -62,6 +104,7 @@ class EvidenceManager:
     def evaluate_requirements(
         self,
         required_fields: Sequence[str | EvidenceRequirement],
+        prefer_documentary: bool = False,
     ) -> list[EvidenceRequirement]:
         """Evaluate a list of required fields against available evidence."""
         results: list[EvidenceRequirement] = []
@@ -73,7 +116,7 @@ class EvidenceManager:
                 field_name = req.field_name
                 description = req.description
 
-            val, status, ev_ids = self.get_field_value(field_name)
+            val, status, ev_ids = self.get_field_value(field_name, prefer_documentary=prefer_documentary)
             results.append(
                 EvidenceRequirement(
                     field_name=field_name,
@@ -87,9 +130,10 @@ class EvidenceManager:
     def get_missing_fields(
         self,
         required_fields: Sequence[str | EvidenceRequirement],
+        prefer_documentary: bool = False,
     ) -> list[str]:
         """Return list of fields that are MISSING or CONTRADICTED."""
-        evaluated = self.evaluate_requirements(required_fields)
+        evaluated = self.evaluate_requirements(required_fields, prefer_documentary=prefer_documentary)
         return [
             e.field_name
             for e in evaluated

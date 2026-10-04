@@ -85,6 +85,10 @@ class FactExtractor:
         meta_facts = self._extract_instrument_and_quantity(text, source_id, default_status)
         extracted_facts.extend(meta_facts)
 
+        # 5b. Extract Account Type and BSDA qualification
+        acc_facts = self._extract_account_type(text, source_id, default_status)
+        extracted_facts.extend(acc_facts)
+
         # 6. Extract User Allegations / Beliefs (Preserved as USER_ASSERTED, NOT as a legal conclusion)
         belief_facts = self._extract_user_beliefs(text, source_id)
         extracted_facts.extend(belief_facts)
@@ -306,7 +310,6 @@ class FactExtractor:
             ("intraday", "intraday"),
             ("amc", "amc"),
             ("maintenance", "amc"),
-            ("bsda", "bsda"),
         ]:
             if any(ord(c) > 127 for c in kw):
                 match = re.search(re.escape(kw), text, re.IGNORECASE)
@@ -332,6 +335,55 @@ class FactExtractor:
                     )
                 )
                 break
+        return facts
+
+    def _extract_account_type(
+        self,
+        text: str,
+        source_id: str,
+        epistemic_status: FactEpistemicStatus,
+    ) -> list[ExtractedFact]:
+        """Extract account type and BSDA designation."""
+        facts: list[ExtractedFact] = []
+        match = re.search(r"\b(bsda|basic\s+services?\s+demat\s+account)\b", text, re.IGNORECASE)
+        if match:
+            is_neg = bool(re.search(r"\b(not|no|non|nahi)\s+(?:a\s+)?(?:registered\s+as\s+)?bsda\b", text, re.IGNORECASE))
+            bsda_val = not is_neg
+            raw_span = match.group(0)
+            facts.append(
+                ExtractedFact(
+                    field="is_bsda",
+                    raw_value=raw_span,
+                    normalized_value=bsda_val,
+                    fact_type=FactType.BOOLEAN,
+                    source_span=SourceSpan(
+                        text=raw_span,
+                        start_char=match.start(),
+                        end_char=match.end(),
+                        document_id=source_id,
+                    ),
+                    epistemic_status=epistemic_status,
+                    confidence=ExtractionSupportLevel.DIRECT,
+                    extraction_method="REGEX",
+                )
+            )
+            facts.append(
+                ExtractedFact(
+                    field="account_type",
+                    raw_value=raw_span,
+                    normalized_value="BSDA" if bsda_val else "REGULAR",
+                    fact_type=FactType.STRING,
+                    source_span=SourceSpan(
+                        text=raw_span,
+                        start_char=match.start(),
+                        end_char=match.end(),
+                        document_id=source_id,
+                    ),
+                    epistemic_status=epistemic_status,
+                    confidence=ExtractionSupportLevel.DIRECT,
+                    extraction_method="REGEX",
+                )
+            )
         return facts
 
     def _extract_instrument_and_quantity(
@@ -472,7 +524,7 @@ class FactExtractor:
             )
 
             # Record latest canonical candidate fact
-            if fact.field in {"charged_amount", "transaction_date", "organisation", "transaction_type", "quantity", "gst_breakdown"}:
+            if fact.field in {"charged_amount", "transaction_date", "organisation", "transaction_type", "quantity", "gst_breakdown", "is_bsda", "account_type"}:
                 candidates[fact.field] = fact.normalized_value
 
         return proposals, candidates

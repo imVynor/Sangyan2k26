@@ -11,7 +11,7 @@ from decimal import Decimal
 import logging
 from typing import Any
 
-from ai.app.assessment.contracts import EvidenceItem
+from ai.app.assessment.contracts import EvidenceItem, EvidenceType
 from ai.app.extraction.contracts import FactExtractionResult, FactEpistemicStatus
 
 logger = logging.getLogger("sangyan.extraction.case_integrator")
@@ -48,6 +48,11 @@ class CaseIntegrator:
             committed_evidence.append(prop)
 
         # Process candidate case facts
+        has_doc_evidence = any(
+            p.evidence_type in {EvidenceType.DOCUMENT, EvidenceType.TRANSACTION_RECORD, EvidenceType.BROKER_STATEMENT}
+            for p in extraction_result.evidence_proposals
+        )
+
         for field, cand_val in extraction_result.case_fact_candidates.items():
             if field in committed_facts:
                 existing_val = committed_facts[field]
@@ -58,7 +63,9 @@ class CaseIntegrator:
                     )
                     logger.warning(warning_msg)
                     warnings.append(warning_msg)
-                    # When conflict occurs, do NOT overwrite; keep existing and preserve conflict in warnings
+                    # Under evidence precedence, documentary evidence or explicit turn updates supersede previous claims
+                    if has_doc_evidence or "turn" in extraction_result.source_id:
+                        committed_facts[field] = cand_val
                     continue
             committed_facts[field] = cand_val
 

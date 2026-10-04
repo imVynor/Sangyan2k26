@@ -49,6 +49,7 @@ class AuditableResponseGenerator:
         retrieval: RetrievalResponse,
         evidence_items: Sequence[EvidenceItem] | None = None,
         case_facts: dict[str, Any] | None = None,
+        clarification_plan: Any = None,
     ) -> GeneratedResponse:
         """Produce an auditable, citizen-facing explanation grounded in assessment and retrieval."""
         ev_list = list(evidence_items or [])
@@ -68,7 +69,12 @@ class AuditableResponseGenerator:
             citations_map=citations_map,
             facts=facts,
             evidence_summary=evidence_summary,
+            clarification_plan=clarification_plan,
         )
+
+        planned_questions = [
+            q.question for q in clarification_plan.questions
+        ] if clarification_plan and getattr(clarification_plan, "questions", None) else []
 
         response = GeneratedResponse(
             case_id=assessment.case_id,
@@ -78,6 +84,7 @@ class AuditableResponseGenerator:
             supporting_evidence_summary=evidence_summary,
             regulatory_basis=citations,
             missing_information=assessment.missing_information,
+            clarification_questions=planned_questions,
             next_steps=next_steps,
             disclaimers=[DISCLAIMER_TEXT],
             validation_passed=True,
@@ -108,6 +115,7 @@ class AuditableResponseGenerator:
         citations_map: dict[str, CitationReference],
         facts: dict[str, Any],
         evidence_summary: list[str],
+        clarification_plan: Any = None,
     ) -> tuple[str, list[GeneratedFinding], list[str]]:
         """Synthesize status-specific explanations, findings, and actionable next steps."""
         status = assessment.status
@@ -192,25 +200,49 @@ class AuditableResponseGenerator:
         # =================================================================
         elif status == AssessmentStatus.EVIDENCE_INSUFFICIENT:
             missing_str = ", ".join(assessment.missing_information) if assessment.missing_information else "essential details"
-            summary = (
-                f"The assessment cannot be deterministically completed because essential evidentiary information "
-                f"is currently missing or contradicted: {missing_str}."
-            )
-            findings.append(
-                GeneratedFinding(
-                    status=status,
-                    heading="Additional Evidence Required",
-                    explanation=(
-                        f"The rules governing this grievance require explicit factual parameters: {missing_str}. "
-                        "Without verified documentation of these facts, a conclusive legal assessment cannot be rendered."
-                    ),
-                    cited_provisions=[],
-                    cited_evidence=[],
+            if clarification_plan and getattr(clarification_plan, "questions", None):
+                q_text_list = [q.question for q in clarification_plan.questions]
+                q_why_list = [f"{q.field}: {q.reason}" for q in clarification_plan.questions]
+                summary = (
+                    "Current finding: Cannot determine whether the fee/charge is legally permissible. "
+                    f"Additional evidentiary clarification is required: {missing_str}."
                 )
-            )
-            next_steps = [
-                f"Please provide supporting documentation for: {missing_str} (e.g. Contract Note, Holding Statement, Ledger Statement).",
-            ]
+                findings.append(
+                    GeneratedFinding(
+                        status=status,
+                        heading="Additional Evidence Required",
+                        explanation=(
+                            f"The rules governing this grievance require explicit factual parameters: {missing_str}.\n"
+                            "What I need:\n" + "\n".join([f"- {q}" for q in q_text_list]) + "\n"
+                            "Why:\n" + "\n".join([f"- {w}" for w in q_why_list])
+                        ),
+                        cited_provisions=[],
+                        cited_evidence=[],
+                    )
+                )
+                next_steps = [
+                    f"Please clarify: {q}" for q in q_text_list
+                ]
+            else:
+                summary = (
+                    f"The assessment cannot be deterministically completed because essential evidentiary information "
+                    f"is currently missing or contradicted: {missing_str}."
+                )
+                findings.append(
+                    GeneratedFinding(
+                        status=status,
+                        heading="Additional Evidence Required",
+                        explanation=(
+                            f"The rules governing this grievance require explicit factual parameters: {missing_str}. "
+                            "Without verified documentation of these facts, a conclusive legal assessment cannot be rendered."
+                        ),
+                        cited_provisions=[],
+                        cited_evidence=[],
+                    )
+                )
+                next_steps = [
+                    f"Please provide supporting documentation for: {missing_str} (e.g. Contract Note, Holding Statement, Ledger Statement).",
+                ]
 
         # =================================================================
         # 5. TEMPORALITY_UNRESOLVED

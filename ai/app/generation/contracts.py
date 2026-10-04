@@ -44,6 +44,7 @@ class GeneratedResponse(BaseModel):
     supporting_evidence_summary: list[str] = Field(default_factory=list)
     regulatory_basis: list[CitationReference] = Field(default_factory=list)
     missing_information: list[str] = Field(default_factory=list)
+    clarification_questions: list[str] = Field(default_factory=list)
     next_steps: list[str] = Field(default_factory=list)
     disclaimers: list[str] = Field(default_factory=list)
     validation_passed: bool = True

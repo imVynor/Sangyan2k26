@@ -5,11 +5,11 @@
   "date_accuracy": 1.0,
   "entity_accuracy": 1.0,
   "citation_correctness": 1.0,
-  "assessment_preservation": 1.0,
+  "assessment_preservation": 0.95,
   "unsupported_claim_rate": 0.0,
   "multilingual_accuracy": 1.0,
   "validation_pass_rate": 1.0,
-  "evaluated_at": "2026-10-03T22:02:47.076048Z",
+  "evaluated_at": "2026-10-04T10:16:40.013835Z",
   "cases": [
     {
       "case_id": "E2E-01",
@@ -351,8 +351,8 @@
       "description": "Complaint requesting validation under SEBI Master Circular 2024.",
       "language": "en",
       "expected_status": "COMPLIANT_WITH_REGULATION",
-      "actual_status": "COMPLIANT_WITH_REGULATION",
-      "status_preserved": true,
+      "actual_status": "EVIDENCE_INSUFFICIENT",
+      "status_preserved": false,
       "expected_fields": {
         "charged_amount": "13.50",
         "transaction_date": "2026-01-20",
