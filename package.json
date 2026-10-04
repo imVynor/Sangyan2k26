@@ -8,6 +8,8 @@
     "dev:backend": "cd backend && .venv\\Scripts\\python.exe -m uvicorn src.interfaces.main:app --reload --host 127.0.0.1 --port 8000",
     "dev:ai": "cd ai && ..\\backend\\.venv\\Scripts\\python.exe -m uvicorn ai.app.api.app:app --app-dir .. --loop ai.app.db.session:psycopg_event_loop_factory --reload --host 127.0.0.1 --port 8001",
     "dev:frontend": "npm --prefix frontend run dev -- --host localhost",
+    "setup:local": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\setup-local.ps1",
+    "migrate:local": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\migrate-local.ps1",
     "build": "npm --prefix frontend run build",
     "lint": "npm --prefix frontend run lint",
     "install:frontend": "npm install --prefix frontend",

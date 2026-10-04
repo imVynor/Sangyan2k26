@@ -6,6 +6,7 @@ Epistemic foundation:
 - Passes Idempotency-Key and expected_version directly to CaseOrchestrator for concurrency control.
 """
 
+from datetime import date
 from typing import Annotated
 import uuid
 from fastapi import APIRouter, Depends, File, Form, Header, Request, UploadFile, status
@@ -78,6 +79,7 @@ async def submit_turn(
         actor=principal.principal_id,
         source="api/v1/turns",
         metadata=payload.metadata,
+        reference_date=date.today(),
     )
 
     turn_result = await orchestrator.process_turn(
@@ -149,6 +151,7 @@ async def upload_evidence(
         actor=principal.principal_id,
         source=f"upload:{file.filename}",
         metadata={"description": description},
+        reference_date=date.today(),
     )
 
     turn_result = await orchestrator.process_turn(

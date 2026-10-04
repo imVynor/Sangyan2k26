@@ -7,6 +7,7 @@ Epistemic foundation:
 """
 
 import uuid
+from datetime import date
 from typing import Annotated
 from fastapi import APIRouter, Depends, Header, Request, status
 
@@ -61,6 +62,7 @@ async def create_case(
         actor=principal.principal_id,
         source="api/v1/cases",
         metadata=payload.metadata,
+        reference_date=date.today(),
     )
 
     turn_result = await orchestrator.process_turn(

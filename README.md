@@ -27,8 +27,11 @@ The browser never calls the AI service directly. The account backend associates 
 
 - Node.js and npm
 - Python 3.11 or newer
-- Docker Desktop
+- PostgreSQL 16 or newer with the `vector` (pgvector) extension
 - Ollama with the `nomic-embed-text` model for semantic retrieval
+
+Redis is optional for local development. The local configuration uses in-memory
+sessions, rate limiting, and caching, so Docker Desktop is not required.
 
 ### Install dependencies
 
@@ -60,18 +63,32 @@ DATABASE_URL=postgresql+psycopg://sangyan:local_dev_password@localhost:5432/sang
 
 The backend reads `backend/.env`; AI reads `ai/.env`. `ai/.env` is local-only and Git-ignored; it must point to the same database. These Compose credentials are for local development only.
 
-### Start PostgreSQL + pgvector and Redis
+### Set up native PostgreSQL
+
+Install PostgreSQL and pgvector using the installer or package manager for your
+operating system. Ensure the `vector` extension is available to the database
+that will hold the SANGYAN schema. On Windows, the PostgreSQL `bin` directory
+must be on `PATH` so that `psql` can be run from PowerShell.
+
+From the repository root, run:
 
 ```powershell
-docker compose up -d postgres redis
-docker compose ps
+npm run setup:local
 ```
 
-The PostgreSQL service uses a persistent repository-local data directory, so upgrading the PostgreSQL 16 image to its pgvector-enabled build preserves the existing database files. Do not remove that directory to resolve upgrade issues.
+The setup command reads `backend/.env`, creates the configured database when
+needed, verifies PostgreSQL and pgvector, and applies both Alembic migration
+sets. It does not start Docker, Redis, or any other container.
+
+If you already have a configured database and only need to rerun migrations:
+
+```powershell
+npm run migrate:local
+```
 
 ### Apply database migrations
 
-The account backend and AI use separate Alembic version tables while sharing the same database:
+The account backend and AI use separate Alembic version tables while sharing the same database. `npm run setup:local` and `npm run migrate:local` perform these steps automatically:
 
 ```powershell
 Push-Location .\backend

@@ -1,14 +1,19 @@
 """Configuration settings for SANGYAN AI backend."""
 
+from pathlib import Path
+
 from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+AI_ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
 
 
 class Settings(BaseSettings):
     """Application settings loaded from environment or defaults."""
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=AI_ENV_FILE,
         env_file_encoding="utf-8",
         extra="ignore",
     )
