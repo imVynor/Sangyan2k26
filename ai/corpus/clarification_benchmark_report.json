@@ -8,7 +8,7 @@
   "idempotency_rate": 1.0,
   "concurrency_integrity": 1.0,
   "contradiction_handling_rate": 1.0,
-  "evaluated_at": "2026-10-04T10:14:18.415486+00:00",
+  "evaluated_at": "2026-10-04T10:34:50.987883+00:00",
   "cases": [
     {
       "case_id": "CLAR-01",

@@ -28,7 +28,14 @@ from ai.app.case.repository import (
     InMemoryCaseRepository,
     PostgresCaseRepository,
 )
-from ai.app.case.service import CaseService
+
+
+def __getattr__(name: str):
+    if name == "CaseService":
+        from ai.app.case.service import CaseService
+        return CaseService
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+
 
 __all__ = [
     "CaseState",

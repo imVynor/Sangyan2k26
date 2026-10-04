@@ -9,7 +9,7 @@
   "unsupported_claim_rate": 0.0,
   "multilingual_accuracy": 1.0,
   "validation_pass_rate": 1.0,
-  "evaluated_at": "2026-10-04T10:16:40.013835Z",
+  "evaluated_at": "2026-10-04T10:35:14.413866Z",
   "cases": [
     {
       "case_id": "E2E-01",

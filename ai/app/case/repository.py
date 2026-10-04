@@ -98,6 +98,9 @@ class InMemoryCaseRepository(CaseRepository):
         self._cases[case.case_id] = stored
         if case.case_id not in self._events:
             self._events[case.case_id] = []
+        for ev in stored.interaction_history:
+            if ev.idempotency_key:
+                self._idempotency_index[(stored.case_id, ev.idempotency_key)] = deepcopy(ev)
         return deepcopy(stored)
 
     async def get_event_by_idempotency_key(

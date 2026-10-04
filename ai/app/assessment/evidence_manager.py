@@ -26,11 +26,19 @@ logger = logging.getLogger("sangyan.assessment.evidence_manager")
 class EvidenceManager:
     """Manages case evidence items and evaluates evidence requirements."""
 
-    def __init__(self, evidence_items: Sequence[EvidenceItem] | None = None) -> None:
+    def __init__(
+        self,
+        evidence_items: Sequence[EvidenceItem] | None = None,
+        resolver: Any = None,
+        use_policy: bool = False,
+    ) -> None:
         self.items: list[EvidenceItem] = list(evidence_items or [])
         self._by_field: dict[str, list[EvidenceItem]] = defaultdict(list)
         for item in self.items:
             self._by_field[item.field_name].append(item)
+        from ai.app.evidence_policy.resolver import EvidencePolicyResolver
+        self.resolver = resolver or EvidencePolicyResolver.default()
+        self.use_policy = use_policy
 
     def add_item(self, item: EvidenceItem) -> None:
         """Add a single evidence item."""
@@ -55,44 +63,24 @@ class EvidenceManager:
         if len(items) == 1:
             return items[0].value, EvidenceRequirementStatus.KNOWN, ev_ids
 
-        if prefer_documentary:
-            # Check if documentary evidence takes precedence over user statement
-            doc_items = [
-                item for item in items
-                if getattr(item, "evidence_type", None) in {
-                    EvidenceType.DOCUMENT,
-                    EvidenceType.TRANSACTION_RECORD,
-                    EvidenceType.BROKER_STATEMENT,
-                    EvidenceType.INVOICE,
-                }
-            ]
-            user_items = [
-                item for item in items
-                if getattr(item, "evidence_type", None) == EvidenceType.USER_STATEMENT
-            ]
-            if doc_items and user_items:
-                doc_val = doc_items[0].value
-                doc_conflict = False
-                for d in doc_items[1:]:
-                    if not self._values_equal(doc_val, d.value):
-                        doc_conflict = True
-                        break
-                if not doc_conflict:
-                    # Documentary evidence takes precedence over user narrative claim
-                    return doc_val, EvidenceRequirementStatus.KNOWN, [d.evidence_id for d in doc_items]
+        if prefer_documentary or self.use_policy:
+            from ai.app.evidence_policy.contracts import ClaimStatus
+            resolved = self.resolver.resolve_field(field_name, items)
+            if resolved.status in {
+                ClaimStatus.SUPPORTED,
+                ClaimStatus.RESOLVED_BY_POLICY,
+                ClaimStatus.RESOLVED_BY_ADDITIONAL_EVIDENCE,
+            }:
+                supporting_items = [
+                    item for item in items
+                    if self._values_equal(item.value, resolved.operative_value)
+                ]
+                supporting_ids = [i.evidence_id for i in supporting_items] or ev_ids
+                return resolved.operative_value, EvidenceRequirementStatus.KNOWN, supporting_ids
+            elif resolved.status == ClaimStatus.CONTRADICTED:
+                return None, EvidenceRequirementStatus.CONTRADICTED, ev_ids
 
-            # Check if multiple user statements represent sequential updates/corrections
-            if user_items and not doc_items:
-                latest_val = user_items[-1].value
-                all_equal = all(self._values_equal(latest_val, u.value) for u in user_items)
-                if not all_equal:
-                    logger.info(
-                        f"Sequential user correction for field '{field_name}': operative value '{latest_val}' "
-                        f"supersedes prior assertions ({[u.value for u in user_items[:-1]]})."
-                    )
-                return latest_val, EvidenceRequirementStatus.KNOWN, ev_ids
-
-        # Multiple items without documentary precedence: check for contradiction
+        # Multiple items without documentary precedence: check for raw contradiction
         first_val = items[0].value
         for item in items[1:]:
             if not self._values_equal(first_val, item.value):

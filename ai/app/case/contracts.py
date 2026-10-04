@@ -30,10 +30,19 @@ from ai.app.retrieval.contracts import RetrievalResponse
 
 class CaseStatus(str, Enum):
     """Lifecycle status of a grievance case."""
+    # Canonical Phase 6A Lifecycle states
+    DRAFT = "DRAFT"
+    EVIDENCE_COLLECTION = "EVIDENCE_COLLECTION"
+    UNDER_ASSESSMENT = "UNDER_ASSESSMENT"
+    REQUIRES_CLARIFICATION = "REQUIRES_CLARIFICATION"
+    RESOLVED = "RESOLVED"
+    CLOSED_INSUFFICIENT = "CLOSED_INSUFFICIENT"
+    REOPENED = "REOPENED"
+
+    # Backward-compatible aliases
     OPEN = "OPEN"
     CLARIFICATION_REQUESTED = "CLARIFICATION_REQUESTED"
     EVALUATING = "EVALUATING"
-    RESOLVED = "RESOLVED"
     INSUFFICIENT_EVIDENCE = "INSUFFICIENT_EVIDENCE"
     REGULATORY_COVERAGE_UNRESOLVED = "REGULATORY_COVERAGE_UNRESOLVED"
     TEMPORALITY_UNRESOLVED = "TEMPORALITY_UNRESOLVED"
@@ -43,9 +52,15 @@ class CaseStatus(str, Enum):
 class CaseEventType(str, Enum):
     """Controlled vocabulary of immutable case events."""
     CASE_CREATED = "CASE_CREATED"
+    CASE_REOPENED = "CASE_REOPENED"
+    TURN_STARTED = "TURN_STARTED"
+    TURN_COMPLETED = "TURN_COMPLETED"
+    TURN_FAILED = "TURN_FAILED"
     USER_MESSAGE_RECEIVED = "USER_MESSAGE_RECEIVED"
     DOCUMENT_ATTACHED = "DOCUMENT_ATTACHED"
     FACT_EXTRACTED = "FACT_EXTRACTED"
+    CLAIM_REGISTERED = "CLAIM_REGISTERED"
+    CLAIM_RESOLVED = "CLAIM_RESOLVED"
     EVIDENCE_ACCEPTED = "EVIDENCE_ACCEPTED"
     EVIDENCE_REJECTED = "EVIDENCE_REJECTED"
     EVIDENCE_CONTRADICTION_DETECTED = "EVIDENCE_CONTRADICTION_DETECTED"
@@ -55,6 +70,7 @@ class CaseEventType(str, Enum):
     RETRIEVAL_EXECUTED = "RETRIEVAL_EXECUTED"
     ASSESSMENT_EXECUTED = "ASSESSMENT_EXECUTED"
     ASSESSMENT_UPDATED = "ASSESSMENT_UPDATED"
+    ACTION_INTENT_CREATED = "ACTION_INTENT_CREATED"
     CASE_RESOLVED = "CASE_RESOLVED"
 
 
@@ -95,12 +111,22 @@ class AssessmentDelta(BaseModel):
     previous_status: AssessmentStatus | None = None
     new_status: AssessmentStatus
     status_changed: bool = False
-    changed_findings: list[str] = Field(default_factory=list)
-    new_evidence_ids: list[str] = Field(default_factory=list)
+    facts_changed: list[str] = Field(default_factory=list)
+    claims_changed: list[str] = Field(default_factory=list)
+    evidence_added: list[str] = Field(default_factory=list)
+    provisions_added: list[str] = Field(default_factory=list)
+    provisions_removed: list[str] = Field(default_factory=list)
+    conditions_re_evaluated: list[str] = Field(default_factory=list)
+    findings_changed: list[str] = Field(default_factory=list)
+    changed_findings: list[str] = Field(default_factory=list)  # legacy alias
+    new_evidence_ids: list[str] = Field(default_factory=list)  # legacy alias
     newly_applicable_provisions: list[str] = Field(default_factory=list)
     newly_inapplicable_provisions: list[str] = Field(default_factory=list)
     resolved_uncertainties: list[str] = Field(default_factory=list)
     remaining_uncertainties: list[str] = Field(default_factory=list)
+    clarifications_resolved: list[str] = Field(default_factory=list)
+    clarifications_created: list[str] = Field(default_factory=list)
+    cause: dict[str, Any] = Field(default_factory=dict)
     rationale: str = ""
 
 
@@ -109,7 +135,7 @@ class CaseState(BaseModel):
     case_id: str
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    status: CaseStatus = CaseStatus.OPEN
+    status: CaseStatus = CaseStatus.DRAFT
     version: int = 1
 
     # Confirmed empirical facts (e.g. {"charged_amount": Decimal("15.93"), "transaction_type": "equity_delivery"})
@@ -145,5 +171,12 @@ class CaseState(BaseModel):
     # Latest delta from previous assessment
     latest_delta: AssessmentDelta | None = None
 
+    # Structured empirical claims tracked across turns
+    claims: list[Any] = Field(default_factory=list)
+
+    # Active knowledge corpus and ontology snapshot identifier
+    knowledge_snapshot_id: str = "KNOW-2026-V1"
+
     # Append-only interaction events
     interaction_history: list[CaseEvent] = Field(default_factory=list)
+
