@@ -18,3 +18,5 @@ class Grievance(Base, TimestampMixin):
     step: Mapped[int] = mapped_column(Integer, default=0)
     messages: Mapped[list[dict[str, Any]]] = mapped_column(JSON, default_factory=list)
     entries: Mapped[list[dict[str, str]]] = mapped_column(JSON, default_factory=list)
+    ai_case_id: Mapped[str | None] = mapped_column(String(32), default=None)
+    ai_version: Mapped[int | None] = mapped_column(Integer, default=None)

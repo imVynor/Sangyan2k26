@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useGrievance } from '../../context/GrievanceContext'
 import ReportPanel from '../ReportPanel'
-import { FLOW } from '../data/flow'
 
 function dateLabel(value) {
   return value ? new Date(value).toLocaleDateString() : 'Saved report'
@@ -34,7 +33,6 @@ export default function ReportsPage() {
           title={report.title}
           subtitle={dateLabel(report.updated_at || report.created_at)}
           entries={report.entries}
-          complete={report.step >= FLOW.length}
           onClose={() => nav('/reports')}
         />
       )}

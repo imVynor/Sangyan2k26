@@ -1,3 +1,5 @@
+import { formatAssessmentStatus } from './assessmentStatus'
+
 export default function ReportPanel({ title, subtitle, entries = [], complete = false, onClose }) {
   return (
     <aside className="rp" aria-label={`${title} report`}>
@@ -16,7 +18,13 @@ export default function ReportPanel({ title, subtitle, entries = [], complete = 
       {entries.map((entry, index) => (
         <section className="ri" key={`${entry.title}-${index}`}>
           <b>{entry.title}</b>
-          <div>{entry.text}</div>
+          {entry.title === 'Assessment' && entry.text.startsWith('Status: ') ? (
+            <div className="report-assessment">
+              <span className="assessment-status">{formatAssessmentStatus(entry.text.slice('Status: '.length))}</span>
+            </div>
+          ) : (
+            <div>{entry.text}</div>
+          )}
         </section>
       ))}
       <p className="mu">{complete ? 'Report complete.' : 'This report updates as you continue the guided workflow.'}</p>

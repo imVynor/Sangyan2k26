@@ -397,6 +397,8 @@ class Settings(
 ):
     """Main settings class that combines all setting categories."""
 
+    AI_BACKEND_URL: str = config("AI_BACKEND_URL", default="http://127.0.0.1:8001")
+
     @property
     def SESSION_REDIS_URL(self) -> str:
         """Get the Redis URL for sessions.

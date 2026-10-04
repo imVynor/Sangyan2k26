@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useGrievance } from '../context/GrievanceContext'
-import { FLOW, STAGES } from './data/flow'
 import ProgressList from './ProgressList'
 import { checkBackendHealth } from '../services/api'
 
@@ -16,8 +15,7 @@ function Item({ icon, label, onClick, active, extra }) {
 }
 
 function recordStatus(record) {
-  if (record.step >= FLOW.length) return 'Complete'
-  return STAGES[FLOW[Math.min(record.step, FLOW.length - 1)].stage]
+  return record.ai_case_id ? `AI turn ${record.ai_version ?? 0}` : 'Legacy report'
 }
 
 export default function Sidebar() {

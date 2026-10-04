@@ -32,12 +32,12 @@ export default function HomePage() {
           placeholder="How do you want to explain your problem? Tell me what happened…"
           onSend={submit}
           disabled={saving}
-          maxLength={255}
+          maxLength={10000}
         />
         {error && <p role="alert" className="error">{error}</p>}
         <div className="chips">
-          {EXAMPLES.map((t) => (
-            <button key={t} className="chip" onClick={() => submit(t)}>{t}</button>
+          {EXAMPLES.map((example) => (
+            <button key={example} className="chip" disabled={saving} onClick={() => submit(example)}>{example}</button>
           ))}
         </div>
       </div>

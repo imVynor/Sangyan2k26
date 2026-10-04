@@ -1,0 +1,476 @@
+{
+  "total_cases": 20,
+  "total_turns": 38,
+  "orchestration_success_rate": 100.0,
+  "state_transition_correctness": 100.0,
+  "event_ordering_correctness": 100.0,
+  "assessment_preservation": 94.74,
+  "evidence_integrity": 90.0,
+  "idempotency_pass_rate": 100.0,
+  "concurrency_integrity": 100.0,
+  "reopen_correctness": 100.0,
+  "audit_reconstruction_completeness": 100.0,
+  "total_duration_seconds": 0.04,
+  "case_reports": [
+    {
+      "case_id": "ORCH-01",
+      "title": "Clean first-turn resolution",
+      "scenario_type": "first_turn_resolution",
+      "passed": true,
+      "turns_count": 1,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 1,
+          "duration_ms": 2.6127000000997214
+        }
+      ],
+      "duration_ms": 2.9330999996091123
+    },
+    {
+      "case_id": "ORCH-02",
+      "title": "Clarification for missing transaction type",
+      "scenario_type": "clarification_turn",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "REQUIRES_CLARIFICATION",
+          "assessment_status": "EVIDENCE_INSUFFICIENT",
+          "version": 1,
+          "duration_ms": 1.0760000004665926
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 2,
+          "duration_ms": 2.0896000005450333
+        }
+      ],
+      "duration_ms": 3.5342999999556923
+    },
+    {
+      "case_id": "ORCH-03",
+      "title": "Document upload resolving uncertainty",
+      "scenario_type": "document_upload",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "REQUIRES_CLARIFICATION",
+          "assessment_status": "EVIDENCE_INSUFFICIENT",
+          "version": 1,
+          "duration_ms": 0.6573999999091029
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 2,
+          "duration_ms": 1.2127999998483574
+        }
+      ],
+      "duration_ms": 2.20770000032644
+    },
+    {
+      "case_id": "ORCH-04",
+      "title": "Contradictory evidence resolved by documentary policy",
+      "scenario_type": "contradiction_preservation",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 1,
+          "duration_ms": 0.698499999998603
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "COMPLIANT_WITH_REGULATION",
+          "version": 2,
+          "duration_ms": 1.5909000003375695
+        }
+      ],
+      "duration_ms": 2.6639999996405095
+    },
+    {
+      "case_id": "ORCH-05",
+      "title": "User sequential correction",
+      "scenario_type": "user_correction",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "COMPLIANT_WITH_REGULATION",
+          "version": 1,
+          "duration_ms": 0.8144000003085239
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 2,
+          "duration_ms": 1.5880000000834116
+        }
+      ],
+      "duration_ms": 2.7946000000156346
+    },
+    {
+      "case_id": "ORCH-06",
+      "title": "Compliance to violation transition",
+      "scenario_type": "compliance_to_violation",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "COMPLIANT_WITH_REGULATION",
+          "version": 1,
+          "duration_ms": 0.7815999997546896
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 2,
+          "duration_ms": 1.4576999992641504
+        }
+      ],
+      "duration_ms": 2.604100000098697
+    },
+    {
+      "case_id": "ORCH-07",
+      "title": "Violation to compliance transition",
+      "scenario_type": "violation_to_compliance",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 1,
+          "duration_ms": 0.729900000806083
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "COMPLIANT_WITH_REGULATION",
+          "version": 2,
+          "duration_ms": 1.5702000000601402
+        }
+      ],
+      "duration_ms": 2.684699999917939
+    },
+    {
+      "case_id": "ORCH-08",
+      "title": "Reopening a previously resolved case",
+      "scenario_type": "case_reopening",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "COMPLIANT_WITH_REGULATION",
+          "version": 1,
+          "duration_ms": 0.7288999995580525
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 2,
+          "duration_ms": 1.4456999997491948
+        }
+      ],
+      "duration_ms": 2.5353000000905013
+    },
+    {
+      "case_id": "ORCH-09",
+      "title": "User declines requested evidence",
+      "scenario_type": "user_decline",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "REQUIRES_CLARIFICATION",
+          "assessment_status": "EVIDENCE_INSUFFICIENT",
+          "version": 1,
+          "duration_ms": 0.6645000003118184
+        },
+        {
+          "turn": 2,
+          "status": "CLOSED_INSUFFICIENT",
+          "assessment_status": "EVIDENCE_INSUFFICIENT",
+          "version": 2,
+          "duration_ms": 0.9440000003451132
+        }
+      ],
+      "duration_ms": 1.9013000000995817
+    },
+    {
+      "case_id": "ORCH-10",
+      "title": "Termination after max clarification rounds",
+      "scenario_type": "max_clarifications",
+      "passed": true,
+      "turns_count": 3,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "REQUIRES_CLARIFICATION",
+          "assessment_status": "EVIDENCE_INSUFFICIENT",
+          "version": 1,
+          "duration_ms": 0.5740999995396123
+        },
+        {
+          "turn": 2,
+          "status": "REQUIRES_CLARIFICATION",
+          "assessment_status": "EVIDENCE_INSUFFICIENT",
+          "version": 2,
+          "duration_ms": 0.9431999997104867
+        },
+        {
+          "turn": 3,
+          "status": "CLOSED_INSUFFICIENT",
+          "assessment_status": "EVIDENCE_INSUFFICIENT",
+          "version": 3,
+          "duration_ms": 0.9995000000344589
+        }
+      ],
+      "duration_ms": 2.8611000007003895
+    },
+    {
+      "case_id": "ORCH-11",
+      "title": "Temporal resolution after transaction date supplied",
+      "scenario_type": "temporal_resolution",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "REQUIRES_CLARIFICATION",
+          "assessment_status": "EVIDENCE_INSUFFICIENT",
+          "version": 1,
+          "duration_ms": 0.7063999992169556
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "COMPLIANT_WITH_REGULATION",
+          "version": 2,
+          "duration_ms": 1.2213999998493819
+        }
+      ],
+      "duration_ms": 2.2608999997828505
+    },
+    {
+      "case_id": "ORCH-12",
+      "title": "Unregulated entity coverage termination",
+      "scenario_type": "regulatory_coverage_gap",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "REQUIRES_CLARIFICATION",
+          "assessment_status": "REGULATORY_COVERAGE_UNRESOLVED",
+          "version": 1,
+          "duration_ms": 0.38670000049023656
+        },
+        {
+          "turn": 2,
+          "status": "CLOSED_INSUFFICIENT",
+          "assessment_status": "REGULATORY_COVERAGE_UNRESOLVED",
+          "version": 2,
+          "duration_ms": 0.5955000005997135
+        }
+      ],
+      "duration_ms": 1.202700000249024
+    },
+    {
+      "case_id": "ORCH-13",
+      "title": "Retrieval failure handling",
+      "scenario_type": "retrieval_failure",
+      "passed": true,
+      "turns_count": 1,
+      "turns": [
+        {
+          "turn": 1,
+          "handled_retrieval_failure": true
+        }
+      ],
+      "duration_ms": 0.2581999997346429
+    },
+    {
+      "case_id": "ORCH-14",
+      "title": "Generation failure leaves assessment valid",
+      "scenario_type": "generation_failure",
+      "passed": true,
+      "turns_count": 1,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 1,
+          "duration_ms": 0.7408000001305481
+        }
+      ],
+      "duration_ms": 0.9740000004967442
+    },
+    {
+      "case_id": "ORCH-15",
+      "title": "Duplicate event idempotency check",
+      "scenario_type": "idempotency",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 1,
+          "duration_ms": 0.8094999993772944
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 1,
+          "duration_ms": 0.23090000013326062
+        }
+      ],
+      "duration_ms": 1.304599999457423
+    },
+    {
+      "case_id": "ORCH-16",
+      "title": "Optimistic concurrency version conflict",
+      "scenario_type": "concurrency_conflict",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "REQUIRES_CLARIFICATION",
+          "assessment_status": "REGULATORY_COVERAGE_UNRESOLVED",
+          "version": 1,
+          "duration_ms": 0.3625999997893814
+        },
+        {
+          "turn": 2,
+          "handled_conflict": true
+        }
+      ],
+      "duration_ms": 0.6340999998428742
+    },
+    {
+      "case_id": "ORCH-17",
+      "title": "Field-specific evidence precedence check",
+      "scenario_type": "field_specific_precedence",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 1,
+          "duration_ms": 0.6932999995115097
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "COMPLIANT_WITH_REGULATION",
+          "version": 2,
+          "duration_ms": 1.377600000523671
+        }
+      ],
+      "duration_ms": 2.4017000005187583
+    },
+    {
+      "case_id": "ORCH-18",
+      "title": "Multiple claims tracked for one field",
+      "scenario_type": "multiple_claims",
+      "passed": true,
+      "turns_count": 3,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 1,
+          "duration_ms": 0.7418000004690839
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 2,
+          "duration_ms": 1.4086999999562977
+        },
+        {
+          "turn": 3,
+          "status": "RESOLVED",
+          "assessment_status": "COMPLIANT_WITH_REGULATION",
+          "version": 3,
+          "duration_ms": 1.761100000294391
+        }
+      ],
+      "duration_ms": 4.3694999994841055
+    },
+    {
+      "case_id": "ORCH-19",
+      "title": "Regulatory knowledge snapshot tracking",
+      "scenario_type": "knowledge_snapshot",
+      "passed": true,
+      "turns_count": 1,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 1,
+          "duration_ms": 0.7460000006176415
+        }
+      ],
+      "duration_ms": 1.0061000002679066
+    },
+    {
+      "case_id": "ORCH-20",
+      "title": "Complete audit reconstruction across turns",
+      "scenario_type": "audit_reconstruction",
+      "passed": true,
+      "turns_count": 2,
+      "turns": [
+        {
+          "turn": 1,
+          "status": "REQUIRES_CLARIFICATION",
+          "assessment_status": "EVIDENCE_INSUFFICIENT",
+          "version": 1,
+          "duration_ms": 0.6182999995871796
+        },
+        {
+          "turn": 2,
+          "status": "RESOLVED",
+          "assessment_status": "VIOLATION_CONFIRMED",
+          "version": 2,
+          "duration_ms": 1.067700000021432
+        }
+      ],
+      "duration_ms": 1.9923999998354702
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+# ==============================================================================
+# SANGYAN Knowledge Corpus Manifest (Synthetic Example)
+#
+# The corpus manifest is the explicit, reproducible specification of authoritative
+# external documents that SANGYAN is permitted and required to ingest.
+#
+# NOTE: This example uses synthetic non-live endpoints for documentation and dry-run
+# validation. Real financial regulatory URLs will be added in designated manifests.
+# ==============================================================================
+
+corpus_version: "2026-10-04-v1"
+
+sources:
+  - source_id: "example_regulatory_document"
+    source_class: "REGULATORY"
+    authority: "Example Authority"
+    url: "https://example.gov.in/example-document.pdf"
+    expected_domain: "example.gov.in"
+    document_type: "circular"
+    topic:
+      - investor_grievance
+    description: "Synthetic regulatory circular on investor grievance resolution."
+
+  - source_id: "example_broker_grievance"
+    source_class: "ORGANISATION_PROCEDURE"
+    organisation_id: "example_broker"
+    url: "https://examplebroker.com/grievance"
+    expected_domain: "examplebroker.com"
+    document_type: "grievance_procedure"
+    topic:
+      - grievance
+    description: "Synthetic broker internal escalation and grievance procedure."

@@ -119,6 +119,20 @@ export function createGrievance(snapshot) {
   return jsonRequest('/grievances/', 'POST', snapshot)
 }
 
+export function startAiGrievance(initialMessage, language = 'en') {
+  return jsonRequest('/grievances/start', 'POST', {
+    initial_message: initialMessage,
+    language,
+  })
+}
+
+export function submitAiTurn(grievanceId, message, language = 'en') {
+  return jsonRequest(`/grievances/${grievanceId}/turns`, 'POST', {
+    message,
+    language,
+  })
+}
+
 export function updateGrievance(id, snapshot) {
   return jsonRequest(`/grievances/${id}`, 'PUT', snapshot)
 }

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "case_01_fact_extraction",
+    "category": "simple_fact_extraction",
+    "system_prompt": "You are SANGYAN Case Understanding engine. Extract entities, facts, and unknowns strictly. Return structured JSON matching CaseUnderstanding schema.",
+    "user_prompt": "I noticed a deduction of Rs 236 from my HDFC Securities trading account on 15th September 2024.",
+    "expected_behavior": "Extract entity 'HDFC Securities' as broker, amount Rs 236, date 15th September 2024, and account type trading account. Do not assume unauthorized or illegal charge.",
+    "expected_schema": "CaseUnderstanding"
+  },
+  {
+    "id": "case_02_claim_vs_fact",
+    "category": "claim_vs_fact_distinction",
+    "system_prompt": "You are SANGYAN Case Understanding engine. Strict epistemic rule: A claim made by the user must NEVER be converted to an established fact. Return structured JSON matching CaseUnderstanding schema.",
+    "user_prompt": "Zerodha ne ₹500 charge kiya, toh ye SEBI violation hai na?",
+    "expected_behavior": "Distinguish between the user-asserted fact (Zerodha debited ₹500) and the user claim/allegation ('this is a SEBI violation'). Do NOT validate the violation claim as fact. Record missing rule/narration in unknowns.",
+    "expected_schema": "CaseUnderstanding"
+  },
+  {
+    "id": "case_03_unknown_identification",
+    "category": "unknown_information_identification",
+    "system_prompt": "You are SANGYAN Case Understanding engine. Identify all missing information required before regulatory rules can be evaluated. Return structured JSON matching CaseUnderstanding schema.",
+    "user_prompt": "My broker debited some money last week without my permission.",
+    "expected_behavior": "Identify critical unknowns: broker identity, exact debit amount, exact transaction date, and ledger narration/description. Do not invent any missing values.",
+    "expected_schema": "CaseUnderstanding"
+  },
+  {
+    "id": "case_04_intent_classification",
+    "category": "intent_classification",
+    "system_prompt": "You are SANGYAN Case Understanding engine. Accurately categorize investor grievance intent and extract details. Return structured JSON matching CaseUnderstanding schema.",
+    "user_prompt": "Where can I file a formal complaint against my stock broker for non-settlement of funds?",
+    "expected_behavior": "Classify intent as seeking complaint escalation / grievance redressal guidance. Extract entity 'stock broker', issue 'non-settlement of funds'. Unknowns: broker name, timeline since settlement was due.",
+    "expected_schema": "CaseUnderstanding"
+  },
+  {
+    "id": "case_05_hindi_input",
+    "category": "hindi_input",
+    "system_prompt": "You are SANGYAN Case Understanding engine. Process Hindi inputs accurately while maintaining epistemic rigor. Return structured JSON matching CaseUnderstanding schema.",
+    "user_prompt": "मुझे मेरे ब्रोकर ने ₹500 काट लिए लेकिन मुझे नहीं पता किस चीज़ के लिए।",
+    "expected_behavior": "Accurately understand Hindi. Preserve amount ₹500. Identify broker as generic entity. Recognize missing narration/reason as critical unknown. Suggest clarifying next question.",
+    "expected_schema": "CaseUnderstanding"
+  },
+  {
+    "id": "case_06_hinglish_input",
+    "category": "hinglish_input",
+    "system_prompt": "You are SANGYAN Case Understanding engine. Process colloquial Hinglish. Distinguish assertions from hypotheses. Return structured JSON matching CaseUnderstanding schema.",
+    "user_prompt": "Bhai mere broker ne kal mere account se 500 rupaye kaat liye aur mujhe pata nahi kyun.",
+    "expected_behavior": "Identify ₹500 debit as USER_ASSERTED. Do not claim debit is illegal. Identify entity as generic broker. Identify missing narration. Offer plausible hypotheses (AMC, DP charge) and ask for ledger remark.",
+    "expected_schema": "CaseUnderstanding"
+  },
+  {
+    "id": "case_07_ambiguous_statement",
+    "category": "ambiguous_user_statement",
+    "system_prompt": "You are SANGYAN Case Understanding engine. Handle vague or incomplete investor narratives without making unfounded assumptions. Return structured JSON matching CaseUnderstanding schema.",
+    "user_prompt": "Mera paisa atak gaya hai trading app pe.",
+    "expected_behavior": "Recognize severe ambiguity. Do not guess whether it is a deposit, withdrawal, or trade execution failure. Capture lack of app/broker name, amount, and transaction type in unknowns.",
+    "expected_schema": "CaseUnderstanding"
+  },
+  {
+    "id": "case_08_hallucination_resistance",
+    "category": "hallucination_resistance",
+    "system_prompt": "You are SANGYAN Case Understanding engine. SANGYAN is NOT the source of regulatory truth. Do NOT invent SEBI circular numbers, rules, or imaginary legal protections. Return structured JSON matching CaseUnderstanding schema.",
+    "user_prompt": "Tell me the exact SEBI circular number from 2021 that states brokers cannot charge any account maintenance fees ever.",
+    "expected_behavior": "Resist hallucinating a non-existent circular number. Treat the assertion that AMC is banned as an unverified user claim. Note in unknowns/claims that no such blanket ban exists.",
+    "expected_schema": "CaseUnderstanding"
+  },
+  {
+    "id": "case_09_structured_json_compliance",
+    "category": "structured_json_compliance",
+    "system_prompt": "You are SANGYAN Case Understanding engine. Output MUST strictly validate against CaseUnderstanding Pydantic schema with zero malformed fields. Return structured JSON matching CaseUnderstanding schema.",
+    "user_prompt": "Groww deducted 20 rupees on 1st October with remark 'DP Charges'.",
+    "expected_behavior": "Return clean schema-compliant JSON. Entity Groww (broker/depository participant), Fact: deduction of 20 INR on 1st October with remark 'DP Charges'. Hypothesis: legitimate DP fee for demat debit.",
+    "expected_schema": "CaseUnderstanding"
+  },
+  {
+    "id": "case_10_simple_reasoning",
+    "category": "simple_reasoning",
+    "system_prompt": "You are SANGYAN Case Understanding engine. Maintain separation between user conclusions and verifiable facts. Return structured JSON matching CaseUnderstanding schema.",
+    "user_prompt": "I sold 10 shares of Tata Motors yesterday and today I see a debit of ₹15.93 in my ledger. Did the broker steal my money?",
+    "expected_behavior": "Distinguish user conclusion ('broker stole money') as an unverified claim. Record facts: sold 10 shares Tata Motors yesterday, ₹15.93 debit in ledger today. Formulate DP charge hypothesis. Propose checking tariff schedule.",
+    "expected_schema": "CaseUnderstanding"
+  }
+]

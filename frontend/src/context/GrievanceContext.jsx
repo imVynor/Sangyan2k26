@@ -1,19 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useAuth } from './AuthContext'
-import { createGrievance, listGrievances, updateGrievance } from '../services/api'
-import { DONE_MESSAGE, FLOW, SECTIONS } from '../components/data/flow'
+import { listGrievances, startAiGrievance, submitAiTurn } from '../services/api'
+import { SECTIONS } from '../components/data/flow'
 
 const Ctx = createContext(null)
 export const useGrievance = () => useContext(Ctx)
-
-function snapshotFrom(grievance) {
-  return {
-    title: grievance.title,
-    step: grievance.step,
-    messages: grievance.messages,
-    entries: grievance.entries,
-  }
-}
 
 export function GrievanceProvider({ children }) {
   const { user, loading: authLoading } = useAuth()
@@ -53,33 +44,11 @@ export function GrievanceProvider({ children }) {
   const grievances = user?.id === loadedUserId ? storedGrievances : []
   const current = user?.id === loadedUserId ? storedCurrent : null
 
-  const persist = useCallback(async (recordId, snapshot) => {
-    setSaving(true)
-    setError('')
-    try {
-      const saved = await updateGrievance(recordId, snapshot)
-      setStoredCurrent(saved)
-      setStoredGrievances((records) => [saved, ...records.filter((record) => record.id !== saved.id)])
-      return saved
-    } catch (requestError) {
-      setError(requestError.message)
-      return null
-    } finally {
-      setSaving(false)
-    }
-  }, [])
-
   const start = useCallback(async (text) => {
-    const snapshot = {
-      title: text.slice(0, 255),
-      step: 0,
-      messages: [{ from: 'user', text }, { from: 'ai', text: FLOW[0].ai }],
-      entries: [{ title: 'What happened', text }],
-    }
     setSaving(true)
     setError('')
     try {
-      const saved = await createGrievance(snapshot)
+      const saved = await startAiGrievance(text)
       setLoadedUserId(user.id)
       setStoredCurrent(saved)
       setStoredGrievances((records) => [saved, ...records])
@@ -93,34 +62,27 @@ export function GrievanceProvider({ children }) {
     }
   }, [user])
 
-  const pick = useCallback(async (option) => {
-    if (!current || current.step >= FLOW.length || saving) return
-    const currentFlowStep = FLOW[current.step]
-    const nextStep = currentFlowStep.next ? currentFlowStep.next(option) : current.step + 1
-    const reply = nextStep < FLOW.length ? FLOW[nextStep].ai : DONE_MESSAGE
-    const next = {
-      ...snapshotFrom(current),
-      step: nextStep,
-      messages: [...current.messages, { from: 'user', text: option }, { from: 'ai', text: reply }],
-      entries: currentFlowStep.entry && (!currentFlowStep.entryIf || currentFlowStep.entryIf(option))
-        ? [...current.entries, currentFlowStep.entry]
-        : current.entries,
-    }
-    return Boolean(await persist(current.id, next))
-  }, [current, persist, saving])
-
   const ask = useCallback(async (text) => {
     if (!current || saving) return
-    const next = {
-      ...snapshotFrom(current),
-      messages: [
-        ...current.messages,
-        { from: 'user', text },
-        { from: 'ai', text: 'Good question. This guided workflow can use the details already saved in your report.' },
-      ],
+    if (!current.ai_case_id) {
+      setError('This saved report predates the AI assistant. Start a new grievance to continue with AI.')
+      return false
     }
-    return Boolean(await persist(current.id, next))
-  }, [current, persist, saving])
+    setSaving(true)
+    setError('')
+    try {
+      const result = await submitAiTurn(current.id, text)
+      const saved = result.grievance
+      setStoredCurrent(saved)
+      setStoredGrievances((records) => [saved, ...records.filter((record) => record.id !== saved.id)])
+      return true
+    } catch (requestError) {
+      setError(requestError.message)
+      return false
+    } finally {
+      setSaving(false)
+    }
+  }, [current, saving])
 
   const open = useCallback((record) => {
     setStoredCurrent(record)
@@ -128,10 +90,7 @@ export function GrievanceProvider({ children }) {
   }, [])
 
   const entries = current?.entries || []
-  const step = current?.step || 0
-  const isDone = step >= FLOW.length
-  const stage = FLOW[Math.min(step, FLOW.length - 1)].stage
-  const options = !current || isDone ? [] : FLOW[step]?.options || []
+  const stage = 'AI-guided assessment'
   const done = SECTIONS.filter((section) => entries.some((entry) => entry.title === section.key)).length
   const progress = useMemo(
     () => ({ done, total: SECTIONS.length, percent: Math.round((done / SECTIONS.length) * 100) }),
@@ -149,12 +108,11 @@ export function GrievanceProvider({ children }) {
     messages: current?.messages || [],
     entries,
     stage,
-    options,
     progress,
+    canChat: Boolean(current?.ai_case_id),
     reportOpen,
     setReportOpen,
     start,
-    pick,
     ask,
     open,
   }

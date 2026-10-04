@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -27,9 +27,26 @@ class GrievanceCreate(GrievanceSnapshot):
     pass
 
 
+class StartGrievanceRequest(BaseModel):
+    initial_message: str = Field(min_length=1, max_length=10_000)
+    language: str = Field(default="en", min_length=2, max_length=10)
+
+
+class SubmitGrievanceTurnRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=10_000)
+    language: str = Field(default="en", min_length=2, max_length=10)
+
+
 class GrievanceRead(GrievanceSnapshot):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
     created_at: datetime
     updated_at: datetime | None
+    ai_case_id: str | None = None
+    ai_version: int | None = None
+
+
+class GrievanceTurnResponse(BaseModel):
+    grievance: GrievanceRead
+    turn: dict[str, Any]
