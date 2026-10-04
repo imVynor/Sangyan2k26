@@ -100,18 +100,23 @@ Sungyan/
 │
 └── ai/                      # SANGYAN Python AI Engine & Epistemic Core
     ├── app/
-    │   ├── assessment/      # Epistemic assessment engine & rule evaluators (Phase 3)
-    │   ├── corpus/          # Authoritative documents, sections & provisions (Phase 1C-B)
-    │   ├── db/              # PostgreSQL + pgvector persistence repository (Phase 1C-A)
-    │   ├── extraction/      # Fact extraction, normalizer & document boundary (Phase 4)
-    │   ├── generation/      # Citation renderer & auditable response generator (Phase 4)
-    │   ├── ingestion/       # Deterministic HTML/PDF ingestion & fingerprinting (Phase 1B)
-    │   ├── knowledge/       # Canonical domain models, provenance & temporal scope (Phase 1A)
-    │   ├── models/          # LLM & Embedding provider abstractions (Phase 0)
-    │   └── retrieval/       # Hybrid provision retriever (BM25 + Dense pgvector) (Phase 2)
-    ├── evaluation/          # CLI evaluation runners (retrieval, assessment, end-to-end)
-    ├── scripts/             # Data migration, corpus acquisition & benchmark scripts
-    └── tests/               # 231 unit, integration, and property test suites
+│   │   ├── api/             # FastAPI REST endpoints & WebSocket event streaming (Phase 6B)
+│   │   ├── assessment/      # Epistemic assessment engine & rule evaluators (Phase 3)
+│   │   ├── case/            # Canonical case state, append-only events & repo (Phase 5)
+│   │   ├── clarification/   # Targeted evidentiary clarification planner (Phase 5)
+│   │   ├── corpus/          # Authoritative documents, sections & provisions (Phase 1C-B)
+│   │   ├── db/              # PostgreSQL + pgvector persistence repository (Phase 1C-A)
+│   │   ├── evidence_policy/ # Field & claim-specific authority resolution policies (Phase 6A)
+│   │   ├── extraction/      # Fact extraction, normalizer & document boundary (Phase 4)
+│   │   ├── generation/      # Citation renderer & auditable response generator (Phase 4)
+│   │   ├── ingestion/       # Deterministic HTML/PDF ingestion & fingerprinting (Phase 1B)
+│   │   ├── knowledge/       # Canonical domain models, provenance & temporal scope (Phase 1A)
+│   │   ├── models/          # LLM & Embedding provider abstractions (Phase 0)
+│   │   ├── orchestration/   # Authoritative Turn Lifecycle & State Machine (Phase 6A)
+│   │   └── retrieval/       # Hybrid provision retriever (BM25 + Dense pgvector) (Phase 2)
+│   ├── evaluation/          # CLI evaluation runners (orchestration, clarification, retrieval, assessment)
+│   ├── scripts/             # Latency profiling, benchmarks & data migrations
+│   └── tests/               # 286 unit, integration, property, and API test suites
 ```
 
 ---
@@ -163,11 +168,17 @@ DATABASE_URL=postgresql+psycopg://postgres:your_password@localhost:5432/ai_knowl
 OLLAMA_BASE_URL=http://localhost:11434
 ```
 
+Start the FastAPI reasoning server (REST + WebSocket):
+```bash
+uvicorn ai.app.api.app:app --host 0.0.0.0 --port 8000 --reload
+```
+Interactive API documentation will be available at: `http://localhost:8000/api/v1/docs`
+
 ---
 
 ### 3. Running AI Tests & Regression Suite
 
-Run the full pytest suite (231 tests covering all phases):
+Run the full pytest suite (286 tests covering all phases):
 ```bash
 python -m pytest ai/tests -q
 ```

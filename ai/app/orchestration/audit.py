@@ -41,7 +41,7 @@ class AuditReconstructor:
             }
             if snap:
                 entry["assessment_status"] = snap.assessment_result.status.value
-                entry["assessment_id"] = snap.assessment_result.assessment_id
+                entry["assessment_id"] = getattr(snap.assessment_result, "assessment_id", snap.snapshot_id)
                 entry["findings_count"] = len(snap.assessment_result.findings)
             timeline.append(entry)
 

@@ -24,10 +24,10 @@
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 1,
-          "duration_ms": 2.4272999999084277
+          "duration_ms": 2.6127000000997214
         }
       ],
-      "duration_ms": 2.7034999998249987
+      "duration_ms": 2.9330999996091123
     },
     {
       "case_id": "ORCH-02",
@@ -41,17 +41,17 @@
           "status": "REQUIRES_CLARIFICATION",
           "assessment_status": "EVIDENCE_INSUFFICIENT",
           "version": 1,
-          "duration_ms": 0.9549999999762804
+          "duration_ms": 1.0760000004665926
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 2,
-          "duration_ms": 1.8749000000752858
+          "duration_ms": 2.0896000005450333
         }
       ],
-      "duration_ms": 3.1644999999116408
+      "duration_ms": 3.5342999999556923
     },
     {
       "case_id": "ORCH-03",
@@ -65,17 +65,17 @@
           "status": "REQUIRES_CLARIFICATION",
           "assessment_status": "EVIDENCE_INSUFFICIENT",
           "version": 1,
-          "duration_ms": 0.6207999999787717
+          "duration_ms": 0.6573999999091029
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 2,
-          "duration_ms": 1.1238000001867476
+          "duration_ms": 1.2127999998483574
         }
       ],
-      "duration_ms": 2.0551000002342334
+      "duration_ms": 2.20770000032644
     },
     {
       "case_id": "ORCH-04",
@@ -89,17 +89,17 @@
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 1,
-          "duration_ms": 0.6379000001288659
+          "duration_ms": 0.698499999998603
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "COMPLIANT_WITH_REGULATION",
           "version": 2,
-          "duration_ms": 1.4276000001700595
+          "duration_ms": 1.5909000003375695
         }
       ],
-      "duration_ms": 2.404800000022078
+      "duration_ms": 2.6639999996405095
     },
     {
       "case_id": "ORCH-05",
@@ -113,17 +113,17 @@
           "status": "RESOLVED",
           "assessment_status": "COMPLIANT_WITH_REGULATION",
           "version": 1,
-          "duration_ms": 0.7624999998370185
+          "duration_ms": 0.8144000003085239
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 2,
-          "duration_ms": 1.7745000000104483
+          "duration_ms": 1.5880000000834116
         }
       ],
-      "duration_ms": 2.924899999925401
+      "duration_ms": 2.7946000000156346
     },
     {
       "case_id": "ORCH-06",
@@ -137,17 +137,17 @@
           "status": "RESOLVED",
           "assessment_status": "COMPLIANT_WITH_REGULATION",
           "version": 1,
-          "duration_ms": 0.9124000002884713
+          "duration_ms": 0.7815999997546896
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 2,
-          "duration_ms": 1.4889999997649284
+          "duration_ms": 1.4576999992641504
         }
       ],
-      "duration_ms": 2.7721999999812397
+      "duration_ms": 2.604100000098697
     },
     {
       "case_id": "ORCH-07",
@@ -161,17 +161,17 @@
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 1,
-          "duration_ms": 0.723199999811186
+          "duration_ms": 0.729900000806083
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "COMPLIANT_WITH_REGULATION",
           "version": 2,
-          "duration_ms": 1.5745000000606524
+          "duration_ms": 1.5702000000601402
         }
       ],
-      "duration_ms": 2.673899999990681
+      "duration_ms": 2.684699999917939
     },
     {
       "case_id": "ORCH-08",
@@ -185,17 +185,17 @@
           "status": "RESOLVED",
           "assessment_status": "COMPLIANT_WITH_REGULATION",
           "version": 1,
-          "duration_ms": 0.7276000001184002
+          "duration_ms": 0.7288999995580525
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 2,
-          "duration_ms": 1.3972000001558627
+          "duration_ms": 1.4456999997491948
         }
       ],
-      "duration_ms": 2.468700000008539
+      "duration_ms": 2.5353000000905013
     },
     {
       "case_id": "ORCH-09",
@@ -209,17 +209,17 @@
           "status": "REQUIRES_CLARIFICATION",
           "assessment_status": "EVIDENCE_INSUFFICIENT",
           "version": 1,
-          "duration_ms": 0.6763000001228647
+          "duration_ms": 0.6645000003118184
         },
         {
           "turn": 2,
           "status": "CLOSED_INSUFFICIENT",
           "assessment_status": "EVIDENCE_INSUFFICIENT",
           "version": 2,
-          "duration_ms": 0.964299999850482
+          "duration_ms": 0.9440000003451132
         }
       ],
-      "duration_ms": 1.933500000177446
+      "duration_ms": 1.9013000000995817
     },
     {
       "case_id": "ORCH-10",
@@ -233,24 +233,24 @@
           "status": "REQUIRES_CLARIFICATION",
           "assessment_status": "EVIDENCE_INSUFFICIENT",
           "version": 1,
-          "duration_ms": 0.6232000000636617
+          "duration_ms": 0.5740999995396123
         },
         {
           "turn": 2,
           "status": "REQUIRES_CLARIFICATION",
           "assessment_status": "EVIDENCE_INSUFFICIENT",
           "version": 2,
-          "duration_ms": 0.9637999996812141
+          "duration_ms": 0.9431999997104867
         },
         {
           "turn": 3,
           "status": "CLOSED_INSUFFICIENT",
           "assessment_status": "EVIDENCE_INSUFFICIENT",
           "version": 3,
-          "duration_ms": 1.065299999936542
+          "duration_ms": 0.9995000000344589
         }
       ],
-      "duration_ms": 2.9926000001978537
+      "duration_ms": 2.8611000007003895
     },
     {
       "case_id": "ORCH-11",
@@ -264,17 +264,17 @@
           "status": "REQUIRES_CLARIFICATION",
           "assessment_status": "EVIDENCE_INSUFFICIENT",
           "version": 1,
-          "duration_ms": 0.7258999999066873
+          "duration_ms": 0.7063999992169556
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "COMPLIANT_WITH_REGULATION",
           "version": 2,
-          "duration_ms": 1.247000000148546
+          "duration_ms": 1.2213999998493819
         }
       ],
-      "duration_ms": 2.3090999998203188
+      "duration_ms": 2.2608999997828505
     },
     {
       "case_id": "ORCH-12",
@@ -288,17 +288,17 @@
           "status": "REQUIRES_CLARIFICATION",
           "assessment_status": "REGULATORY_COVERAGE_UNRESOLVED",
           "version": 1,
-          "duration_ms": 0.39930000002641464
+          "duration_ms": 0.38670000049023656
         },
         {
           "turn": 2,
           "status": "CLOSED_INSUFFICIENT",
           "assessment_status": "REGULATORY_COVERAGE_UNRESOLVED",
           "version": 2,
-          "duration_ms": 0.5957000003036228
+          "duration_ms": 0.5955000005997135
         }
       ],
-      "duration_ms": 1.2071000001014909
+      "duration_ms": 1.202700000249024
     },
     {
       "case_id": "ORCH-13",
@@ -312,7 +312,7 @@
           "handled_retrieval_failure": true
         }
       ],
-      "duration_ms": 0.28389999988576164
+      "duration_ms": 0.2581999997346429
     },
     {
       "case_id": "ORCH-14",
@@ -326,10 +326,10 @@
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 1,
-          "duration_ms": 0.7748000002720801
+          "duration_ms": 0.7408000001305481
         }
       ],
-      "duration_ms": 1.020199999857141
+      "duration_ms": 0.9740000004967442
     },
     {
       "case_id": "ORCH-15",
@@ -343,17 +343,17 @@
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 1,
-          "duration_ms": 0.8058999997047067
+          "duration_ms": 0.8094999993772944
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 1,
-          "duration_ms": 0.2349000001231616
+          "duration_ms": 0.23090000013326062
         }
       ],
-      "duration_ms": 1.3057000001026609
+      "duration_ms": 1.304599999457423
     },
     {
       "case_id": "ORCH-16",
@@ -367,14 +367,14 @@
           "status": "REQUIRES_CLARIFICATION",
           "assessment_status": "REGULATORY_COVERAGE_UNRESOLVED",
           "version": 1,
-          "duration_ms": 0.36630000022341846
+          "duration_ms": 0.3625999997893814
         },
         {
           "turn": 2,
           "handled_conflict": true
         }
       ],
-      "duration_ms": 0.6370999999489868
+      "duration_ms": 0.6340999998428742
     },
     {
       "case_id": "ORCH-17",
@@ -388,17 +388,17 @@
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 1,
-          "duration_ms": 0.662200000078883
+          "duration_ms": 0.6932999995115097
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "COMPLIANT_WITH_REGULATION",
           "version": 2,
-          "duration_ms": 1.4081999997870298
+          "duration_ms": 1.377600000523671
         }
       ],
-      "duration_ms": 2.408500000001368
+      "duration_ms": 2.4017000005187583
     },
     {
       "case_id": "ORCH-18",
@@ -412,24 +412,24 @@
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 1,
-          "duration_ms": 0.7914000002529065
+          "duration_ms": 0.7418000004690839
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 2,
-          "duration_ms": 1.3865000000805594
+          "duration_ms": 1.4086999999562977
         },
         {
           "turn": 3,
           "status": "RESOLVED",
           "assessment_status": "COMPLIANT_WITH_REGULATION",
           "version": 3,
-          "duration_ms": 1.7420999997739273
+          "duration_ms": 1.761100000294391
         }
       ],
-      "duration_ms": 4.383699999834789
+      "duration_ms": 4.3694999994841055
     },
     {
       "case_id": "ORCH-19",
@@ -443,10 +443,10 @@
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 1,
-          "duration_ms": 0.7370000002993038
+          "duration_ms": 0.7460000006176415
         }
       ],
-      "duration_ms": 1.0023999998338695
+      "duration_ms": 1.0061000002679066
     },
     {
       "case_id": "ORCH-20",
@@ -460,17 +460,17 @@
           "status": "REQUIRES_CLARIFICATION",
           "assessment_status": "EVIDENCE_INSUFFICIENT",
           "version": 1,
-          "duration_ms": 0.6843999999546213
+          "duration_ms": 0.6182999995871796
         },
         {
           "turn": 2,
           "status": "RESOLVED",
           "assessment_status": "VIOLATION_CONFIRMED",
           "version": 2,
-          "duration_ms": 1.0605000002215093
+          "duration_ms": 1.067700000021432
         }
       ],
-      "duration_ms": 2.0461999997678504
+      "duration_ms": 1.9923999998354702
     }
   ]
 }
