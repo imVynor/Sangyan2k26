@@ -1,4 +1,4 @@
-# SANGYAN 2K26
+﻿# SANGYAN 2K26
 
 SANGYAN is an investor-grievance assistant for Indian securities and brokerage issues. The React frontend uses the authenticated FastAPI application for account and report storage. That backend forwards grievance conversations to the SANGYAN AI reasoning service.
 
