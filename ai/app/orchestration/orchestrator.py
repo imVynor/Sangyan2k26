@@ -73,6 +73,9 @@ from ai.app.retrieval.contracts import RetrievalResponse
 logger = logging.getLogger("sangyan.orchestration.orchestrator")
 
 
+_DEFAULT_RETRIEVER = object()
+
+
 class CaseOrchestrator:
     """The central authority for executing grievance reasoning turns."""
 
@@ -84,7 +87,7 @@ class CaseOrchestrator:
         evidence_resolver: EvidencePolicyResolver | None = None,
         planner: ClarificationPlanner | None = None,
         generator: AuditableResponseGenerator | None = None,
-        retriever: Any = None,
+        retriever: Any = _DEFAULT_RETRIEVER,
         knowledge_snapshot_id: str = "KNOW-2026-V1",
     ) -> None:
         self.repository = repository or InMemoryCaseRepository()
@@ -93,7 +96,11 @@ class CaseOrchestrator:
         self.evidence_resolver = evidence_resolver or EvidencePolicyResolver.default()
         self.planner = planner or ClarificationPlanner(max_questions_per_turn=2, max_rounds=3)
         self.generator = generator or AuditableResponseGenerator()
-        self.retriever = retriever
+        if retriever is _DEFAULT_RETRIEVER:
+            from ai.app.retrieval.retriever import DefaultProvisionRetriever
+            self.retriever = DefaultProvisionRetriever.create_default()
+        else:
+            self.retriever = retriever
         self.knowledge_snapshot_id = knowledge_snapshot_id
 
     async def process_turn(
@@ -349,9 +356,14 @@ class CaseOrchestrator:
         retrieval: RetrievalResponse
         if input_event.metadata.get("retrieval_response"):
             retrieval = input_event.metadata["retrieval_response"]
-        elif self.retriever and affected_dimensions:
+        elif self.retriever and (affected_dimensions or state.retrieval_state is None):
             try:
-                retrieval = await self._retrieve_incrementally(operative_facts, affected_dimensions)
+                retrieval = await self._retrieve_incrementally(
+                    facts=operative_facts,
+                    affected_dimensions=affected_dimensions,
+                    raw_text=input_text,
+                    reference_date=input_event.reference_date,
+                )
             except Exception as r_err:
                 logger.error(f"Retrieval failed: {r_err}")
                 raise RetrievalError(str(r_err))
@@ -656,23 +668,43 @@ class CaseOrchestrator:
         self,
         facts: dict[str, Any],
         affected_dimensions: set[str],
+        raw_text: str = "",
+        reference_date: Any = None,
     ) -> RetrievalResponse:
         """Execute incremental provision retrieval for affected case dimensions."""
         if hasattr(self.retriever, "retrieve"):
-            # Construct query from changed facts
-            query_parts = []
-            if "organisation" in facts:
-                query_parts.append(str(facts["organisation"]))
-            if "transaction_type" in facts:
-                query_parts.append(str(facts["transaction_type"]))
-            query_str = " ".join(query_parts) or "DP charge tariff regulatory ceiling"
+            # Construct query from natural grievance text and facts
+            query_str = raw_text.strip() or "DP charge tariff regulatory ceiling"
+
+            # Normalize organisation if present
+            org_id = None
+            if "organisation" in facts and facts["organisation"]:
+                raw_org = str(facts["organisation"]).upper()
+                if raw_org.startswith("ORG_"):
+                    org_id = raw_org
+                elif raw_org in ("ZERODHA", "ANGELONE", "ANGEL_ONE", "GROWW", "UPSTOX", "ICICIDIRECT", "ICICI_DIRECT"):
+                    normalized_name = raw_org.replace("_", "")
+                    org_id = f"ORG_{normalized_name}"
+                else:
+                    org_id = f"ORG_{raw_org}"
+
+            inc_date = facts.get("transaction_date") or reference_date
+
+            key_terms: list[str] = []
+            if "transaction_type" in facts and facts["transaction_type"]:
+                key_terms.append(str(facts["transaction_type"]))
+            if "account_type" in facts and facts["account_type"]:
+                key_terms.append(str(facts["account_type"]))
+            if facts.get("is_bsda"):
+                key_terms.append("BSDA")
 
             from ai.app.retrieval.contracts import RetrievalQuery
             req = RetrievalQuery(
                 query_text=query_str,
-                organisation_id=str(facts["organisation"]) if "organisation" in facts else None,
-                incident_date=facts.get("transaction_date"),
-                reference_date=facts.get("transaction_date"),
+                organisation_id=org_id,
+                incident_date=inc_date,
+                reference_date=inc_date,
+                key_terms=key_terms,
                 top_k=10,
             )
             import inspect

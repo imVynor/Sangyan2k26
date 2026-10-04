@@ -17,6 +17,8 @@ from ai.app.case.contracts import CaseState, CaseStatus
 from ai.app.extraction.document_extractor import DocumentExtractionPayload, DocumentSpan
 from ai.app.orchestration.contracts import OrchestrationInputEvent
 from ai.app.orchestration.orchestrator import CaseOrchestrator
+from ai.evaluation.runners.causal import CausalFailure, classify_causal_failure
+from ai.evaluation.runners.retriever_guard import assert_real_retriever
 from ai.evaluation.corpus.models import (
     CaseEvaluationReport,
     EvaluationCase,
@@ -37,8 +39,17 @@ logger = logging.getLogger("sangyan.evaluation.runner.case")
 class SingleCaseEvaluator:
     """Executes a single benchmark grievance case through SANGYAN and evaluates all stages."""
 
-    def __init__(self, orchestrator: CaseOrchestrator | None = None) -> None:
+    def __init__(
+        self,
+        orchestrator: CaseOrchestrator | None = None,
+        require_real_retriever: bool = True,
+    ) -> None:
+        # Default CaseOrchestrator() resolves to the PostgreSQL-backed DefaultProvisionRetriever.
         self.orchestrator = orchestrator or CaseOrchestrator()
+        self.require_real_retriever = require_real_retriever
+        if require_real_retriever:
+            # Fails loudly if a mock/stub retriever was injected into a real benchmark.
+            assert_real_retriever(self.orchestrator.retriever)
         self.fact_evaluator = FactEvaluator()
         self.issue_evaluator = IssueEvaluator()
         self.retrieval_evaluator = ProvisionRetrievalEvaluator()
@@ -49,6 +60,25 @@ class SingleCaseEvaluator:
         self.grounding_evaluator = GroundingEvaluator()
 
     async def evaluate_case(self, case: EvaluationCase) -> CaseEvaluationReport:
+        """Run case; operational (infrastructure) errors never become epistemic outcomes."""
+        start = time.perf_counter()
+        try:
+            return await self._evaluate_case_inner(case)
+        except Exception as exc:  # noqa: BLE001
+            logger.error(f"Operational failure evaluating {case.case_id}: {exc}", exc_info=True)
+            return CaseEvaluationReport(
+                case_id=case.case_id,
+                title=case.title,
+                category=case.category,
+                difficulty=case.difficulty,
+                overall_passed=False,
+                failure_class=CausalFailure.OPERATIONAL_FAILURE.value,
+                operational_error=f"{type(exc).__name__}: {exc}"[:500],
+                latency_ms=(time.perf_counter() - start) * 1000.0,
+                executed_at=datetime.now(timezone.utc),
+            )
+
+    async def _evaluate_case_inner(self, case: EvaluationCase) -> CaseEvaluationReport:
         """Run case and evaluate against gold expectations."""
         start_time = time.perf_counter()
 
@@ -231,12 +261,32 @@ class SingleCaseEvaluator:
             stages[s].passed for s in critical_stages if s in stages
         ) and not false_violation and not false_compliance
 
-        # Primary failure class identification
-        failure_class = None
+        # Phase 7A per-stage failure class (preserved)
+        stage_failure_class = None
         for s in ["ASSESSMENT", "PROVISION_RETRIEVAL", "FACT_EXTRACTION", "CLARIFICATION", "GROUNDING"]:
             if s in stages and not stages[s].passed and stages[s].failure_class:
-                failure_class = stages[s].failure_class
+                stage_failure_class = stages[s].failure_class
                 break
+
+        # Phase 7B: earliest causal failure
+        rstats = dict(turn_result.retrieval_response.retrieval_stats or {})
+        reasons = [getattr(r, "value", str(r)) for r in turn_result.retrieval_response.failure_reasons]
+        causal = classify_causal_failure(
+            passed=overall_passed,
+            operational_error=None,
+            stages=stages,
+            retrieval_stats=rstats,
+            retrieval_result_count=len(retrieved_pids),
+            expected_provision_count=len(case.expected_provisions or []),
+            blocked_by_corpus_gap=bool(case.is_blocked_by_corpus_gap),
+            failure_reasons=reasons,
+        )
+        failure_class = causal.value if causal else None
+
+        diagnostics = {k: v for k, v in rstats.items() if k != "duration_ms"}
+        diagnostics["failure_reasons"] = reasons
+        diagnostics["result_count"] = len(retrieved_pids)
+        diagnostics["citations_resolved"] = sum(1 for r in turn_result.retrieval_response.results if r.citation and r.source_url is not None and r.document_id)
 
         return CaseEvaluationReport(
             case_id=case.case_id,
@@ -248,6 +298,8 @@ class SingleCaseEvaluator:
             false_violation=false_violation,
             false_compliance=false_compliance,
             failure_class=failure_class,
+            stage_failure_class=stage_failure_class,
+            retrieval_diagnostics=diagnostics,
             latency_ms=latency_ms,
             executed_at=datetime.now(timezone.utc),
         )

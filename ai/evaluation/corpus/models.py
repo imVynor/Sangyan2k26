@@ -272,6 +272,9 @@ class CaseEvaluationReport(BaseModel):
     false_violation: bool = False
     false_compliance: bool = False
     failure_class: str | None = None
+    stage_failure_class: str | None = None  # Phase 7A per-stage class, preserved when causal class overrides
+    retrieval_diagnostics: dict[str, Any] = Field(default_factory=dict)
+    operational_error: str | None = None
     latency_ms: float = 0.0
     executed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 

@@ -38,6 +38,7 @@ async def run_evaluation_suite(
     case_id: str | None = None,
     model: str = "sangyan-deterministic-v1",
     output_path: Path | None = None,
+    run_label: str = "7B-REAL-RETRIEVAL",
 ) -> int:
     """Execute evaluation cases and generate formatted terminal and JSON reports."""
     loader = CorpusLoader()
@@ -58,8 +59,11 @@ async def run_evaluation_suite(
     print(f"Executing Suite: '{suite}' | Total Cases: {len(cases)} | Model: {model}")
     print("=" * 65)
 
+    # Default CaseOrchestrator() => real DefaultProvisionRetriever (PostgreSQL + pgvector).
     orchestrator = CaseOrchestrator()
-    evaluator = SingleCaseEvaluator(orchestrator=orchestrator)
+    # Raises MockRetrieverInRealBenchmarkError if anything but the real retriever is wired.
+    evaluator = SingleCaseEvaluator(orchestrator=orchestrator, require_real_retriever=True)
+    print(f"Run label: {run_label} | Retriever: {type(orchestrator.retriever).__name__}")
 
     case_reports = []
     start_time = time.perf_counter()
@@ -79,12 +83,27 @@ async def run_evaluation_suite(
     total_duration = time.perf_counter() - start_time
 
     # Aggregate results
+    diag_cases = [c for c in case_reports if c.retrieval_diagnostics]
+    total_results = sum(c.retrieval_diagnostics.get("result_count", 0) for c in diag_cases)
+    resolved = sum(c.retrieval_diagnostics.get("citations_resolved", 0) for c in diag_cases)
+    causal_counts: dict[str, int] = {}
+    for c in case_reports:
+        if not c.overall_passed:
+            key = c.failure_class or "OTHER"
+            causal_counts[key] = causal_counts.get(key, 0) + 1
     metadata = {
+        "run_label": run_label,
+        "retriever_class": type(orchestrator.retriever).__name__,
+        "retrieval_mode": "real_postgres_pgvector_hybrid",
         "model": model,
-        "embedding_model": "bge-base-en-v1.5",
+        "embedding_model": "nomic-embed-text:v1.5 (Ollama)",
         "knowledge_snapshot": "KNOW-2026-V1",
-        "benchmark_version": "7A-1.0",
+        "benchmark_version": "7B-1.0",
         "total_duration_sec": round(total_duration, 2),
+        "citation_resolution_rate": round(resolved / total_results, 4) if total_results else 0.0,
+        "causal_failure_counts": causal_counts,
+        "operational_failures": [c.case_id for c in case_reports if c.failure_class == "OPERATIONAL_FAILURE"],
+        "cases_with_empty_retrieval": sum(1 for c in diag_cases if c.retrieval_diagnostics.get("result_count", 0) == 0),
     }
 
     summary = BenchmarkAggregator.aggregate(

@@ -24,6 +24,7 @@ from ai.app.retrieval.contracts import (
     HybridRetrievalConfig,
     RetrievalCandidate,
     RetrievalFailureReason,
+    RetrievalMode,
     RetrievalQuery,
     RetrievalResponse,
     RetrievalResult,
@@ -78,6 +79,28 @@ class DefaultProvisionRetriever:
 
         # In-memory provision cache for offline test mode
         self._in_memory_provisions: list[Provision] = []
+
+    @classmethod
+    def create_default(
+        cls,
+        embedding_provider: EmbeddingProvider | None = None,
+        config: HybridRetrievalConfig | None = None,
+    ) -> "DefaultProvisionRetriever":
+        """Instantiate the default production retriever wired to Ollama embeddings and PostgreSQL."""
+        if embedding_provider is None:
+            from ai.app.config.settings import settings
+            from ai.app.retrieval.embedding_provider import OllamaEmbeddingProvider
+            base_url = getattr(settings, "ollama_base_url", "http://localhost:11434")
+            embedding_provider = OllamaEmbeddingProvider(
+                base_url=base_url,
+                model_id="nomic-embed-text",
+                model_version="v1.5",
+                dimension=768,
+            )
+        return cls(
+            embedding_provider=embedding_provider,
+            config=config,
+        )
 
     def set_in_memory_provisions(self, provisions: Sequence[Provision]) -> None:
         """Configure retriever to run against an in-memory provision list for isolated unit tests."""
@@ -154,13 +177,35 @@ class DefaultProvisionRetriever:
         if not candidate_ids:
             duration = time.perf_counter() - start_time
             failure_reasons.append(RetrievalFailureReason.NO_RELEVANT_PROVISIONS)
+            ret_mode = query.mode.value if hasattr(query.mode, "value") else str(query.mode)
             return RetrievalResponse(
                 results=[],
                 failure_reasons=failure_reasons,
                 total_candidates_found=0,
                 routed_authorities=routed_authorities,
                 routed_organisations=routed_organisations,
-                retrieval_stats={"duration_ms": round(duration * 1000, 2), "channel_counts": {"lexical": 0, "vector": 0, "citation": 0}},
+                retrieval_stats={
+                    "retrieval_mode": ret_mode,
+                    "retriever_class": self.__class__.__name__,
+                    "query": query.query_text or query.issue or "",
+                    "candidate_count": 0,
+                    "lexical_candidates": len(lex_results),
+                    "dense_candidates": len(vec_results),
+                    "citation_candidates": len(cit_results),
+                    "hybrid_candidates": 0,
+                    "reranked_candidates": 0,
+                    "temporal_filter_applied": bool(query.incident_date or query.reference_date),
+                    "authority_filter_applied": bool(routed_authorities),
+                    "target_org_filter_applied": bool(routed_organisations),
+                    "citation_resolution_status": "NONE",
+                    "temporal_regime": "CURRENT" if query.mode == RetrievalMode.CURRENT_RULES else "HISTORICAL",
+                    "duration_ms": round(duration * 1000, 2),
+                    "channel_counts": {
+                        "lexical": len(lex_results),
+                        "vector": len(vec_results),
+                        "citation": len(cit_results),
+                    },
+                },
             )
 
         # 4. Fetch Full Provision Entities
@@ -222,6 +267,14 @@ class DefaultProvisionRetriever:
             )
             candidates.append(cand)
 
+        # 5b. Organisation integrity: when the target organisation is known, policy provisions
+        # owned by a *different* organisation are never applicable to this case.
+        cross_org_excluded = 0
+        if query.organisation_id:
+            kept = [c for c in candidates if not c.organisation_id or c.organisation_id == query.organisation_id]
+            cross_org_excluded = len(candidates) - len(kept)
+            candidates = kept
+
         # 6. Hybrid Scoring and Temporal Validation
         scored_candidates = self.scorer.score_and_validate(
             candidates=candidates,
@@ -248,6 +301,10 @@ class DefaultProvisionRetriever:
                 failure_reasons.append(RetrievalFailureReason.TEMPORALITY_UNRESOLVED)
 
         duration = time.perf_counter() - start_time
+        ret_mode = query.mode.value if hasattr(query.mode, "value") else str(query.mode)
+        has_citations = bool(final_results) and all(bool(r.citation) for r in final_results)
+        cit_status = "RESOLVED" if has_citations else ("NONE" if not final_results else "PARTIAL")
+
         return RetrievalResponse(
             results=final_results,
             failure_reasons=failure_reasons,
@@ -255,6 +312,21 @@ class DefaultProvisionRetriever:
             routed_authorities=routed_authorities,
             routed_organisations=routed_organisations,
             retrieval_stats={
+                "retrieval_mode": ret_mode,
+                "retriever_class": self.__class__.__name__,
+                "query": query.query_text or query.issue or "",
+                "candidate_count": len(candidate_ids),
+                "lexical_candidates": len(lex_results),
+                "dense_candidates": len(vec_results),
+                "citation_candidates": len(cit_results),
+                "hybrid_candidates": len(scored_candidates),
+                "cross_org_excluded": cross_org_excluded,
+                "reranked_candidates": len(final_results),
+                "temporal_filter_applied": bool(query.incident_date or query.reference_date),
+                "authority_filter_applied": bool(routed_authorities),
+                "target_org_filter_applied": bool(routed_organisations),
+                "citation_resolution_status": cit_status,
+                "temporal_regime": "CURRENT" if query.mode == RetrievalMode.CURRENT_RULES else "HISTORICAL",
                 "duration_ms": round(duration * 1000, 2),
                 "candidates_merged": len(candidate_ids),
                 "channel_counts": {

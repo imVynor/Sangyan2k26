@@ -66,7 +66,7 @@ from ai.app.orchestration.contracts import (
     RetrievalError,
 )
 from ai.app.orchestration.orchestrator import CaseOrchestrator
-from ai.app.retrieval.contracts import RetrievalResponse
+from ai.app.retrieval.contracts import RetrievalFailureReason, RetrievalResponse
 
 
 @pytest.fixture
@@ -75,8 +75,19 @@ def repo() -> InMemoryCaseRepository:
 
 
 @pytest.fixture
-def orchestrator(repo: InMemoryCaseRepository) -> CaseOrchestrator:
-    return CaseOrchestrator(repository=repo)
+def mock_retriever():
+    ret = AsyncMock()
+    ret.retrieve.return_value = RetrievalResponse(
+        results=[],
+        failure_reasons=[RetrievalFailureReason.NO_RELEVANT_PROVISIONS],
+        total_candidates_found=0,
+    )
+    return ret
+
+
+@pytest.fixture
+def orchestrator(repo: InMemoryCaseRepository, mock_retriever) -> CaseOrchestrator:
+    return CaseOrchestrator(repository=repo, retriever=mock_retriever)
 
 
 @pytest.fixture
@@ -115,6 +126,8 @@ def test_01_create_case(client: TestClient):
         AssessmentStatus.VIOLATION_CONFIRMED.value,
         AssessmentStatus.COMPLIANT_WITH_REGULATION.value,
         AssessmentStatus.REGULATORY_COVERAGE_UNRESOLVED.value,
+        AssessmentStatus.TEMPORALITY_UNRESOLVED.value,
+        AssessmentStatus.ORGANISATION_POLICY_DEVIATION.value,
     ]
 
 
