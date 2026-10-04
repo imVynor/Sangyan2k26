@@ -1,4 +1,5 @@
 # Dependencies
+
 node_modules/
 */node_modules/
 .pnp
@@ -38,3 +39,5 @@ lerna-debug.log*
 *.sw?
 .DS_Store
 Thumbs.db
+# docker data
+docker-data/

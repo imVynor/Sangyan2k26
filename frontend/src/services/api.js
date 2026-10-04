@@ -1,97 +1,128 @@
-// API service with automatic proxy support & graceful client-side fallback
-const API_BASE = '/api';
+const API_ROOT = '/api/v1'
+let csrfToken = null
 
-/**
- * Pings the backend health & mock connection endpoint
- */
-export const checkBackendHealth = async () => {
-  const startTime = performance.now();
+export class ApiError extends Error {
+  constructor(message, status) {
+    super(message)
+    this.name = 'ApiError'
+    this.status = status
+  }
+}
+
+function errorMessage(payload, status) {
+  const detail = payload?.detail
+  if (typeof detail === 'string') return detail
+  if (Array.isArray(detail)) return detail.map((item) => item.msg).join(', ')
+  return payload?.message || `Request failed (${status})`
+}
+
+async function request(path, options = {}) {
+  const method = (options.method || 'GET').toUpperCase()
+  const headers = new Headers(options.headers)
+
+  if (csrfToken && !['GET', 'HEAD', 'OPTIONS'].includes(method) && path !== '/auth/login') {
+    headers.set('X-CSRF-Token', csrfToken)
+  }
+
+  const response = await fetch(`${API_ROOT}${path}`, {
+    ...options,
+    method,
+    headers,
+    credentials: 'include',
+  })
+
+  if (response.status === 204) return null
+
+  const contentType = response.headers.get('content-type') || ''
+  const payload = contentType.includes('application/json') ? await response.json() : null
+  if (!response.ok) throw new ApiError(errorMessage(payload, response.status), response.status)
+  return payload
+}
+
+function jsonRequest(path, method, value) {
+  return request(path, {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(value),
+  })
+}
+
+export function setCsrfToken(token) {
+  csrfToken = token || null
+}
+
+export async function refreshCsrfToken() {
+  const result = await request('/auth/refresh-csrf', { method: 'POST' })
+  setCsrfToken(result.csrf_token)
+  return result.csrf_token
+}
+
+export async function checkBackendHealth() {
+  const startTime = performance.now()
   try {
-    const response = await fetch(`${API_BASE}/health`, {
-      headers: { 'Accept': 'application/json' },
-    });
-
-    const latency = Math.round(performance.now() - startTime);
-
-    if (!response.ok) {
-      throw new Error(`Server returned HTTP ${response.status}`);
-    }
-
-    const data = await response.json();
-    return {
-      connected: true,
-      latency,
-      data,
-      isLocalMock: false,
-    };
+    const response = await fetch('/health', { headers: { Accept: 'application/json' } })
+    const latency = Math.round(performance.now() - startTime)
+    if (!response.ok) throw new ApiError(`Backend returned HTTP ${response.status}`, response.status)
+    return { connected: true, latency, data: await response.json() }
   } catch (error) {
-    const latency = Math.round(performance.now() - startTime);
     return {
       connected: false,
-      latency,
+      latency: Math.round(performance.now() - startTime),
       error: error.message,
-      data: {
-        status: 'offline',
-        message: 'Backend server is not reachable yet at http://localhost:5000.',
-        database: { mode: 'Offline', connected: false },
-      },
-      isLocalMock: true,
-    };
+      data: { status: 'offline' },
+    }
   }
-};
+}
 
-/**
- * Fetches items from backend
- */
-export const fetchItems = async () => {
-  try {
-    const res = await fetch(`${API_BASE}/items`);
-    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-    return await res.json();
-  } catch (error) {
-    console.warn('API error fetching items, using client mock state:', error.message);
-    throw error;
+export async function getCurrentUser() {
+  const auth = await request('/auth/check-auth')
+  if (!auth.authenticated) {
+    setCsrfToken(null)
+    return null
   }
-};
+  const user = await request('/users/me')
+  await refreshCsrfToken()
+  return user
+}
 
-/**
- * Creates an item
- */
-export const createItem = async (itemData) => {
-  const res = await fetch(`${API_BASE}/items`, {
+export async function loginWithPassword(identifier, password) {
+  const form = new URLSearchParams({ username: identifier, password })
+  const result = await request('/auth/login', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(itemData),
-  });
-  if (!res.ok) {
-    const errData = await res.json().catch(() => ({}));
-    throw new Error(errData.message || `Failed to create item (${res.status})`);
-  }
-  return await res.json();
-};
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: form,
+  })
+  setCsrfToken(result.csrf_token)
+  return request('/users/me')
+}
 
-/**
- * Toggles completed status
- */
-export const toggleItem = async (id) => {
-  const res = await fetch(`${API_BASE}/items/${id}/toggle`, {
-    method: 'PATCH',
-  });
-  if (!res.ok) {
-    throw new Error(`Failed to toggle item (${res.status})`);
-  }
-  return await res.json();
-};
+export async function registerAndLogin({ name, username, email, password }) {
+  await jsonRequest('/users/', 'POST', { name, username, email, password })
+  return loginWithPassword(username, password)
+}
 
-/**
- * Deletes an item
- */
-export const deleteItem = async (id) => {
-  const res = await fetch(`${API_BASE}/items/${id}`, {
-    method: 'DELETE',
-  });
-  if (!res.ok) {
-    throw new Error(`Failed to delete item (${res.status})`);
-  }
-  return await res.json();
-};
+export async function logout() {
+  await request('/auth/logout', { method: 'POST' })
+  setCsrfToken(null)
+}
+
+export function beginGoogleLogin() {
+  const query = new URLSearchParams({ redirect_to: '/' })
+  window.location.assign(`${API_ROOT}/auth/oauth/google?${query}`)
+}
+
+export function listGrievances() {
+  return request('/grievances/')
+}
+
+export function createGrievance(snapshot) {
+  return jsonRequest('/grievances/', 'POST', snapshot)
+}
+
+export function updateGrievance(id, snapshot) {
+  return jsonRequest(`/grievances/${id}`, 'PUT', snapshot)
+}
+
+export function deleteGrievance(id) {
+  return request(`/grievances/${id}`, { method: 'DELETE' })
+}

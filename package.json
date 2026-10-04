@@ -1,17 +1,16 @@
 {
-  "name": "sungyan-mern-starter",
+  "name": "sangyan2k26",
   "version": "1.0.0",
-  "description": "Production-ready MERN stack template with mock connection fallback",
+  "description": "React and FastAPI financial grievance assistant",
   "private": true,
   "scripts": {
-    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"yellow,cyan\" \"npm run dev:server\" \"npm run dev:client\"",
-    "dev:server": "npm run dev --prefix backend",
-    "dev:client": "npm run dev --prefix frontend",
-    "start:server": "npm start --prefix backend",
-    "build:client": "npm run build --prefix frontend",
-    "install:backend": "npm install --prefix backend",
+    "dev": "concurrently -k -n \"BACKEND,FRONTEND\" -c \"yellow,cyan\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && .venv\\Scripts\\python.exe -m uvicorn src.interfaces.main:app --reload --host 127.0.0.1 --port 8000",
+    "dev:frontend": "npm --prefix frontend run dev -- --host localhost",
+    "build": "npm --prefix frontend run build",
+    "lint": "npm --prefix frontend run lint",
     "install:frontend": "npm install --prefix frontend",
-    "install:all": "npm install && npm run install:backend && npm run install:frontend"
+    "install:all": "npm install && npm run install:frontend"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
