@@ -31,6 +31,8 @@ class EvidenceManager:
         evidence_items: Sequence[EvidenceItem] | None = None,
         resolver: Any = None,
         use_policy: bool = False,
+        claims: Sequence[Any] | None = None,
+        operative_claims: Sequence[Any] | None = None,
     ) -> None:
         self.items: list[EvidenceItem] = list(evidence_items or [])
         self._by_field: dict[str, list[EvidenceItem]] = defaultdict(list)
@@ -39,6 +41,14 @@ class EvidenceManager:
         from ai.app.evidence_policy.resolver import EvidencePolicyResolver
         self.resolver = resolver or EvidencePolicyResolver.default()
         self.use_policy = use_policy
+        self.claims: list[Any] = list(claims or [])
+        self._claims_by_field: dict[str, list[Any]] = defaultdict(list)
+        for c in self.claims:
+            self._claims_by_field[c.field_name].append(c)
+        self.operative_claims: list[Any] = list(operative_claims or [])
+        self._operative_by_field: dict[str, Any] = {
+            c.field_name: c for c in self.operative_claims
+        }
 
     def add_item(self, item: EvidenceItem) -> None:
         """Add a single evidence item."""
@@ -55,6 +65,29 @@ class EvidenceManager:
         Returns:
             (value, status, evidence_ids)
         """
+        # 1. Consult pre-resolved operative claims if available
+        if field_name in self._operative_by_field:
+            from ai.app.evidence_policy.contracts import ClaimStatus
+            op = self._operative_by_field[field_name]
+            if op.status in {
+                ClaimStatus.SUPPORTED,
+                ClaimStatus.RESOLVED_BY_POLICY,
+                ClaimStatus.RESOLVED_BY_ADDITIONAL_EVIDENCE,
+            }:
+                supporting_ids = list(op.supporting_claim_ids)
+                # Map to underlying evidence items if matching
+                matching_items = [
+                    item.evidence_id for item in self._by_field.get(field_name, [])
+                    if self._values_equal(item.value, op.operative_value)
+                ]
+                final_ids = matching_items or supporting_ids or [item.evidence_id for item in self._by_field.get(field_name, [])]
+                return op.operative_value, EvidenceRequirementStatus.KNOWN, final_ids
+            elif op.status == ClaimStatus.CONTRADICTED:
+                ev_ids = [item.evidence_id for item in self._by_field.get(field_name, [])]
+                return None, EvidenceRequirementStatus.CONTRADICTED, ev_ids
+            elif op.status == ClaimStatus.UNRESOLVED:
+                return None, EvidenceRequirementStatus.MISSING, []
+
         items = self._by_field.get(field_name, [])
         if not items:
             return None, EvidenceRequirementStatus.MISSING, []
@@ -65,7 +98,8 @@ class EvidenceManager:
 
         if prefer_documentary or self.use_policy:
             from ai.app.evidence_policy.contracts import ClaimStatus
-            resolved = self.resolver.resolve_field(field_name, items)
+            field_claims = self._claims_by_field.get(field_name, [])
+            resolved = self.resolver.resolve_field(field_name, items, existing_claims=field_claims)
             if resolved.status in {
                 ClaimStatus.SUPPORTED,
                 ClaimStatus.RESOLVED_BY_POLICY,
@@ -92,7 +126,7 @@ class EvidenceManager:
     def evaluate_requirements(
         self,
         required_fields: Sequence[str | EvidenceRequirement],
-        prefer_documentary: bool = False,
+        prefer_documentary: bool = True,
     ) -> list[EvidenceRequirement]:
         """Evaluate a list of required fields against available evidence."""
         results: list[EvidenceRequirement] = []
@@ -118,7 +152,7 @@ class EvidenceManager:
     def get_missing_fields(
         self,
         required_fields: Sequence[str | EvidenceRequirement],
-        prefer_documentary: bool = False,
+        prefer_documentary: bool = True,
     ) -> list[str]:
         """Return list of fields that are MISSING or CONTRADICTED."""
         evaluated = self.evaluate_requirements(required_fields, prefer_documentary=prefer_documentary)

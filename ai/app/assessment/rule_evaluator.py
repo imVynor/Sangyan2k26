@@ -87,11 +87,13 @@ class RuleEvaluator:
         if all_conditions_result == ThreeValuedLogic.FALSE:
             rule_outcome = RuleOutcome.NOT_APPLICABLE
         else:
+            has_conditions = bool(condition_evals) or (fee_outcome is not None)
             rule_outcome = cls._synthesize_outcome(
                 all_conditions_result,
                 exception_applies,
                 fee_outcome,
                 result.source_class,
+                has_conditions=has_conditions,
             )
 
         # 7. Overall Applicability
@@ -130,7 +132,7 @@ class RuleEvaluator:
                 return "TEMPORALITY_UNRESOLVED"
             if result.temporal_status == "SUPERSEDED":
                 return "TEMPORALITY_UNRESOLVED"
-            return "APPLICABLE" if result.temporal_status == "CURRENT" else "TEMPORALITY_UNRESOLVED"
+            return "APPLICABLE"
 
         sup_enum = SupersededStatus.SUPERSEDED if result.temporal_status == "SUPERSEDED" else SupersededStatus.CURRENT
         scope = TemporalScope(
@@ -143,6 +145,9 @@ class RuleEvaluator:
             return "APPLICABLE"
         elif t_res in {TemporalResolutionState.NOT_YET_EFFECTIVE, TemporalResolutionState.EXPIRED_OR_TERMINATED, TemporalResolutionState.SUPERSEDED}:
             return "NOT_APPLICABLE"
+        if result.temporal_status != "SUPERSEDED" and (result.effective_to is None or result.effective_to >= incident_date):
+            if result.effective_from is None or result.effective_from <= incident_date:
+                return "APPLICABLE"
         return "TEMPORALITY_UNRESOLVED"
 
     @staticmethod
@@ -317,6 +322,19 @@ class RuleEvaluator:
                 derived_reason="Permitted tariff cannot be computed: missing tariff parameter.",
             )
             return RuleOutcome.UNKNOWN, cond
+        elif case_facts.get("process") == "account_opening" and charged_val is None:
+            if permitted_val == Decimal("0.00") or "₹0" in result.provision_text or "free" in p_text_lower:
+                cond = ConditionEvaluation(
+                    condition_id=f"COND-{result.provision_id[:8]}-FREE",
+                    field="permitted_amount",
+                    operator=ConditionOperator.EQUALS,
+                    target_value=Decimal("0.00"),
+                    observed_value=Decimal("0.00"),
+                    result=ThreeValuedLogic.TRUE,
+                    evidence_ids=p_ev_ids,
+                    derived_reason="Account opening confirmed free under published pricing.",
+                )
+                return RuleOutcome.SATISFIED, cond
 
         return None, None
 
@@ -326,6 +344,7 @@ class RuleEvaluator:
         exception_applies: ThreeValuedLogic,
         fee_outcome: RuleOutcome | None,
         source_class: str,
+        has_conditions: bool = True,
     ) -> RuleOutcome:
         """Derive overall provision rule outcome."""
         if fee_outcome is not None:
@@ -337,6 +356,10 @@ class RuleEvaluator:
         if exception_applies == ThreeValuedLogic.TRUE:
             return RuleOutcome.NOT_APPLICABLE
         if exception_applies == ThreeValuedLogic.UNKNOWN:
+            return RuleOutcome.UNKNOWN
+
+        # Safety Invariant: If no conditions were evaluated, cannot claim affirmative satisfaction
+        if not has_conditions:
             return RuleOutcome.UNKNOWN
 
         if conditions_result == ThreeValuedLogic.TRUE:

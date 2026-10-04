@@ -108,6 +108,92 @@ class EvidencePolicyRegistry:
                 description="Depository or broker statement takes precedence for BSDA eligibility.",
             ),
             EvidenceResolutionPolicy(
+                policy_id="POL-ORGANISATION",
+                field_name="organisation",
+                authority_scope=EvidenceAuthorityScope.ACCOUNT_METADATA,
+                precedence=[
+                    EvidenceType.DOCUMENT,
+                    EvidenceType.TRANSACTION_RECORD,
+                    EvidenceType.BROKER_STATEMENT,
+                    EvidenceType.USER_STATEMENT,
+                ],
+                tie_breaker="CONTRADICTED",
+                description="Verified account statement / contract note supersedes user assertion for intermediary identity.",
+            ),
+            EvidenceResolutionPolicy(
+                policy_id="POL-CHARGE-TYPE",
+                field_name="charge_type",
+                authority_scope=EvidenceAuthorityScope.FINANCIAL_TARIFF,
+                precedence=[
+                    EvidenceType.DOCUMENT,
+                    EvidenceType.TRANSACTION_RECORD,
+                    EvidenceType.BROKER_STATEMENT,
+                    EvidenceType.INVOICE,
+                    EvidenceType.USER_STATEMENT,
+                ],
+                tie_breaker="CONTRADICTED",
+                description="Official contract notes and ledgers supersede user categorization of fee or charge type for the charge event.",
+            ),
+            EvidenceResolutionPolicy(
+                policy_id="POL-FEE-TYPE",
+                field_name="fee_type",
+                authority_scope=EvidenceAuthorityScope.FINANCIAL_TARIFF,
+                precedence=[
+                    EvidenceType.DOCUMENT,
+                    EvidenceType.TRANSACTION_RECORD,
+                    EvidenceType.BROKER_STATEMENT,
+                    EvidenceType.INVOICE,
+                    EvidenceType.USER_STATEMENT,
+                ],
+                tie_breaker="CONTRADICTED",
+                description="Official statements supersede user recollection for fee type.",
+            ),
+            EvidenceResolutionPolicy(
+                policy_id="POL-ORDER-VALUE",
+                field_name="order_value",
+                authority_scope=EvidenceAuthorityScope.TRADE_SPECIFICATION,
+                precedence=[
+                    EvidenceType.DOCUMENT,
+                    EvidenceType.TRANSACTION_RECORD,
+                    EvidenceType.BROKER_STATEMENT,
+                    EvidenceType.USER_STATEMENT,
+                ],
+                tie_breaker="CONTRADICTED",
+                description="Contract note trade order value supersedes user assertion.",
+            ),
+            EvidenceResolutionPolicy(
+                policy_id="POL-PORTFOLIO-VALUE",
+                field_name="portfolio_value",
+                authority_scope=EvidenceAuthorityScope.ACCOUNT_METADATA,
+                precedence=[
+                    EvidenceType.DOCUMENT,
+                    EvidenceType.BROKER_STATEMENT,
+                    EvidenceType.USER_STATEMENT,
+                ],
+                tie_breaker="CONTRADICTED",
+                description="Holding statement / depository statement supersedes user assertion for portfolio holding value.",
+            ),
+            EvidenceResolutionPolicy(
+                policy_id="POL-USER-INTENT",
+                field_name="user_intent",
+                authority_scope=EvidenceAuthorityScope.SUBJECTIVE_EXPERIENCE,
+                precedence=[
+                    EvidenceType.USER_STATEMENT,
+                ],
+                tie_breaker="LATEST",
+                description="User statement is primary evidence for user intent.",
+            ),
+            EvidenceResolutionPolicy(
+                policy_id="POL-SUBJECTIVE-DESCRIPTION",
+                field_name="subjective_description",
+                authority_scope=EvidenceAuthorityScope.SUBJECTIVE_EXPERIENCE,
+                precedence=[
+                    EvidenceType.USER_STATEMENT,
+                ],
+                tie_breaker="LATEST",
+                description="User narrative is primary evidence for subjective description.",
+            ),
+            EvidenceResolutionPolicy(
                 policy_id="POL-USER-EXPERIENCE",
                 field_name="user_experience",
                 authority_scope=EvidenceAuthorityScope.SUBJECTIVE_EXPERIENCE,
@@ -352,6 +438,30 @@ class EvidencePolicyResolver:
             resolution_rationale=rationale,
         )
 
+    def reconcile_claims(
+        self,
+        existing_claims: Sequence[Claim],
+        new_evidence: Sequence[EvidenceItem] | None = None,
+        field_policy: EvidenceResolutionPolicy | None = None,
+    ) -> ResolvedFieldClaim:
+        """Reconcile existing claims with any new evidence items under a governing policy (Step 3)."""
+        if not existing_claims and not new_evidence:
+            return ResolvedFieldClaim(
+                field_name="unknown",
+                operative_value=None,
+                status=ClaimStatus.UNRESOLVED,
+                resolution_rationale="No claims or evidence provided for reconciliation.",
+            )
+        field_name = existing_claims[0].field_name if existing_claims else new_evidence[0].field_name
+        if field_policy:
+            self.registry.register(field_policy)
+        evidence_items = list(new_evidence or [])
+        return self.resolve_field(
+            field_name=field_name,
+            evidence_items=evidence_items,
+            existing_claims=existing_claims,
+        )
+
     def _values_equal(self, a: Any, b: Any) -> bool:
         """Deterministic equivalence check handling Decimal, float, and case normalization."""
         if a == b:
@@ -360,12 +470,23 @@ class EvidencePolicyResolver:
             return False
         # Decimal / numeric comparison
         try:
-            da = Decimal(str(a))
-            db = Decimal(str(b))
+            ca = str(a).replace("₹", "").replace("Rs.", "").replace("Rs", "").replace(",", "").strip()
+            cb = str(b).replace("₹", "").replace("Rs.", "").replace("Rs", "").replace(",", "").strip()
+            da = Decimal(ca)
+            db = Decimal(cb)
             return da == db
         except Exception:
             pass
         # Normalized string comparison
         sa = str(a).strip().lower()
         sb = str(b).strip().lower()
-        return sa == sb
+        if sa == sb:
+            return True
+        # Semantic equivalence for charge types and delivery transactions
+        delivery_synonyms = {"equity_delivery", "equity_delivery_sell", "equity_delivery_buy"}
+        if sa in delivery_synonyms and sb in delivery_synonyms:
+            return True
+        dp_synonyms = {"dp_charge", "dp_charges", "depository_participant_charges"}
+        if sa in dp_synonyms and sb in dp_synonyms:
+            return True
+        return False

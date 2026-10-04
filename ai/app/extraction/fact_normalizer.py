@@ -46,23 +46,39 @@ ORGANISATION_ALIASES: dict[str, str] = {
 
 # Transaction Type Aliases
 TRANSACTION_ALIASES: dict[str, str] = {
-    "sell": "equity_delivery",
-    "sold": "equity_delivery",
-    "sale": "equity_delivery",
-    "selling": "equity_delivery",
+    "sell": "equity_delivery_sell",
+    "sold": "equity_delivery_sell",
+    "sale": "equity_delivery_sell",
+    "selling": "equity_delivery_sell",
+    "delivery sale": "equity_delivery_sell",
+    "equity delivery sell": "equity_delivery_sell",
+    "share sale": "equity_delivery_sell",
+    "shares sold": "equity_delivery_sell",
+    "sold shares": "equity_delivery_sell",
+    "बेचा": "equity_delivery_sell",
+    "बिक्री": "equity_delivery_sell",
+    "शेयर बेचे": "equity_delivery_sell",
+    "becha": "equity_delivery_sell",
+    "sell kiya": "equity_delivery_sell",
+
+    "buy": "equity_delivery_buy",
+    "bought": "equity_delivery_buy",
+    "purchase": "equity_delivery_buy",
+    "buying": "equity_delivery_buy",
+    "खरीदा": "equity_delivery_buy",
+    "delivery buy": "equity_delivery_buy",
+    "equity delivery buy": "equity_delivery_buy",
+
     "delivery": "equity_delivery",
-    "delivery sale": "equity_delivery",
     "equity delivery": "equity_delivery",
-    "share sale": "equity_delivery",
-    "shares sold": "equity_delivery",
-    "बेचा": "equity_delivery",
-    "बिक्री": "equity_delivery",
-    "शेयर बेचे": "equity_delivery",
-    "becha": "equity_delivery",
-    "sell kiya": "equity_delivery",
-    "intraday": "intraday",
-    "mis": "intraday",
-    "square off": "intraday",
+
+    "intraday": "intraday_equity",
+    "mis": "intraday_equity",
+    "square off": "intraday_equity",
+    "day trade": "intraday_equity",
+    "intraday buy": "intraday_equity",
+    "intraday sell": "intraday_equity",
+
     "amc": "amc",
     "annual maintenance": "amc",
     "maintenance charge": "amc",
@@ -91,6 +107,9 @@ ENGLISH_MONTHS: dict[str, int] = {
 class FactNormalizer:
     """Normalizes raw extracted text spans into canonical, typed case facts."""
 
+    ORGANISATION_ALIASES = ORGANISATION_ALIASES
+    TRANSACTION_ALIASES = TRANSACTION_ALIASES
+
     @staticmethod
     def normalize_currency(text: str) -> tuple[Decimal | None, str]:
         """Extract and normalize monetary currency amount to Decimal (default INR).
@@ -102,6 +121,22 @@ class FactNormalizer:
             return None, "INR"
 
         cleaned = text.strip()
+
+        # Check Indian word denominations: e.g. 1 lakh, 2.5 lakh, 1 crore
+        lakh_match = re.search(r"([0-9]+(?:\.[0-9]+)?)\s*(?:lakh|लाख)", cleaned, re.IGNORECASE)
+        if lakh_match:
+            try:
+                amt = Decimal(lakh_match.group(1)) * Decimal("100000")
+                return amt, "INR"
+            except InvalidOperation:
+                pass
+        crore_match = re.search(r"([0-9]+(?:\.[0-9]+)?)\s*(?:crore|करोड़)", cleaned, re.IGNORECASE)
+        if crore_match:
+            try:
+                amt = Decimal(crore_match.group(1)) * Decimal("10000000")
+                return amt, "INR"
+            except InvalidOperation:
+                pass
 
         # Match currency symbols / prefixes
         # e.g. ₹15.93, Rs. 15.93, Rs 15.93, INR 15.93, 15.93 रुपये, 15.93 rupees

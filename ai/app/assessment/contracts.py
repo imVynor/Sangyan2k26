@@ -224,6 +224,8 @@ class AssessmentRequest(BaseModel):
     incident_date: date | None = None
     target_organisation: str | None = None
     require_regulatory_coverage: bool = True
+    operative_claims: list[Any] = Field(default_factory=list, description="Resolved operative claims per field.")
+    claims: list[Any] = Field(default_factory=list, description="Historical and active claims for audit.")
 
 
 class AssessmentResult(BaseModel):

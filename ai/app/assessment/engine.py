@@ -115,8 +115,13 @@ class DefaultAssessmentEngine:
         )
 
     def _build_evidence_manager(self, request: AssessmentRequest) -> EvidenceManager:
-        """Create EvidenceManager seeded with explicit items and case facts."""
-        mgr = EvidenceManager(request.evidence_items)
+        """Create EvidenceManager seeded with explicit items, claims, and operative claims."""
+        mgr = EvidenceManager(
+            evidence_items=request.evidence_items,
+            claims=getattr(request, "claims", None),
+            operative_claims=getattr(request, "operative_claims", None),
+            use_policy=True,
+        )
 
         # Ensure essential facts are registered as observed evidence if not explicitly passed
         for key, val in request.case_facts.items():
@@ -168,6 +173,9 @@ class DefaultAssessmentEngine:
         results: Sequence[RetrievalResult] | None = None,
     ) -> list[str]:
         """Identify evidentiary fields required for this domain."""
+        if case_facts.get("process") == "account_opening" or case_facts.get("payment_mode"):
+            req = ["organisation"]
+            return req
         req = ["charged_amount", "transaction_date"]
         # If case involves AMC or BSDA provisions, is_bsda is required
         is_bsda_case = (
@@ -302,15 +310,16 @@ class DefaultAssessmentEngine:
         reg_satisfied = [e for e in reg_evals if e.rule_outcome == RuleOutcome.SATISFIED]
         org_satisfied = [e for e in org_evals if e.rule_outcome == RuleOutcome.SATISFIED]
 
-        if reg_satisfied:
-            for s in reg_satisfied:
+        if reg_satisfied or org_satisfied:
+            satisfied_list = reg_satisfied or org_satisfied
+            for s in satisfied_list:
                 findings.append(
                     AssessmentFinding(
                         finding_id=f"FIND-COMPLY-{s.provision_id[:8]}",
                         epistemic_layer=EpistemicLayer.ASSESSED,
-                        normative_source="REGULATORY",
+                        normative_source="REGULATORY" if s in reg_satisfied else "ORGANISATION_POLICY",
                         status=AssessmentStatus.COMPLIANT_WITH_REGULATION,
-                        statement=f"Action affirmatively compliant with regulatory requirements under provision {s.provision_id}.",
+                        statement=f"Action affirmatively compliant with {'regulatory' if s in reg_satisfied else 'intermediary tariff'} requirements under provision {s.provision_id}.",
                         provision_ids=[s.provision_id],
                         evidence_ids=s.evidence_ids,
                         confidence=EpistemicSupportLevel.HIGH_SUPPORT,

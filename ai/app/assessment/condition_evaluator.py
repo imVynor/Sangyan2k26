@@ -166,7 +166,14 @@ class ConditionEvaluator:
 
         # String normalized comparison
         if isinstance(observed, str) and isinstance(target, str):
-            return ThreeValuedLogic.TRUE if observed.strip().lower() == target.strip().lower() else ThreeValuedLogic.FALSE
+            so = observed.strip().lower()
+            st = target.strip().lower()
+            if so == st:
+                return ThreeValuedLogic.TRUE
+            delivery_synonyms = {"equity_delivery", "equity_delivery_sell", "equity_delivery_buy"}
+            if so in delivery_synonyms and st in delivery_synonyms:
+                return ThreeValuedLogic.TRUE
+            return ThreeValuedLogic.FALSE
 
         return ThreeValuedLogic.TRUE if observed == target else ThreeValuedLogic.FALSE
 

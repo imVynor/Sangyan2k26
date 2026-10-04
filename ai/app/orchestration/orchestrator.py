@@ -275,29 +275,55 @@ class CaseOrchestrator:
         if doc_payload and doc_payload.raw_content:
             input_text = f"{input_text}\n{doc_payload.raw_content}".strip()
 
-        source_id = doc_payload.document_id if doc_payload else f"turn_{case_id}_{new_version}"
-        source_type = EvidenceType.DOCUMENT if doc_payload else EvidenceType.USER_STATEMENT
+        committed_evidence = list(state.evidence)
+        candidate_facts = dict(state.facts)
+        warnings: list[str] = []
 
-        try:
-            extract_req = FactExtractionRequest(
-                input_text=input_text,
-                source_id=source_id,
-                source_type=source_type,
-                reference_date=state.facts.get("transaction_date") or input_event.reference_date,
-                language=input_event.language,
-            )
-            extraction_res = self.fact_extractor.extract(extract_req)
-        except Exception as exc:
-            logger.error(f"Extraction failed for case '{case_id}': {exc}")
-            raise ExtractionError(str(exc))
+        ref_date = state.facts.get("transaction_date") or input_event.reference_date
 
-        # Integrate proposals into evidence
-        committed_evidence, candidate_facts, warnings = CaseIntegrator.integrate_proposals(
-            extraction_result=extraction_res,
-            case_id=case_id,
-            existing_evidence=state.evidence,
-            existing_facts=state.facts,
-        )
+        # 4a. Extract facts from user narrative with USER_STATEMENT source type
+        if raw_text:
+            try:
+                extract_req_user = FactExtractionRequest(
+                    input_text=raw_text,
+                    source_id=f"turn_{case_id}_{new_version}",
+                    source_type=EvidenceType.USER_STATEMENT,
+                    reference_date=ref_date,
+                    language=input_event.language,
+                )
+                user_res = self.fact_extractor.extract(extract_req_user)
+                committed_evidence, candidate_facts, user_warns = CaseIntegrator.integrate_proposals(
+                    extraction_result=user_res,
+                    case_id=case_id,
+                    existing_evidence=committed_evidence,
+                    existing_facts=candidate_facts,
+                )
+                warnings.extend(user_warns)
+            except Exception as exc:
+                logger.error(f"User extraction failed for case '{case_id}': {exc}")
+                raise ExtractionError(str(exc))
+
+        # 4b. Extract facts from attached document with DOCUMENT source type
+        if doc_payload and doc_payload.raw_content:
+            try:
+                extract_req_doc = FactExtractionRequest(
+                    input_text=doc_payload.raw_content,
+                    source_id=doc_payload.document_id,
+                    source_type=EvidenceType.DOCUMENT,
+                    reference_date=ref_date,
+                    language=input_event.language,
+                )
+                doc_res = self.fact_extractor.extract(extract_req_doc)
+                committed_evidence, candidate_facts, doc_warns = CaseIntegrator.integrate_proposals(
+                    extraction_result=doc_res,
+                    case_id=case_id,
+                    existing_evidence=committed_evidence,
+                    existing_facts=candidate_facts,
+                )
+                warnings.extend(doc_warns)
+            except Exception as exc:
+                logger.error(f"Doc extraction failed for case '{case_id}': {exc}")
+                raise ExtractionError(str(exc))
 
         # -------------------------------------------------------------
         # STEP 5: Claim Formation & Evidence Policy Resolution
@@ -309,7 +335,7 @@ class CaseOrchestrator:
 
         # Resolve operative values for each field via registered policies
         resolved_claims: list[ResolvedFieldClaim] = []
-        operative_facts = dict(state.facts)
+        operative_facts = dict(candidate_facts)
         unique_fields = {e.field_name for e in committed_evidence}
 
         for field in unique_fields:
@@ -322,6 +348,8 @@ class CaseOrchestrator:
             if resolved.operative_value is not None:
                 operative_facts[field] = resolved.operative_value
             elif resolved.status == ClaimStatus.CONTRADICTED:
+                # Contradiction detected: clear operative value so downstream logic does not use an unverified fact
+                operative_facts.pop(field, None)
                 # Contradiction detected: emit event
                 contra_event = CaseEvent(
                     event_id=f"EVT-{uuid.uuid4().hex[:8].upper()}",
@@ -377,6 +405,10 @@ class CaseOrchestrator:
         # -------------------------------------------------------------
         prev_assessment = state.current_assessment
         try:
+            req_reg_cov = input_event.metadata.get("require_regulatory_coverage")
+            if req_reg_cov is None:
+                req_reg_cov = False if state.facts.get("organisation") else True
+
             assess_req = AssessmentRequest(
                 case_id=case_id,
                 case_facts=state.facts,
@@ -384,6 +416,9 @@ class CaseOrchestrator:
                 retrieval_response=retrieval,
                 incident_date=state.facts.get("transaction_date") or input_event.reference_date,
                 target_organisation=state.facts.get("organisation"),
+                require_regulatory_coverage=req_reg_cov,
+                operative_claims=resolved_claims,
+                claims=all_claims,
             )
             new_assessment = self.assessment_engine.assess(assess_req)
         except Exception as a_err:
@@ -596,73 +631,80 @@ class CaseOrchestrator:
             return
         lower = user_message.lower().strip()
 
-        # Map transaction types
-        if any(w in lower for w in ["delivery", "cnc", "holding", "invested", "shares transferred"]):
-            facts["transaction_type"] = "equity_delivery"
-            ev = EvidenceItem(
-                evidence_id=f"EVID-USER-TXTYPE-{uuid.uuid4().hex[:6]}",
-                case_id="",
-                evidence_type=EvidenceType.USER_STATEMENT,
-                field_name="transaction_type",
-                value="equity_delivery",
-                source="user_dialogue",
-            )
-            evidence_list.append(ev)
-            claims_list.append(
-                Claim(
+        # Map transaction types only if not already determined
+        if "transaction_type" not in facts or not facts["transaction_type"]:
+            if any(w in lower for w in ["delivery", "cnc", "holding", "invested", "shares transferred"]):
+                ttype = "equity_delivery"
+                if any(w in lower for w in ["sold", "sell", "selling", "sale", "becha"]):
+                    ttype = "equity_delivery_sell"
+                elif any(w in lower for w in ["bought", "buy", "buying", "purchase"]):
+                    ttype = "equity_delivery_buy"
+                facts["transaction_type"] = ttype
+                ev = EvidenceItem(
+                    evidence_id=f"EVID-USER-TXTYPE-{uuid.uuid4().hex[:6]}",
+                    case_id="",
+                    evidence_type=EvidenceType.USER_STATEMENT,
                     field_name="transaction_type",
-                    claim_text=user_message,
-                    claimed_value="equity_delivery",
-                    source_type=EvidenceType.USER_STATEMENT,
-                    evidence_ids=[ev.evidence_id],
-                    status=ClaimStatus.RESOLVED_BY_POLICY,
+                    value=ttype,
+                    source="user_dialogue",
                 )
-            )
-        elif any(w in lower for w in ["intraday", "mis", "day trading", "squared off"]):
-            facts["transaction_type"] = "intraday"
-            ev = EvidenceItem(
-                evidence_id=f"EVID-USER-TXTYPE-{uuid.uuid4().hex[:6]}",
-                case_id="",
-                evidence_type=EvidenceType.USER_STATEMENT,
-                field_name="transaction_type",
-                value="intraday",
-                source="user_dialogue",
-            )
-            evidence_list.append(ev)
-            claims_list.append(
-                Claim(
+                evidence_list.append(ev)
+                claims_list.append(
+                    Claim(
+                        field_name="transaction_type",
+                        claim_text=user_message,
+                        claimed_value=ttype,
+                        source_type=EvidenceType.USER_STATEMENT,
+                        evidence_ids=[ev.evidence_id],
+                        status=ClaimStatus.RESOLVED_BY_POLICY,
+                    )
+                )
+            elif any(w in lower for w in ["intraday", "mis", "day trading", "squared off"]):
+                facts["transaction_type"] = "intraday"
+                ev = EvidenceItem(
+                    evidence_id=f"EVID-USER-TXTYPE-{uuid.uuid4().hex[:6]}",
+                    case_id="",
+                    evidence_type=EvidenceType.USER_STATEMENT,
                     field_name="transaction_type",
-                    claim_text=user_message,
-                    claimed_value="intraday",
-                    source_type=EvidenceType.USER_STATEMENT,
-                    evidence_ids=[ev.evidence_id],
-                    status=ClaimStatus.RESOLVED_BY_POLICY,
+                    value="intraday",
+                    source="user_dialogue",
                 )
-            )
+                evidence_list.append(ev)
+                claims_list.append(
+                    Claim(
+                        field_name="transaction_type",
+                        claim_text=user_message,
+                        claimed_value="intraday",
+                        source_type=EvidenceType.USER_STATEMENT,
+                        evidence_ids=[ev.evidence_id],
+                        status=ClaimStatus.RESOLVED_BY_POLICY,
+                    )
+                )
 
-        # Map account type
-        if "bsda" in lower or "basic service" in lower:
-            facts["is_bsda"] = True
-            facts["account_type"] = "bsda"
-            ev = EvidenceItem(
-                evidence_id=f"EVID-USER-BSDA-{uuid.uuid4().hex[:6]}",
-                case_id="",
-                evidence_type=EvidenceType.USER_STATEMENT,
-                field_name="account_type",
-                value="bsda",
-                source="user_dialogue",
-            )
-            evidence_list.append(ev)
-            claims_list.append(
-                Claim(
+        # Map account type only if not already determined
+        if "account_type" not in facts or not facts["account_type"]:
+            if "bsda" in lower or "basic service" in lower:
+                facts["is_bsda"] = True
+                facts["account_type"] = "bsda"
+                ev = EvidenceItem(
+                    evidence_id=f"EVID-USER-BSDA-{uuid.uuid4().hex[:6]}",
+                    case_id="",
+                    evidence_type=EvidenceType.USER_STATEMENT,
                     field_name="account_type",
-                    claim_text=user_message,
-                    claimed_value="bsda",
-                    source_type=EvidenceType.USER_STATEMENT,
-                    evidence_ids=[ev.evidence_id],
-                    status=ClaimStatus.RESOLVED_BY_POLICY,
+                    value="bsda",
+                    source="user_dialogue",
                 )
-            )
+                evidence_list.append(ev)
+                claims_list.append(
+                    Claim(
+                        field_name="account_type",
+                        claim_text=user_message,
+                        claimed_value="bsda",
+                        source_type=EvidenceType.USER_STATEMENT,
+                        evidence_ids=[ev.evidence_id],
+                        status=ClaimStatus.RESOLVED_BY_POLICY,
+                    )
+                )
 
     async def _retrieve_incrementally(
         self,
@@ -671,45 +713,113 @@ class CaseOrchestrator:
         raw_text: str = "",
         reference_date: Any = None,
     ) -> RetrievalResponse:
-        """Execute incremental provision retrieval for affected case dimensions."""
+        """Execute incremental provision retrieval using CaseSemanticNormalizer and RetrievalQueryPlanner."""
         if hasattr(self.retriever, "retrieve"):
-            # Construct query from natural grievance text and facts
-            query_str = raw_text.strip() or "DP charge tariff regulatory ceiling"
-
-            # Normalize organisation if present
-            org_id = None
-            if "organisation" in facts and facts["organisation"]:
-                raw_org = str(facts["organisation"]).upper()
-                if raw_org.startswith("ORG_"):
-                    org_id = raw_org
-                elif raw_org in ("ZERODHA", "ANGELONE", "ANGEL_ONE", "GROWW", "UPSTOX", "ICICIDIRECT", "ICICI_DIRECT"):
-                    normalized_name = raw_org.replace("_", "")
-                    org_id = f"ORG_{normalized_name}"
-                else:
-                    org_id = f"ORG_{raw_org}"
-
-            inc_date = facts.get("transaction_date") or reference_date
-
-            key_terms: list[str] = []
-            if "transaction_type" in facts and facts["transaction_type"]:
-                key_terms.append(str(facts["transaction_type"]))
-            if "account_type" in facts and facts["account_type"]:
-                key_terms.append(str(facts["account_type"]))
-            if facts.get("is_bsda"):
-                key_terms.append("BSDA")
-
-            from ai.app.retrieval.contracts import RetrievalQuery
-            req = RetrievalQuery(
-                query_text=query_str,
-                organisation_id=org_id,
-                incident_date=inc_date,
-                reference_date=inc_date,
-                key_terms=key_terms,
-                top_k=10,
-            )
             import inspect
-            res = self.retriever.retrieve(req)
-            if inspect.isawaitable(res):
-                return await res
-            return res
+            from ai.app.retrieval.contracts import RetrievalFailureReason, RetrievalResponse, RetrievalResult
+            from ai.app.understanding.contracts import PlannedQuery, QueryType
+            from ai.app.understanding.normalizer import CaseSemanticNormalizer
+            from ai.app.understanding.query_planner import RetrievalQueryPlanner
+
+            # 1. Semantic normalization from raw input text and existing operative facts
+            normalizer = CaseSemanticNormalizer()
+            sem = normalizer.normalize(
+                raw_text=raw_text,
+                existing_facts=facts,
+                reference_date=reference_date,
+            )
+
+            # 2. Plan structured complementary retrieval queries
+            planned_queries = RetrievalQueryPlanner.plan_queries(sem)
+
+            # Fallback if no query planned
+            if not planned_queries:
+                planned_queries = [
+                    PlannedQuery(
+                        query_id="FALLBACK-01",
+                        query_text=raw_text.strip() or "DP charge tariff regulatory ceiling",
+                        query_type=QueryType.PRIMARY_ISSUE,
+                        weight=1.0,
+                    )
+                ]
+
+            # 3. Multi-query execution and deterministic result merging
+            all_provisions: dict[str, RetrievalResult] = {}
+            total_candidates = 0
+            all_authorities: set[str] = set()
+            all_organisations: set[str] = set()
+            query_breakdown: list[dict[str, Any]] = []
+
+            for pq in planned_queries:
+                r_query = RetrievalQueryPlanner.to_retrieval_query(pq)
+                res = self.retriever.retrieve(r_query)
+                if inspect.isawaitable(res):
+                    sub_response = await res
+                else:
+                    sub_response = res
+
+                total_candidates += sub_response.total_candidates_found
+                all_authorities.update(sub_response.routed_authorities)
+                all_organisations.update(sub_response.routed_organisations)
+
+                retrieved_pids = []
+                for item in sub_response.results:
+                    # Enforce organisation isolation: exclude provisions owned by another broker
+                    if sem.organisation_id and item.organisation_id and item.organisation_id != sem.organisation_id:
+                        continue
+
+                    retrieved_pids.append(item.provision_id)
+                    effective_score = round(item.relevance_score * pq.weight, 4)
+
+                    query_tag = f"query:{pq.query_id}"
+                    type_tag = f"type:{pq.query_type.value}"
+
+                    if item.provision_id not in all_provisions:
+                        item_copy = item.model_copy(deep=True)
+                        item_copy.relevance_score = effective_score
+                        if query_tag not in item_copy.retrieval_methods:
+                            item_copy.retrieval_methods.append(query_tag)
+                        if type_tag not in item_copy.retrieval_methods:
+                            item_copy.retrieval_methods.append(type_tag)
+                        all_provisions[item.provision_id] = item_copy
+                    else:
+                        existing = all_provisions[item.provision_id]
+                        if effective_score > existing.relevance_score:
+                            existing.relevance_score = effective_score
+                        if query_tag not in existing.retrieval_methods:
+                            existing.retrieval_methods.append(query_tag)
+                        if type_tag not in existing.retrieval_methods:
+                            existing.retrieval_methods.append(type_tag)
+
+                query_breakdown.append({
+                    "query_id": pq.query_id,
+                    "query_type": pq.query_type.value,
+                    "query_text": pq.query_text,
+                    "provisions_retrieved": len(retrieved_pids),
+                    "target_organisation": pq.target_organisation,
+                    "retrieved_provision_ids": retrieved_pids,
+                })
+
+            sorted_results = sorted(all_provisions.values(), key=lambda r: r.relevance_score, reverse=True)
+            for idx, r in enumerate(sorted_results, 1):
+                r.rank = idx
+
+            failure_reasons = []
+            if not sorted_results:
+                failure_reasons.append(RetrievalFailureReason.NO_RELEVANT_PROVISIONS)
+
+            return RetrievalResponse(
+                results=sorted_results[:20],
+                total_candidates_found=total_candidates,
+                failure_reasons=failure_reasons,
+                routed_authorities=sorted(all_authorities),
+                routed_organisations=sorted(all_organisations),
+                retrieval_stats={
+                    "retriever_class": self.retriever.__class__.__name__,
+                    "total_merged": len(all_provisions),
+                    "queries_executed": len(planned_queries),
+                    "query_breakdown": query_breakdown,
+                    "semantic_representation": sem.model_dump(),
+                },
+            )
         return RetrievalResponse(results=[], total_candidates_found=0)

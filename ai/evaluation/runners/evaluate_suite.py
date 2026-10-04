@@ -187,6 +187,7 @@ def main() -> None:
     parser.add_argument("--case", default=None, help="Evaluate a single case by case_id")
     parser.add_argument("--model", default="sangyan-deterministic-v1", help="Model descriptor for audit")
     parser.add_argument("--output", default=None, help="File path to save JSON report")
+    parser.add_argument("--run-label", default="7C-SEMANTIC-RETRIEVAL", help="Label for this benchmark run")
 
     args = parser.parse_args()
 
@@ -200,6 +201,7 @@ def main() -> None:
             case_id=args.case,
             model=args.model,
             output_path=out_p,
+            run_label=args.run_label,
         )
     )
     sys.exit(code)

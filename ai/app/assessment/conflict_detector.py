@@ -49,10 +49,11 @@ class ConflictDetector:
         retrieved_map: dict[str, RetrievalResult],
     ) -> list[Conflict]:
         """Examine applicable provisions for contradictory rules or limits."""
-        # Only compare provisions that are applicable or unresolved
+        # Only compare provisions that are applicable or unresolved, and not ruled NOT_APPLICABLE
         applicable_evals = [
             e for e in evaluations
             if e.overall_applicability in {"APPLICABLE", "UNRESOLVED"}
+            and e.rule_outcome.value not in {"NOT_APPLICABLE"}
             and e.provision_id in retrieved_map
         ]
 
@@ -82,8 +83,11 @@ class ConflictDetector:
         r2: RetrievalResult,
     ) -> str | None:
         """Check if two provisions contradict each other."""
-        # 1. Check if both have conditions on the same field with contradictory target values
+        # 1. Check if both have conditions on the same normative limit/fee field with contradictory target values
+        normative_fields = {"charged_amount", "permitted_amount", "fee_amount", "regulatory_ceiling", "turnover_limit"}
         for c1 in ev1.conditions:
+            if c1.field not in normative_fields:
+                continue
             for c2 in ev2.conditions:
                 if c1.field == c2.field and c1.operator == c2.operator:
                     # If target values differ significantly (e.g. limit 15 vs 20)
